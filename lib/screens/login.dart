@@ -5,8 +5,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            color: Colors.amber,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: Colors.amber,
+          ),
+        )
+      ],
     );
   }
 }
