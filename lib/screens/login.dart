@@ -37,8 +37,16 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          decoration: const InputDecoration(
-                              labelText: "Phone Number", fillColor: Colors.red),
+                          decoration: InputDecoration(
+                              filled: true,
+                              labelText: "Phone Number",
+                              border: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(32),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              fillColor: Colors.black12),
                         ),
                       ],
                     ),
