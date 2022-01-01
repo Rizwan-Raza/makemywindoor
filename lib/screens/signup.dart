@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/screens/login.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -12,265 +13,275 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        children: <Widget>[
-          Stack(
+      backgroundColor: Colors.amber,
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: ListView(
             children: <Widget>[
-              ClipPath(
-                clipper: WaveClipper2(),
-                child: Container(
-                  child: Column(),
-                  width: double.infinity,
-                  height: 160,
-                  color: Colors.amber[50],
-                  // decoration: const BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
-                ),
-              ),
-              ClipPath(
-                clipper: WaveClipper3(),
-                child: Container(
-                  child: Column(),
-                  width: double.infinity,
-                  height: 160,
-                  color: Colors.amber[100],
-                  // decoration: const BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
-                ),
-              ),
-              ClipPath(
-                clipper: WaveClipper1(),
-                child: Container(
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
-                    child: Text(
-                      "Create an Account",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20),
+              Stack(
+                children: <Widget>[
+                  ClipPath(
+                    clipper: WaveClipper2(),
+                    child: Container(
+                      child: Column(),
+                      width: double.infinity,
+                      height: 160,
+                      color: Colors.amber[50],
+                      // decoration: const BoxDecoration(
+                      //     gradient: LinearGradient(
+                      //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
                     ),
                   ),
-                  width: double.infinity,
-                  height: 160,
-                  color: Colors.amber,
-                  // decoration: const BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //         colors: [Colors.amber, Colors.amberAccent])),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: RichText(
-              text: const TextSpan(
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black54,
-                ),
-                children: <TextSpan>[
-                  TextSpan(text: "We will send you an "),
-                  TextSpan(
-                      text: "One Time Password",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: " on this mobile number"),
+                  ClipPath(
+                    clipper: WaveClipper3(),
+                    child: Container(
+                      child: Column(),
+                      width: double.infinity,
+                      height: 160,
+                      color: Colors.amber[100],
+                      // decoration: const BoxDecoration(
+                      //     gradient: LinearGradient(
+                      //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
+                    ),
+                  ),
+                  ClipPath(
+                    clipper: WaveClipper1(),
+                    child: Container(
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 32.0, vertical: 24.0),
+                        child: Text(
+                          "Create an Account",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20),
+                        ),
+                      ),
+                      width: double.infinity,
+                      height: 160,
+                      color: Colors.amber,
+                      // decoration: const BoxDecoration(
+                      //     gradient: LinearGradient(
+                      //         colors: [Colors.amber, Colors.amberAccent])),
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 2.0,
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: TextField(
-                onChanged: (String value) {},
-                cursorColor: Colors.amber[700],
-                decoration: const InputDecoration(
-                    hintText: "Name",
-                    prefixIcon: Material(
-                      elevation: 0,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Icon(
-                        Icons.person,
-                        // color: Colors.amber,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              const SizedBox(
+                height: 30,
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 2.0,
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: TextField(
-                onChanged: (String value) {},
-                cursorColor: Colors.amber[700],
-                decoration: const InputDecoration(
-                    hintText: "Company Name",
-                    prefixIcon: Material(
-                      elevation: 0,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Icon(
-                        Icons.domain,
-                        // color: Colors.amber,
-                      ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black54,
                     ),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 2.0,
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: TextField(
-                onChanged: (String value) {},
-                cursorColor: Colors.amber[700],
-                decoration: const InputDecoration(
-                    hintText: "Email",
-                    prefixIcon: Material(
-                      elevation: 0,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Icon(
-                        Icons.email,
-                        // color: Colors.amber,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-              ),
-            ),
-          ),
-
-          const SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 2.0,
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: TextField(
-                onChanged: (String value) {},
-                cursorColor: Colors.amber[700],
-                decoration: const InputDecoration(
-                    hintText: "Phone Number",
-                    prefixIcon: Material(
-                      elevation: 0,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Icon(
-                        Icons.phone,
-                        // color: Colors.black,
-                      ),
-                    ),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  color: Colors.amber,
+                    children: <TextSpan>[
+                      TextSpan(text: "We will send you an "),
+                      TextSpan(
+                          text: "One Time Password",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(text: " on this mobile number"),
+                    ],
+                  ),
                 ),
-                child: TextButton(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Material(
+                  elevation: 2.0,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  child: TextField(
+                    onChanged: (String value) {},
+                    cursorColor: Colors.amber[700],
+                    decoration: const InputDecoration(
+                        hintText: "Name",
+                        prefixIcon: Material(
+                          elevation: 0,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          child: Icon(
+                            Icons.person,
+                            // color: Colors.amber,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Material(
+                  elevation: 2.0,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  child: TextField(
+                    onChanged: (String value) {},
+                    cursorColor: Colors.amber[700],
+                    decoration: const InputDecoration(
+                        hintText: "Company Name",
+                        prefixIcon: Material(
+                          elevation: 0,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          child: Icon(
+                            Icons.domain,
+                            // color: Colors.amber,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Material(
+                  elevation: 2.0,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  child: TextField(
+                    onChanged: (String value) {},
+                    cursorColor: Colors.amber[700],
+                    decoration: const InputDecoration(
+                        hintText: "Email",
+                        prefixIcon: Material(
+                          elevation: 0,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          child: Icon(
+                            Icons.email,
+                            // color: Colors.amber,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Material(
+                  elevation: 2.0,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  child: TextField(
+                    onChanged: (String value) {},
+                    cursorColor: Colors.amber[700],
+                    decoration: const InputDecoration(
+                        hintText: "Phone Number",
+                        prefixIcon: Material(
+                          elevation: 0,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          child: Icon(
+                            Icons.phone,
+                            // color: Colors.black,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.amber,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    minimumSize: const Size(200, 48),
+                  ),
                   child: const Text(
                     "CREATE",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18),
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                  onPressed: () {},
-                ),
-              )),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // const Center(
-          //   child: Text(
-          //     "FORGOT PASSWORD ?",
-          //     style: TextStyle(
-          //         color: Colors.red, fontSize: 12, fontWeight: FontWeight.w700),
-          //   ),
-          // ),
-
-          const SizedBox(
-            height: 40,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                "Already have an Account? ",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false);
-                },
-                child: const Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    // decoration: TextDecoration.underline,
-                  ),
+                          builder: (context) => const DashboardScreen()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
                 ),
               ),
-              const Text(
-                " instead",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // const Center(
+              //   child: Text(
+              //     "FORGOT PASSWORD ?",
+              //     style: TextStyle(
+              //         color: Colors.red, fontSize: 12, fontWeight: FontWeight.w700),
+              //   ),
+              // ),
+
+              const SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "Already have an Account? ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                          (Route<dynamic> route) => false);
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        // decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    " instead",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
+
+              const SizedBox(
+                height: 40,
               ),
             ],
           ),
-
-          const SizedBox(
-            height: 40,
-          ),
-        ],
+        ),
       ),
     );
   }
