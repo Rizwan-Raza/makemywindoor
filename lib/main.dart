@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:makemywindoor/screens/login.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
@@ -34,7 +35,7 @@ class _AppState extends State<App> {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.amber,
-
+              fontFamily: GoogleFonts.inter().fontFamily,
               // primaryColor: Colors.black,
               appBarTheme: const AppBarTheme(
                   systemOverlayStyle: SystemUiOverlayStyle.dark),
