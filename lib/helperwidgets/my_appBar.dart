@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(60);
-  late String appbarTitle = '';
-  MyAppBar({Key? key, appbarTitle}) : super(key: key);
+  String appbarTitle = '';
+  MyAppBar({Key? key, required this.appbarTitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
