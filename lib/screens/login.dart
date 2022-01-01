@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:makemywindoor/screens/otp.dart';
 import 'package:makemywindoor/screens/signup.dart';
+import 'package:makemywindoor/services/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +15,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String number;
+  bool numberError = false;
+  bool numberOk = false;
+  late String errorString;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SizedBox(
                       width: 240,
                       height: 240,
-                      // child: SvgPicture.asset("assets/imgs/login.svg"),
-                      child: Lottie.asset("assets/imgs/login.json"),
-                      // child: Image.asset("assets/imgs/login.png"),
+                      child:
+                          Lottie.asset("assets/imgs/login.json", reverse: true),
                     ),
                   ),
                   width: double.infinity,
@@ -95,26 +103,105 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Material(
               elevation: 2.0,
+              color: numberError ? Colors.red.shade50 : null,
+              shadowColor: numberError ? Colors.red : null,
               borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: TextField(
-                onChanged: (String value) {},
-                cursorColor: Colors.amber[700],
-                decoration: const InputDecoration(
-                    hintText: "Phone Number",
-                    prefixIcon: Material(
-                      elevation: 0,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Icon(
-                        Icons.phone,
-                        // color: Colors.black,
+              child: Form(
+                key: _formKey,
+                child: TextFormField(
+                  keyboardType: TextInputType.phone,
+                  onTap: () {
+                    setState(() {
+                      numberError = false;
+                    });
+                  },
+                  onChanged: (value) {
+                    if (value.length == 10) {
+                      setState(() {
+                        numberOk = true;
+                      });
+                    } else if (numberOk) {
+                      setState(() {
+                        numberOk = false;
+                      });
+                    }
+                    if (numberError) {
+                      setState(() {
+                        numberError = false;
+                      });
+                    }
+                  },
+                  maxLength: 10,
+                  onSaved: (newValue) => number = newValue!,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      setState(() {
+                        numberError = true;
+                        numberOk = false;
+                      });
+                      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      //   content: Text('Please enter your mobile number'),
+                      //   duration: Duration(seconds: 3),
+                      // ));
+                      errorString = 'Please enter your mobile number';
+                      // return 'Please enter your mobile number';
+                    } else if (value.length != 10) {
+                      setState(() {
+                        numberError = true;
+                        numberOk = false;
+                      });
+                      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      //   content: Text('Please enter valid mobile number'),
+                      //   duration: Duration(seconds: 3),
+                      // ));
+                      errorString = 'Please enter valid mobile number';
+                    }
+                  },
+                  cursorColor: Colors.amber[700],
+                  decoration: InputDecoration(
+                      hintText: "Phone Number",
+                      counterText: "",
+                      suffixIcon: numberError
+                          ? const Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            )
+                          : numberOk
+                              ? const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                )
+                              : null,
+                      prefixIcon: Material(
+                        elevation: 0,
+                        color: numberError ? Colors.red.shade50 : null,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        child: Icon(
+                          Icons.phone,
+                          color: numberError ? Colors.red : Colors.black45,
+                        ),
                       ),
-                    ),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 13)),
+                ),
               ),
             ),
           ),
+          numberError
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32 + 25, vertical: 8),
+                  child: Text(
+                    errorString,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              : Container(),
           // const SizedBox(
           //   height: 20,
           // ),
@@ -159,8 +246,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const OTPScreen()));
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  Random random = Random();
+                  int min = 1000;
+                  int max = 9999;
+                  String otp = (min + random.nextInt(max - min)).toString();
+                  HttpServices httpS = HttpServices();
+                  httpS.sendOTP(number, otp);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OTPScreen()));
+                }
               },
             ),
           ),
