@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/utils/my_constants.dart';
+
 import 'package:makemywindoor/utils/size_config.dart';
+
+import 'myaccount/my_account.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -15,48 +20,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Bottom Pages
   List<Widget> pages = [
-    Container(
-      color: Colors.red,
-      child: const Center(
-        child: Text('Dashboard'),
-      ),
-      key: const PageStorageKey("Page1"),
-    ),
-    Container(
-      color: Colors.yellow,
-      child: const Center(
-        child: Text('My Products'),
-      ),
-      key: const PageStorageKey("Page2"),
-    ),
-    Container(
-      color: Colors.green,
-      child: const Center(
-        child: Text('Create'),
-      ),
-      key: const PageStorageKey("Page3"),
-    ),
-    Container(
-      color: Colors.blue,
-      child: const Center(
-        child: Text('Products for sale'),
-      ),
-      key: const PageStorageKey("Page4"),
-    ),
-    Container(
-      color: Colors.pink,
-      child: const Center(
-        child: Text('My Profile'),
-      ),
-      key: const PageStorageKey("Page5"),
-    ),
-  ];
-
-  final PageStorageBucket bucket = PageStorageBucket();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+    Scaffold(
       appBar: AppBar(
         title: Center(
             child: SizedBox(
@@ -66,6 +30,62 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   gaplessPlayback: true,
                 ))),
       ),
+      body: Container(
+        color: Colors.red,
+        child: const Center(
+          child: Text('Dashboard'),
+        ),
+        key: const PageStorageKey("Page1"),
+      ),
+    ),
+    Scaffold(
+      appBar: MyAppBar(
+        appbarTitle: MyConstants.appbarTitle[0],
+      ),
+      body: Container(
+        color: Colors.yellow,
+        child: const Center(
+          child: Text('My Products'),
+        ),
+        key: const PageStorageKey("Page2"),
+      ),
+    ),
+    Scaffold(
+      appBar: MyAppBar(
+        appbarTitle: MyConstants.appbarTitle[1],
+      ),
+      body: Container(
+        color: Colors.green,
+        child: const Center(
+          child: Text('Create'),
+        ),
+        key: const PageStorageKey("Page3"),
+      ),
+    ),
+    Scaffold(
+      appBar: MyAppBar(
+        appbarTitle: MyConstants.appbarTitle[1],
+      ),
+      body: Container(
+        color: Colors.blue,
+        child: const Center(
+          child: Text('Products for sale'),
+        ),
+        key: const PageStorageKey("Page4"),
+      ),
+    ),
+    Container(
+      color: Colors.pink,
+      child: const MyAccount(),
+      key: const PageStorageKey("Page5"),
+    ),
+  ];
+
+  final PageStorageBucket bucket = PageStorageBucket();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
         children: pages.map((Widget p) {

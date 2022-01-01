@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makemywindoor/screens/login.dart';
@@ -14,7 +15,7 @@ void main() {
 }
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  const App({Key key}) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
