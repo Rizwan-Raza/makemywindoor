@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/utils/SizeConfig.dart';
+import 'package:makemywindoor/utils/size_config.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class DashboardScreen extends StatelessWidget {
         onPressed: () {},
         tooltip: 'Increment',
         child: const Icon(
-          Icons.add,
+          LineIcons.plus,
           color: Colors.amber,
         ),
         elevation: 2.0,

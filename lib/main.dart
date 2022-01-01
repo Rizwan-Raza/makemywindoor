@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makemywindoor/screens/login.dart';
-import 'package:makemywindoor/utils/SizeConfig.dart';
+import 'package:makemywindoor/utils/size_config.dart';
 
 void main() {
   runApp(const App());
