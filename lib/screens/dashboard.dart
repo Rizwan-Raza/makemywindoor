@@ -69,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Container(
         color: Colors.blue,
         child: const Center(
-          child: Text('Products for sale'),
+          child: Text('Products for sale.'),
         ),
         key: const PageStorageKey("Page4"),
       ),
