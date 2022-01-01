@@ -14,206 +14,200 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
-      body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
+      // backgroundColor: Colors.amber,
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          Stack(
             children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  ClipPath(
-                    clipper: WaveClipper2(),
-                    child: Container(
-                      child: Column(),
-                      width: double.infinity,
-                      height: 360,
-                      color: Colors.amber[50],
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
-                    ),
-                  ),
-                  ClipPath(
-                    clipper: WaveClipper3(),
-                    child: Container(
-                      child: Column(),
-                      width: double.infinity,
-                      height: 360,
-                      color: Colors.amber[100],
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
-                    ),
-                  ),
-                  ClipPath(
-                    clipper: WaveClipper1(),
-                    child: Container(
-                      child: Center(
-                        child: SizedBox(
-                          width: 240,
-                          height: 240,
-                          // child: SvgPicture.asset("assets/imgs/login.svg"),
-                          child: Lottie.asset("assets/imgs/login.json"),
-                          // child: Image.asset("assets/imgs/login.png"),
-                        ),
-                      ),
-                      width: double.infinity,
-                      height: 360,
-                      color: Colors.amber,
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Colors.amber, Colors.amberAccent])),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.black54,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(text: "We will send you an "),
-                      TextSpan(
-                          text: "One Time Password",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(text: " on this mobile number"),
-                    ],
-                  ),
+              ClipPath(
+                clipper: WaveClipper2(),
+                child: Container(
+                  child: Column(),
+                  width: double.infinity,
+                  height: 360,
+                  color: Colors.amber[50],
+                  // decoration: const BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Material(
-                  elevation: 2.0,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child: TextField(
-                    onChanged: (String value) {},
-                    cursorColor: Colors.amber[700],
-                    decoration: const InputDecoration(
-                        hintText: "Phone Number",
-                        prefixIcon: Material(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          child: Icon(
-                            Icons.phone,
-                            // color: Colors.black,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                  ),
+              ClipPath(
+                clipper: WaveClipper3(),
+                child: Container(
+                  child: Column(),
+                  width: double.infinity,
+                  height: 360,
+                  color: Colors.amber[100],
+                  // decoration: const BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
                 ),
               ),
-              // const SizedBox(
-              //   height: 20,
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 32),
-              //   child: Material(
-              //     elevation: 2.0,
-              //     borderRadius: const BorderRadius.all(Radius.circular(30)),
-              //     child: TextField(
-              //       onChanged: (String value) {},
-              //       cursorColor: Colors.deepOrange,
-              //       decoration: const InputDecoration(
-              //           hintText: "Password",
-              //           prefixIcon: Material(
-              //             elevation: 0,
-              //             borderRadius: BorderRadius.all(Radius.circular(30)),
-              //             child: Icon(
-              //               Icons.lock,
-              //               color: Colors.red,
-              //             ),
-              //           ),
-              //           border: InputBorder.none,
-              //           contentPadding:
-              //               EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.amber,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    minimumSize: const Size(200, 48),
-                  ),
-                  child: const Text(
-                    "VERIFY",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OTPScreen()));
-                  },
-                ),
-              ),
-              // const SizedBox(
-              //   height: 20,
-              // ),
-              // const Center(
-              //   child: Text(
-              //     "FORGOT PASSWORD ?",
-              //     style: TextStyle(
-              //         color: Colors.red, fontSize: 12, fontWeight: FontWeight.w700),
-              //   ),
-              // ),
-
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    "Don't have an Account? ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const SignupScreen()),
-                          (Route<dynamic> route) => false);
-                    },
-                    child: const Text(
-                      "Sign Up ",
-                      style: TextStyle(
-                        color: Colors.amber,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        // decoration: TextDecoration.underline,
-                      ),
+              ClipPath(
+                clipper: WaveClipper1(),
+                child: Container(
+                  child: Center(
+                    child: SizedBox(
+                      width: 240,
+                      height: 240,
+                      // child: SvgPicture.asset("assets/imgs/login.svg"),
+                      child: Lottie.asset("assets/imgs/login.json"),
+                      // child: Image.asset("assets/imgs/login.png"),
                     ),
                   ),
-                ],
+                  width: double.infinity,
+                  height: 360,
+                  color: Colors.amber,
+                  // decoration: const BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //         colors: [Colors.amber, Colors.amberAccent])),
+                ),
               ),
             ],
           ),
-        ),
+          const SizedBox(
+            height: 30,
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: RichText(
+              text: const TextSpan(
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black54,
+                ),
+                children: <TextSpan>[
+                  TextSpan(text: "We will send you an "),
+                  TextSpan(
+                      text: "One Time Password",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: " on this mobile number"),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              elevation: 2.0,
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: TextField(
+                onChanged: (String value) {},
+                cursorColor: Colors.amber[700],
+                decoration: const InputDecoration(
+                    hintText: "Phone Number",
+                    prefixIcon: Material(
+                      elevation: 0,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.phone,
+                        // color: Colors.black,
+                      ),
+                    ),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              ),
+            ),
+          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 32),
+          //   child: Material(
+          //     elevation: 2.0,
+          //     borderRadius: const BorderRadius.all(Radius.circular(30)),
+          //     child: TextField(
+          //       onChanged: (String value) {},
+          //       cursorColor: Colors.deepOrange,
+          //       decoration: const InputDecoration(
+          //           hintText: "Password",
+          //           prefixIcon: Material(
+          //             elevation: 0,
+          //             borderRadius: BorderRadius.all(Radius.circular(30)),
+          //             child: Icon(
+          //               Icons.lock,
+          //               color: Colors.red,
+          //             ),
+          //           ),
+          //           border: InputBorder.none,
+          //           contentPadding:
+          //               EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 25,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.amber,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+                minimumSize: const Size(200, 48),
+              ),
+              child: const Text(
+                "VERIFY",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const OTPScreen()));
+              },
+            ),
+          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // const Center(
+          //   child: Text(
+          //     "FORGOT PASSWORD ?",
+          //     style: TextStyle(
+          //         color: Colors.red, fontSize: 12, fontWeight: FontWeight.w700),
+          //   ),
+          // ),
+
+          const SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                "Don't have an Account? ",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const SignupScreen()),
+                      (Route<dynamic> route) => false);
+                },
+                child: const Text(
+                  "Sign Up ",
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    // decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
