@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:makemywindoor/screens/signup.dart';
+import 'package:makemywindoor/screens/login.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   child: Column(),
                   width: double.infinity,
-                  height: 360,
+                  height: 160,
                   color: Colors.amber[50],
                   // decoration: const BoxDecoration(
                   //     gradient: LinearGradient(
@@ -35,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   child: Column(),
                   width: double.infinity,
-                  height: 360,
+                  height: 160,
                   color: Colors.amber[100],
                   // decoration: const BoxDecoration(
                   //     gradient: LinearGradient(
@@ -45,16 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ClipPath(
                 clipper: WaveClipper1(),
                 child: Container(
-                  child: Center(
-                    child: SizedBox(
-                      width: 240,
-                      height: 240,
-                      child: SvgPicture.asset("assets/imgs/login.svg"),
-                      // child: Image.asset("assets/imgs/login.png"),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+                    child: Text(
+                      "Create an Account",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20),
                     ),
                   ),
                   width: double.infinity,
-                  height: 360,
+                  height: 160,
                   color: Colors.amber,
                   // decoration: const BoxDecoration(
                   //     gradient: LinearGradient(
@@ -85,6 +87,88 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              elevation: 2.0,
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: TextField(
+                onChanged: (String value) {},
+                cursorColor: Colors.amber[700],
+                decoration: const InputDecoration(
+                    hintText: "Name",
+                    prefixIcon: Material(
+                      elevation: 0,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.person,
+                        // color: Colors.amber,
+                      ),
+                    ),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              elevation: 2.0,
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: TextField(
+                onChanged: (String value) {},
+                cursorColor: Colors.amber[700],
+                decoration: const InputDecoration(
+                    hintText: "Company Name",
+                    prefixIcon: Material(
+                      elevation: 0,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.domain,
+                        // color: Colors.amber,
+                      ),
+                    ),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              elevation: 2.0,
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: TextField(
+                onChanged: (String value) {},
+                cursorColor: Colors.amber[700],
+                decoration: const InputDecoration(
+                    hintText: "Email",
+                    prefixIcon: Material(
+                      elevation: 0,
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Icon(
+                        Icons.email,
+                        // color: Colors.amber,
+                      ),
+                    ),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              ),
+            ),
+          ),
+
+          const SizedBox(
             height: 30,
           ),
           Padding(
@@ -111,33 +195,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 32),
-          //   child: Material(
-          //     elevation: 2.0,
-          //     borderRadius: const BorderRadius.all(Radius.circular(30)),
-          //     child: TextField(
-          //       onChanged: (String value) {},
-          //       cursorColor: Colors.deepOrange,
-          //       decoration: const InputDecoration(
-          //           hintText: "Password",
-          //           prefixIcon: Material(
-          //             elevation: 0,
-          //             borderRadius: BorderRadius.all(Radius.circular(30)),
-          //             child: Icon(
-          //               Icons.lock,
-          //               color: Colors.red,
-          //             ),
-          //           ),
-          //           border: InputBorder.none,
-          //           contentPadding:
-          //               EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-          //     ),
-          //   ),
-          // ),
           const SizedBox(
             height: 25,
           ),
@@ -150,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: TextButton(
                   child: const Text(
-                    "VERIFY",
+                    "CREATE",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
@@ -177,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                "Don't have an Account ? ",
+                "Already have an Account? ",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -187,11 +244,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const SignupScreen()),
+                          builder: (context) => const LoginScreen()),
                       (Route<dynamic> route) => false);
                 },
                 child: const Text(
-                  "Sign Up ",
+                  "Login",
                   style: TextStyle(
                     color: Colors.amber,
                     fontWeight: FontWeight.w500,
@@ -200,7 +257,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const Text(
+                " instead",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
+              ),
             ],
+          ),
+
+          const SizedBox(
+            height: 40,
           ),
         ],
       ),
