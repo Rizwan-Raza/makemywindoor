@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:makemywindoor/screens/otp.dart';
 import 'package:makemywindoor/screens/signup.dart';
-import 'package:makemywindoor/services/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -243,21 +240,17 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: const Text(
                 "VERIFY",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Random random = Random();
-                  int min = 1000;
-                  int max = 9999;
-                  String otp = (min + random.nextInt(max - min)).toString();
-                  HttpServices httpS = HttpServices();
-                  httpS.sendOTP(number, otp);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const OTPScreen()));
+                          builder: (context) => OTPScreen(
+                                number: number,
+                              )));
                 }
               },
             ),

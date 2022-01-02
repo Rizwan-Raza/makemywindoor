@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makemywindoor/screens/login.dart';
+import 'package:makemywindoor/services/timer.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const App());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => TimerService(time: 15)),
+  ], child: const App()));
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       // statusBarColor:    ColorCodeGen.colorFromHex('#342794').withOpacity(0.7),
