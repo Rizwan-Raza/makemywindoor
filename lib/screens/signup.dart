@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/screens/login.dart';
 
@@ -54,7 +55,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Text(
                           "Create an Account",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.w700,
                               fontSize: 20),
                         ),
@@ -93,112 +94,23 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Material(
-                  elevation: 2.0,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child: TextField(
-                    onChanged: (String value) {},
-                    cursorColor: Colors.amber[700],
-                    decoration: const InputDecoration(
-                        hintText: "Name",
-                        prefixIcon: Material(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          child: Icon(
-                            Icons.person,
-                            // color: Colors.amber,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                  ),
-                ),
-              ),
+              getField("Name", LineIcons.user),
+
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Material(
-                  elevation: 2.0,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child: TextField(
-                    onChanged: (String value) {},
-                    cursorColor: Colors.amber[700],
-                    decoration: const InputDecoration(
-                        hintText: "Company Name",
-                        prefixIcon: Material(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          child: Icon(
-                            Icons.domain,
-                            // color: Colors.amber,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                  ),
-                ),
-              ),
+              getField("Company Name", LineIcons.building),
+
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Material(
-                  elevation: 2.0,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child: TextField(
-                    onChanged: (String value) {},
-                    cursorColor: Colors.amber[700],
-                    decoration: const InputDecoration(
-                        hintText: "Email",
-                        prefixIcon: Material(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          child: Icon(
-                            Icons.email,
-                            // color: Colors.amber,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                  ),
-                ),
-              ),
+              getField("Email", LineIcons.envelope),
 
               const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Material(
-                  elevation: 2.0,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child: TextField(
-                    onChanged: (String value) {},
-                    cursorColor: Colors.amber[700],
-                    decoration: const InputDecoration(
-                        hintText: "Phone Number",
-                        prefixIcon: Material(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          child: Icon(
-                            Icons.phone,
-                            // color: Colors.black,
-                          ),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                  ),
-                ),
-              ),
+              getField("Phone Number", LineIcons.phone),
+
               const SizedBox(
                 height: 25,
               ),
@@ -213,7 +125,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   child: const Text(
                     "CREATE",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
@@ -281,6 +193,33 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget getField(String hText, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Material(
+        elevation: 2.0,
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
+        child: TextField(
+          onChanged: (String value) {},
+          cursorColor: Colors.amber[700],
+          decoration: InputDecoration(
+              hintText: hText,
+              prefixIcon: Material(
+                elevation: 0,
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
+                child: Icon(
+                  icon,
+                  // color: Colors.amber,
+                ),
+              ),
+              border: InputBorder.none,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
         ),
       ),
     );
