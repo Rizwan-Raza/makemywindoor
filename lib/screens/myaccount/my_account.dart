@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/screens/contact_us.dart';
+import 'package:makemywindoor/screens/myaccount/user_profile.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 
@@ -349,8 +350,8 @@ class _MyAccountState extends State<MyAccount> {
   }
 
   openProfileScreen() {
-    // Navigator.push(
-    //     context, CupertinoPageRoute(builder: (context) => UserProfileScreen()));
+    Navigator.push(
+        context, CupertinoPageRoute(builder: (context) => UserProfile()));
   }
 
   onShareTap() {
