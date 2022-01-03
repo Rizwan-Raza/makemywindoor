@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class TimerService with ChangeNotifier {
-  int time;
-  TimerService({required this.time});
+  int time = 3 * 60;
+  TimerService();
 
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -19,8 +19,7 @@ class TimerService with ChangeNotifier {
     // notifyListeners();
   }
 
-  void resetTimer(int t) {
+  void setTimer(int t) {
     time = t;
-    notifyListeners();
   }
 }

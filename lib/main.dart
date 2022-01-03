@@ -1,15 +1,25 @@
 // @dart=2.9
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makemywindoor/screens/login.dart';
+import 'package:makemywindoor/firebase_options.dart';
+import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/screens/auth/login.dart';
+import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/services/timer.dart';
+import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => TimerService(time: 15)),
+    Provider(create: (_) => UserServices()),
+    ChangeNotifierProvider(create: (context) => TimerService()),
   ], child: const App()));
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -47,7 +57,25 @@ class _AppState extends State<App> {
               iconTheme: const IconThemeData(color: Colors.white),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home: const LoginScreen(),
+            home: FutureBuilder(
+              future: Provider.of<UserServices>(context).getState(),
+              builder: (context, AsyncSnapshot<User> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Scaffold(
+                    backgroundColor: Colors.amber,
+                    body: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ),
+                  );
+                } else if (snapshot.hasData && snapshot.data.phone != null) {
+                  return const DashboardScreen();
+                } else {
+                  return const LoginScreen();
+                }
+              },
+            ),
           );
         });
       },

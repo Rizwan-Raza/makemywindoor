@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/screens/create_project.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
-
 import 'package:makemywindoor/utils/size_config.dart';
 
 import 'myaccount/my_account.dart';
@@ -50,18 +50,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         key: const PageStorageKey("Page2"),
       ),
     ),
-    Scaffold(
-      appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[1],
-      ),
-      body: Container(
-        color: Colors.green,
-        child: const Center(
-          child: Text('Create'),
-        ),
-        key: const PageStorageKey("Page3"),
-      ),
-    ),
+    const CreateProject(key: PageStorageKey("Page3")),
     Scaffold(
       appBar: MyAppBar(
         appbarTitle: MyConstants.appbarTitle[1],
