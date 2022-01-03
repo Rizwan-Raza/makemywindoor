@@ -51,7 +51,6 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
