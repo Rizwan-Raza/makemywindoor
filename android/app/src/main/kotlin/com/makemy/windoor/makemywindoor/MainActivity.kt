@@ -1,4 +1,4 @@
-package com.makemy.windoor.makemywindoor
+package com.makemy.makemywindoor
 
 import io.flutter.embedding.android.FlutterActivity
 

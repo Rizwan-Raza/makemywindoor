@@ -3,10 +3,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
-import 'package:makemywindoor/services/http.dart';
+import 'package:makemywindoor/services/otp_service.dart';
 import 'package:makemywindoor/services/timer.dart';
-import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/services/user_service.dart';
 import 'package:provider/provider.dart';
 
 final inputBorder = OutlineInputBorder(
@@ -34,109 +35,146 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
-  final HttpServices httpS = HttpServices();
-  late AnimationController _controller;
+  final OTPService otps = OTPService();
+  late String otp;
 
   @override
   void initState() {
     super.initState();
+    sendOTP();
+  }
+
+  void sendOTP() {
     Random random = Random();
     int min = 1000;
     int max = 9999;
-    String otp = (min + random.nextInt(max - min)).toString();
-    httpS.sendOTP(widget.number, otp);
+    otp = (min + random.nextInt(max - min)).toString();
+    otps.sendOTP(widget.number, otp);
 
+    context.read<TimerService>().setTimer(3 * 60);
     context.read<TimerService>().startTimer();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        width: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 30.0),
-            const Text(
-              "Please enter the 4-digit OTP",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0),
+    return WillPopScope(
+      onWillPop: () async => // This dialog will exit your app on saying yes
+          (await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Are you sure?'),
+              content: const Text('Do you want to change your number?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('No'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Yes'),
+                ),
+              ],
             ),
-            const SizedBox(height: 20.0),
-            OTPFields(callback: (b) {
-              setState(() {
-                otpFilled = b;
-              });
-            }),
-            const SizedBox(height: 20.0),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Resend OTP in ",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-              Container(
-                width: SizeConfig.blockSizeHorizontal * 15,
-                alignment: Alignment.center,
-                child: Text(
-                  "${(context.watch<TimerService>().time / 60).round().toString().padLeft(2, '0')}:${(context.watch<TimerService>().time % 60).toString().padLeft(2, '0')}",
+          )) ??
+          false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Colors.black),
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(16.0),
+          width: double.maxFinite,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30.0),
+              const Text(
+                "Please enter the 4-digit OTP",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18.0),
+              ),
+              const SizedBox(height: 20.0),
+              OTPFields(callback: (b) {
+                setState(() {
+                  otpFilled = b;
+                });
+              }),
+              const SizedBox(height: 20.0),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text("Resend OTP in ",
+                    style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                Text(
+                  "${(context.watch<TimerService>().time / 60).floor().toString().padLeft(2, '0')}:${(context.watch<TimerService>().time % 60).toString().padLeft(2, '0')}",
                   style: TextStyle(
                     fontSize: 18.0,
+                    fontFamily: GoogleFonts.robotoMono().fontFamily,
                     color: Theme.of(context).primaryColor,
                   ),
+                )
+              ]),
+              const SizedBox(height: 10.0),
+              TextButton(
+                child: const Text(
+                  "RESEND OTP",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onPressed: context.watch<TimerService>().time == 0
+                    ? () {
+                        sendOTP();
+                      }
+                    : null,
+              ),
+              const SizedBox(height: 30.0),
+              ElevatedButton(
+                onPressed: otpFilled
+                    ? () {
+                        if (otp == filledOTP) {
+                          Provider.of<UserServices>(context, listen: false)
+                              .saveState();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DashboardScreen()),
+                              (route) => false);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Wrong OTP"),
+                              content:
+                                  const Text("Please enter the correct OTP"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("OK"),
+                                  onPressed: () => Navigator.pop(context),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.amber,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  minimumSize: const Size(200, 48),
+                ),
+                child: const Text(
+                  "CONFIRM",
+                  style: TextStyle(fontSize: 18.0, color: Colors.black),
                 ),
               )
-            ]),
-            const SizedBox(height: 10.0),
-            TextButton(
-              child: const Text(
-                "RESEND OTP",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              onPressed: context.watch<TimerService>().time == 0
-                  ? () {
-                      context.read<TimerService>().resetTimer(10);
-                      context.read<TimerService>().startTimer();
-                    }
-                  : null,
-            ),
-            const SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: otpFilled
-                  ? () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashboardScreen()),
-                          (route) => false);
-                    }
-                  : null,
-              style: ElevatedButton.styleFrom(
-                primary: Colors.amber,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                minimumSize: const Size(200, 48),
-              ),
-              child: const Text(
-                "CONFIRM",
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

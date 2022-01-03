@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/screens/dashboard.dart';
-import 'package:makemywindoor/screens/login.dart';
+import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/screens/auth/login.dart';
+import 'package:makemywindoor/screens/auth/otp.dart';
+import 'package:makemywindoor/services/user_service.dart';
+import 'package:makemywindoor/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -11,6 +15,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final User newUser = User.empty();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,34 +28,12 @@ class _SignupScreenState extends State<SignupScreen> {
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  ClipPath(
-                    clipper: WaveClipper2(),
-                    child: Container(
-                      child: Column(),
-                      width: double.infinity,
-                      height: 160,
-                      color: Colors.amber[50],
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
-                    ),
-                  ),
-                  ClipPath(
-                    clipper: WaveClipper3(),
-                    child: Container(
-                      child: Column(),
-                      width: double.infinity,
-                      height: 160,
-                      color: Colors.amber[100],
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
-                    ),
-                  ),
-                  ClipPath(
-                    clipper: WaveClipper1(),
-                    child: Container(
-                      child: const Padding(
+                  getClipPath(WaveClipper2(), Colors.amber[50], Column()),
+                  getClipPath(WaveClipper3(), Colors.amber[100], Column()),
+                  getClipPath(
+                      WaveClipper1(),
+                      Colors.amber,
+                      const Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 32.0, vertical: 24.0),
                         child: Text(
@@ -59,15 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               fontWeight: FontWeight.w700,
                               fontSize: 20),
                         ),
-                      ),
-                      width: double.infinity,
-                      height: 160,
-                      color: Colors.amber,
-                      // decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //         colors: [Colors.amber, Colors.amberAccent])),
-                    ),
-                  ),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -94,25 +70,60 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 20,
               ),
-              getField("Name", LineIcons.user),
 
-              const SizedBox(
-                height: 20,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    getField("Name", LineIcons.user,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                        onSaved: (x) => newUser.name = x),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    getField("Company Name", LineIcons.building,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your company name';
+                          }
+                          return null;
+                        },
+                        onSaved: (x) => newUser.company = x),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    getField("Email", LineIcons.envelope,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
+                        onSaved: (x) => newUser.email = x),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    getField("Phone Number", LineIcons.phone,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your phone number';
+                          } else if (value.length != 10) {
+                            return 'Please enter a valid phone number';
+                          }
+                          return null;
+                        },
+                        onSaved: (x) => newUser.phone = x),
+                  ],
+                ),
               ),
-              getField("Company Name", LineIcons.building),
-
-              const SizedBox(
-                height: 20,
-              ),
-              getField("Email", LineIcons.envelope),
 
               const SizedBox(
                 height: 30,
-              ),
-              getField("Phone Number", LineIcons.phone),
-
-              const SizedBox(
-                height: 25,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -128,12 +139,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DashboardScreen()),
-                      (Route<dynamic> route) => false,
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      UserServices us =
+                          Provider.of<UserServices>(context, listen: false);
+                      us.createUser(newUser.toJson());
+                      us.login(newUser.phone);
+                      us.saveState();
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OTPScreen(
+                                    number: newUser.phone,
+                                  )));
+                    }
                   },
                 ),
               ),
@@ -198,29 +218,62 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget getField(String hText, IconData icon) {
+  Widget getField(String hText, IconData icon,
+      {String? Function(String?)? validate, onSaved}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: Material(
-        elevation: 2.0,
-        borderRadius: const BorderRadius.all(Radius.circular(30)),
-        child: TextField(
-          onChanged: (String value) {},
-          cursorColor: Colors.amber[700],
-          decoration: InputDecoration(
-              hintText: hText,
-              prefixIcon: Material(
-                elevation: 0,
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
-                child: Icon(
-                  icon,
-                  // color: Colors.amber,
+      child: Stack(
+        children: [
+          Material(
+            elevation: 2.0,
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            child: Container(
+              height: 48,
+              color: Colors.transparent,
+            ),
+          ),
+          TextFormField(
+            onChanged: (String value) {},
+            cursorColor: Colors.amber[700],
+            validator: (value) {
+              if (validate != null) {
+                return validate(value);
+              }
+              return null;
+            },
+            onSaved: onSaved,
+            decoration: InputDecoration(
+                hintText: hText,
+                fillColor: Colors.transparent,
+                prefixIcon: Material(
+                  elevation: 0,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  child: Icon(
+                    icon,
+                    // color: Colors.amber,
+                  ),
                 ),
-              ),
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-        ),
+                border: InputBorder.none,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ClipPath getClipPath(
+      CustomClipper<Path> clipper, Color? color, Widget child) {
+    return ClipPath(
+      clipper: clipper,
+      child: Container(
+        child: child,
+        width: double.infinity,
+        height: SizeConfig.blockSizeVertical * 20,
+        color: color,
+        // decoration: const BoxDecoration(
+        //     gradient: LinearGradient(
+        //         colors: [Color(0x22ff3a5a), Color(0x22fe494d)])),
       ),
     );
   }

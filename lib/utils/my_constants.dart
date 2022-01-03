@@ -6,7 +6,7 @@ import 'package:line_icons/line_icons.dart';
 
 class MyConstants {
   static String rateTheApp = Platform.isAndroid
-      ? "https://play.google.com/store/apps/details?id=com.makemy.windoor.makemywindoor"
+      ? "https://play.google.com/store/apps/details?id=com.makemy.makemywindoor"
       : 'https://apps.apple.com/us/app/';
   static String fbLink = "https://www.facebook.com/";
   static String instaLink = "https://www.instagram.com/";
