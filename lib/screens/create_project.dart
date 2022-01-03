@@ -1,27 +1,195 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/model/project_details.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 
-class CreateProject extends StatefulWidget {
-  const CreateProject({Key? key}) : super(key: key);
+class CreateProjectScreen extends StatefulWidget {
+  const CreateProjectScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateProjectState createState() => _CreateProjectState();
+  _CreateProjectScreenState createState() => _CreateProjectScreenState();
 }
 
-class _CreateProjectState extends State<CreateProject> {
+class _CreateProjectScreenState extends State<CreateProjectScreen> {
+  int _activeStepIndex = 0;
+  ProjectDetails pd = ProjectDetails.empty();
+
+  final GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
+  final GlobalKey<FormState> _dimensForm = GlobalKey<FormState>();
+
+  List<Step> stepList() => [
+        Step(
+          state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
+          isActive: _activeStepIndex >= 0,
+          title: const Text('Project Details'),
+          content: Form(
+            key: _detailForm,
+            child: Column(
+              children: [
+                getField("Project Name", LineIcons.book, validate: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter project name';
+                  }
+                }),
+                const SizedBox(
+                  height: 16,
+                ),
+                getField("Customer Name", LineIcons.addressCard),
+                const SizedBox(
+                  height: 16,
+                ),
+                getField("Customer Phone", LineIcons.phone),
+                const SizedBox(
+                  height: 16,
+                ),
+                getField("Others", LineIcons.tags, lines: 4),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Step(
+            state:
+                _activeStepIndex <= 1 ? StepState.editing : StepState.complete,
+            isActive: _activeStepIndex >= 1,
+            title: const Text('Dimensions'),
+            content: Form(
+              key: _dimensForm,
+              child: Column(
+                children: [
+                  getField("Type", LineIcons.hardHat),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  getField("Height", LineIcons.rulerVertical),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  getField("Width", LineIcons.rulerHorizontal),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  getField("Remarks", LineIcons.pencilRuler),
+                ],
+              ),
+            )),
+        Step(
+            state: StepState.complete,
+            isActive: _activeStepIndex >= 2,
+            title: const Text('Share'),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                Text('Password: *****'),
+              ],
+            ))
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[1],
+        appbarTitle: MyConstants.appbarTitle[0],
       ),
-      body: Container(
-        color: Colors.green,
-        child: const Center(
-          child: Text('Create'),
+      body: Stepper(
+        type: StepperType.horizontal,
+        currentStep: _activeStepIndex,
+        steps: stepList(),
+        onStepContinue: () {
+          if (_activeStepIndex < (stepList().length - 1)) {
+            setState(() {
+              _activeStepIndex += 1;
+            });
+          } else {
+            // print('Submited');
+          }
+        },
+        onStepCancel: () {
+          if (_activeStepIndex == 0) {
+            return;
+          }
+
+          setState(() {
+            _activeStepIndex -= 1;
+          });
+        },
+        onStepTapped: (int index) {
+          setState(() {
+            _activeStepIndex = index;
+          });
+        },
+        controlsBuilder: (context, details) {
+          final isLastStep = _activeStepIndex == stepList().length - 1;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (_activeStepIndex > 0)
+                Expanded(
+                  child: TextButton(
+                    onPressed: details.onStepCancel,
+                    child: const Text('Back'),
+                  ),
+                ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: details.onStepContinue,
+                  child:
+                      (isLastStep) ? const Text('Submit') : const Text('Next'),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget getField(String hText, IconData icon,
+      {String? Function(String?)? validate, onSaved, int lines = 1}) {
+    return Stack(
+      children: [
+        Material(
+          elevation: 2.0,
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          child: Container(
+            height: lines != 1 ? 100 : 48,
+            color: Colors.transparent,
+          ),
         ),
-      ),
+        TextFormField(
+          cursorColor: Colors.amber[700],
+          maxLines: lines,
+          validator: (value) {
+            if (validate != null) {
+              return validate(value);
+            }
+            return null;
+          },
+          onSaved: onSaved,
+          decoration: InputDecoration(
+              hintText: hText,
+              fillColor: Colors.transparent,
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  widthFactor: 1.0,
+                  heightFactor: lines * 1.0,
+                  child: Icon(
+                    icon,
+                    // color: Colors.amber,
+                  ),
+                ),
+              ),
+              border: InputBorder.none,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+        ),
+      ],
     );
   }
 }

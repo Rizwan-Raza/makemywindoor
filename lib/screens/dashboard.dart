@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/screens/create_project.dart';
+import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
@@ -16,7 +17,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   // Selected Page Index
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   // Bottom Pages
   List<Widget> pages = [
@@ -50,24 +51,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         key: const PageStorageKey("Page2"),
       ),
     ),
-    const CreateProject(key: PageStorageKey("Page3")),
-    Scaffold(
-      appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[1],
-      ),
-      body: Container(
-        color: Colors.blue,
-        child: const Center(
-          child: Text('Products for sale.'),
-        ),
-        key: const PageStorageKey("Page4"),
-      ),
-    ),
-    Container(
-      color: Colors.pink,
-      child: const MyAccount(),
-      key: const PageStorageKey("Page5"),
-    ),
+    const CreateProjectScreen(key: PageStorageKey("Page3")),
+    const MyProjects(key: PageStorageKey("Page4")),
+    const MyAccount(key: PageStorageKey("Page5")),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();

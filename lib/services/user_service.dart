@@ -9,11 +9,11 @@ class UserServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late SharedPreferences prefs;
 
-  late User currentUser;
+  User? currentUser;
 
   saveState() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', json.encode(currentUser.toJson()));
+    prefs.setString('user', json.encode(currentUser?.toJson()));
     log(prefs.getString("user").toString());
   }
 
@@ -33,6 +33,12 @@ class UserServices {
       return currentUser;
     }
     return User.empty();
+  }
+
+  Future<void> logout() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+    currentUser = null;
   }
 
   void createUser(Map<String, dynamic> values) {
