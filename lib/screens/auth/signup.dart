@@ -8,7 +8,8 @@ import 'package:makemywindoor/utils/size_config.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  final String? number;
+  const SignupScreen({Key? key, this.number}) : super(key: key);
 
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -117,7 +118,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                           return null;
                         },
-                        onSaved: (x) => newUser.phone = x),
+                        onSaved: (x) => newUser.phone = x,
+                        defaultValue: widget.number),
                   ],
                 ),
               ),
@@ -219,7 +221,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget getField(String hText, IconData icon,
-      {String? Function(String?)? validate, onSaved}) {
+      {String? Function(String?)? validate, onSaved, String? defaultValue}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Stack(
@@ -233,6 +235,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
           TextFormField(
+            initialValue: defaultValue,
             onChanged: (String value) {},
             cursorColor: Colors.amber[700],
             validator: (value) {
