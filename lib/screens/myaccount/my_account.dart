@@ -5,10 +5,12 @@ import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/screens/contact_us.dart';
 import 'package:makemywindoor/screens/myaccount/user_profile.dart';
+import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:provider/src/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui' as ui;
@@ -67,86 +69,10 @@ class _MyAccountState extends State<MyAccount> {
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            'context.read<MyUser>().email' == null
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: SizeConfig.blockSizeVertical * 2,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: Text(
-                          'Benifits',
-                          style: GoogleFonts.inter(
-                            textStyle: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            child: Container(
-                              width: SizeConfig.screenWidth,
-                              height: SizeConfig.blockSizeVertical * 10,
-                              // color: Colors.red,
-                              child: ListView.builder(
-                                  controller: _scrollControllerTopBenifitModule,
-                                  scrollDirection: Axis.horizontal,
-                                  //shrinkWrap: true,
-                                  itemCount: MyConstants
-                                      .myAccountBenifitIcontitle.length,
-                                  itemBuilder: (context, index) {
-                                    return myAccountBenifitRow(
-                                        Icons.check,
-                                        MyConstants
-                                            .myAccountBenifitIcontitle[index]);
-                                  }),
-                            ),
-                          ),
-                          Positioned(
-                            top: SizeConfig.screenWidth > 320
-                                ? SizeConfig.blockSizeVertical * 2.5
-                                : SizeConfig.blockSizeVertical * 1.5,
-                            right: SizeConfig.blockSizeHorizontal * -3,
-                            child: IconButton(
-                              onPressed: () {
-                                _scrollControllerTopBenifitModule.animateTo(
-                                    _scrollControllerTopBenifitModule
-                                        .position.maxScrollExtent,
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.fastOutSlowIn);
-                              },
-                              icon: const Icon(
-                                LineIcons.alternateCompressArrows,
-                                color: Colors.black,
-                                size: 32,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      // Center(
-                      //   child: MyButtonHelperWidget(
-                      //       titleX: moduleName.loginButtonName[1],
-                      //       onPressedFunction: onMyAccountLoginPressed,
-                      //       widthx: SizeConfig.blockSizeHorizontal * 90,
-                      //       heightX: SizeConfig.blockSizeVertical * 6.5,
-                      //       colorx: ColorCodeGen.colorFromHex('#E53E8E'),
-                      //       radiusX: 2.0),
-                      // ),
-                    ],
-                  )
-                : userProfileBox(),
-            SizedBox(
-              height: SizeConfig.blockSizeVertical * 2,
-            ),
+            userProfileBox(),
+            // SizedBox(
+            //   height: SizeConfig.blockSizeVertical * 1,
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: myDivider(),
@@ -276,13 +202,14 @@ class _MyAccountState extends State<MyAccount> {
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Padding(
-              padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 30,
-                backgroundImage: AssetImage('assets/imgs/avtar.png'),
-              )),
+          Avatar(
+            image: const NetworkImage(
+                'https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+            radius: 40,
+            backgroundColor: Colors.white,
+            borderColor: Colors.grey.shade300,
+            borderWidth: 4.0,
+          ),
           SizedBox(
             width: SizeConfig.blockSizeHorizontal * 8,
           ),
@@ -298,9 +225,7 @@ class _MyAccountState extends State<MyAccount> {
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'context.watch<MyUser>().name!' +
-                      ' ' +
-                      'context.watch<MyUser>().lname!',
+                  context.read<UserServices>().currentUser!.name,
                   overflow: TextOverflow.visible,
                   style: MyConstants.nameLoginRegStyle.copyWith(
                       fontSize: 18,
@@ -308,7 +233,7 @@ class _MyAccountState extends State<MyAccount> {
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'context.watch<MyUser>().email!',
+                  context.read<UserServices>().currentUser!.email,
                   overflow: TextOverflow.visible,
                   style: MyConstants.nameLoginRegStyle.copyWith(
                       fontSize: 14,
