@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:provider/src/provider.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class UserProfile extends StatelessWidget {
                     'https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
                 coverImage: const NetworkImage(
                     'https://images.pexels.com/photos/447592/pexels-photo-447592.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
-                title: "Sarfaraz Alam",
+                title: context.read<UserServices>().currentUser!.name,
                 subtitle: "user",
                 actions: <Widget>[
                   MaterialButton(
@@ -79,30 +81,40 @@ class UserInfo extends StatelessWidget {
                       ...ListTile.divideTiles(
                         color: Colors.grey,
                         tiles: [
-                          const ListTile(
-                            leading: Icon(LineIcons.user),
-                            title: Text("Name"),
-                            subtitle: Text("Sarfaraz Alam"),
+                          ListTile(
+                            leading: const Icon(LineIcons.user),
+                            title: const Text("Name"),
+                            subtitle: Text(
+                                context.read<UserServices>().currentUser!.name),
                           ),
-                          const ListTile(
-                            leading: Icon(LineIcons.building),
-                            title: Text("Company Name"),
-                            subtitle: Text("MakeMyWindoor"),
+                          ListTile(
+                            leading: const Icon(LineIcons.building),
+                            title: const Text("Company Name"),
+                            subtitle: Text(context
+                                .read<UserServices>()
+                                .currentUser!
+                                .company!),
                           ),
                           // const ListTile(
                           //   leading: Icon(LineIcons.passport),
                           //   title: Text("Bank Details"),
                           //   subtitle: Text("9999876xxxxxxx"),
                           // ),
-                          const ListTile(
-                            leading: Icon(LineIcons.phone),
-                            title: Text("Phone"),
-                            subtitle: Text("99--99876-56"),
+                          ListTile(
+                            leading: const Icon(LineIcons.phone),
+                            title: const Text("Phone"),
+                            subtitle: Text(context
+                                .read<UserServices>()
+                                .currentUser!
+                                .phone),
                           ),
-                          const ListTile(
-                            leading: Icon(LineIcons.mailBulk),
-                            title: Text("Email"),
-                            subtitle: Text("sudeptech@gmail.com"),
+                          ListTile(
+                            leading: const Icon(LineIcons.mailBulk),
+                            title: const Text("Email"),
+                            subtitle: Text(context
+                                .read<UserServices>()
+                                .currentUser!
+                                .email),
                           ),
                         ],
                       ),

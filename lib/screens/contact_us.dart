@@ -34,72 +34,92 @@ class _ContactUsState extends State<ContactUs> {
               .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Card(
-        color: Colors.grey.shade100,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal * 100,
-                    height: SizeConfig.blockSizeVertical * 35,
-                    child: Lottie.asset(
-                      'assets/imgs/lotties/74307-contact-us-faq.json',
-                      fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: SizeConfig.blockSizeHorizontal * 100,
+                  height: SizeConfig.blockSizeVertical * 35,
+                  child: Lottie.asset(
+                    'assets/imgs/lotties/76817-contact-us.json',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                helpSupportInput(
+                  0,
+                  'Name ',
+                  'Name',
+                  'Name is Required.',
+                  '',
+                  TextInputType.name,
+                  1,
+                ),
+                helpSupportInput(
+                  1,
+                  'Mobile Number ',
+                  'Mobile Number',
+                  'Mobile Number is Required.',
+                  '',
+                  TextInputType.number,
+                  1,
+                ),
+                helpSupportInput(
+                  2,
+                  'Email ',
+                  'Email ',
+                  'Email is Required.',
+                  '',
+                  TextInputType.emailAddress,
+                  1,
+                ),
+                helpSupportInput(
+                  3,
+                  'Drop Your Query ',
+                  'Drop Your Query',
+                  'Just drop your query...',
+                  '',
+                  TextInputType.text,
+                  6,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 4),
+                            blurRadius: 5.0)
+                      ],
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          Colors.amber[700]!,
+                          Colors.amber[700]!,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(5),
                     ),
+                    child: MyButtonHelperWidget(
+                        titleX: 'Send',
+                        onPressedFunction: onPressedFunction,
+                        widthx: SizeConfig.blockSizeHorizontal * 100,
+                        heightX: SizeConfig.blockSizeVertical * 6.5,
+                        colorx: Colors.transparent,
+                        radiusX: 5.0),
                   ),
-                  helpSupportInput(
-                    0,
-                    'Name ',
-                    'Name',
-                    'Name is Required.',
-                    '',
-                    TextInputType.name,
-                    1,
-                  ),
-                  helpSupportInput(
-                    1,
-                    'Mobile Number ',
-                    'Mobile Number',
-                    'Mobile Number is Required.',
-                    '',
-                    TextInputType.number,
-                    1,
-                  ),
-                  helpSupportInput(
-                    2,
-                    'Email ',
-                    'Email ',
-                    'Email is Required.',
-                    '',
-                    TextInputType.emailAddress,
-                    1,
-                  ),
-                  helpSupportInput(
-                    3,
-                    'Drop Your Query ',
-                    'Drop Your Query',
-                    'Just drop your query...',
-                    '',
-                    TextInputType.text,
-                    6,
-                  ),
-                  MyButton(
-                      titleX: 'SUBMIT',
-                      onPressedFunction: onPressedFunction,
-                      widthx: SizeConfig.blockSizeHorizontal * 90,
-                      heightX: SizeConfig.blockSizeVertical * 6.5,
-                      colorx: ColorCodeGen.colorFromHex('#E53E8E'),
-                      radiusX: 2.0),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
           ),
         ),
@@ -184,11 +204,11 @@ class _ContactUsState extends State<ContactUs> {
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: ColorCodeGen.colorFromHex('#E53E8E')),
+            borderSide: BorderSide(color: ColorCodeGen.colorFromHex('#000000')),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: ColorCodeGen.colorFromHex('#E53E8E')),
+            borderSide: BorderSide(color: ColorCodeGen.colorFromHex('#000000')),
           ),
           // border: new OutlineInputBorder(
           //     borderSide: new BorderSide(color: Colors.teal)),

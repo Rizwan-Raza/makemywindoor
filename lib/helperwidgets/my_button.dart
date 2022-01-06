@@ -1,13 +1,10 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyButton extends StatelessWidget {
+class MyButtonHelperWidget extends StatelessWidget {
   final titleX, widthx, heightX, colorx, radiusX;
   final Function onPressedFunction;
-
-  MyButton(
+  MyButtonHelperWidget(
       {this.titleX,
       required this.onPressedFunction,
       this.widthx,
@@ -18,12 +15,17 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            minimumSize: Size(widthx, heightX),
-            primary: colorx,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radiusX)),
-            onSurface: colorx),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radiusX),
+            ),
+          ),
+          minimumSize: MaterialStateProperty.all(Size(widthx, heightX)),
+          backgroundColor: MaterialStateProperty.all(Colors.transparent),
+          // elevation: MaterialStateProperty.all(3),
+          shadowColor: MaterialStateProperty.all(Colors.transparent),
+        ),
         onPressed: () {
           onPressedFunction();
         },
