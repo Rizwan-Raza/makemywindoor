@@ -5,6 +5,7 @@ import 'package:makemywindoor/screens/create_project.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'myaccount/my_account.dart';
 
@@ -17,6 +18,12 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   // Selected Page Index
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int _selectedIndex = 2;
 
   // Bottom Pages

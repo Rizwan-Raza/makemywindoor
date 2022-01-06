@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   elevation: 2.0,
                   color: numberError ? Colors.red.shade50 : null,
                   shadowColor: numberError ? Colors.red : null,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                   child: Container(
                     height: 48,
                     color: Colors.transparent,
@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           elevation: 0,
                           color: numberError ? Colors.red.shade50 : null,
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(30)),
+                              const BorderRadius.all(Radius.circular(5)),
                           child: Icon(
                             LineIcons.phone,
                             color: numberError ? Colors.red : null,
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.amber,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
+                    borderRadius: BorderRadius.circular(5.0)),
                 minimumSize: const Size(200, 48),
               ),
               child: const Text(

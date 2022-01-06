@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/helperwidgets/my_button.dart';
 import 'package:makemywindoor/model/project_details.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:makemywindoor/utils/size_config.dart';
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({Key? key}) : super(key: key);
@@ -96,7 +99,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         appbarTitle: MyConstants.appbarTitle[0],
       ),
       body: Stepper(
+        // margin: EdgeInsets.zero,
         type: StepperType.horizontal,
+
         currentStep: _activeStepIndex,
         steps: stepList(),
         onStepContinue: () {
@@ -135,10 +140,35 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   ),
                 ),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: details.onStepContinue,
-                  child:
-                      (isLastStep) ? const Text('Submit') : const Text('Next'),
+                child: Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 4),
+                            blurRadius: 5.0)
+                      ],
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          Colors.amber[700]!,
+                          Colors.amber[700]!,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: MyButtonHelperWidget(
+                        titleX: isLastStep ? 'Submit' : 'Next',
+                        onPressedFunction: details.onStepContinue!,
+                        widthx: SizeConfig.blockSizeHorizontal * 100,
+                        heightX: SizeConfig.blockSizeVertical * 6.5,
+                        colorx: Colors.transparent,
+                        radiusX: 5.0),
+                  ),
                 ),
               ),
             ],
@@ -154,7 +184,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
       children: [
         Material(
           elevation: 2.0,
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           child: Container(
             height: lines != 1 ? 100 : 48,
             color: Colors.transparent,

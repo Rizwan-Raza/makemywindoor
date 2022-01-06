@@ -169,7 +169,7 @@ class _MyAccountState extends State<MyAccount> {
             //   ),
             // ),
             SizedBox(
-              height: SizeConfig.blockSizeVertical * 2,
+              height: SizeConfig.blockSizeVertical * 0,
             ),
             for (int i = 0; i < MyConstants.myAccountIconLeft.length; i++)
               i == 0
@@ -202,6 +202,9 @@ class _MyAccountState extends State<MyAccount> {
                         ),
                       ),
                     ),
+            SizedBox(
+              height: SizeConfig.blockSizeVertical * 1,
+            ),
           ],
         ),
       ),

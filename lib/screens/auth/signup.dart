@@ -131,7 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.amber,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
+                        borderRadius: BorderRadius.circular(5.0)),
                     minimumSize: const Size(200, 48),
                   ),
                   child: const Text(
@@ -226,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           Material(
             elevation: 2.0,
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
             child: Container(
               height: 48,
               color: Colors.transparent,

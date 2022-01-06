@@ -165,7 +165,7 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.amber,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
+                      borderRadius: BorderRadius.circular(5.0)),
                   minimumSize: const Size(200, 48),
                 ),
                 child: const Text(
