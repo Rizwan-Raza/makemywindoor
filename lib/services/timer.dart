@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 class TimerService with ChangeNotifier {
   int time = 3 * 60;
+  late Timer t;
   TimerService();
 
   void startTimer() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    t = Timer.periodic(const Duration(seconds: 1), (timer) {
       time--;
       if (time == 0) {
         //
@@ -17,6 +18,10 @@ class TimerService with ChangeNotifier {
       notifyListeners();
     });
     // notifyListeners();
+  }
+
+  clearTimer() {
+    t.cancel();
   }
 
   void setTimer(int t) {

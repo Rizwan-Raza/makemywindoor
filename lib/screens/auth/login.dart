@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
               getClipPath(WaveClipper3(), Colors.amber[100], Column()),
               getClipPath(
                 WaveClipper1(),
-                Colors.amber,
+                Theme.of(context).colorScheme.primary,
                 Center(
                   child: SizedBox(
                     width: SizeConfig.blockSizeHorizontal * 80,
@@ -207,33 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 32),
-          //   child: Material(
-          //     elevation: 2.0,
-          //     borderRadius: const BorderRadius.all(Radius.circular(30)),
-          //     child: TextField(
-          //       onChanged: (String value) {},
-          //       cursorColor: Colors.deepOrange,
-          //       decoration: const InputDecoration(
-          //           hintText: "Password",
-          //           prefixIcon: Material(
-          //             elevation: 0,
-          //             borderRadius: BorderRadius.all(Radius.circular(30)),
-          //             child: Icon(
-          //               Icons.lock,
-          //               color: Colors.red,
-          //             ),
-          //           ),
-          //           border: InputBorder.none,
-          //           contentPadding:
-          //               EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-          //     ),
-          //   ),
-          // ),
+
           const SizedBox(
             height: 25,
           ),
@@ -241,14 +215,13 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.amber,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 minimumSize: const Size(200, 48),
               ),
               child: const Text(
                 "VERIFY",
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {

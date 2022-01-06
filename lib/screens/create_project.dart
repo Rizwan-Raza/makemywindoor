@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/helperwidgets/my_button.dart';
+import 'package:makemywindoor/helperwidgets/my_textfield.dart';
 import 'package:makemywindoor/model/project_details.dart';
 import 'package:makemywindoor/model/project_dimens.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
@@ -32,23 +33,29 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             key: _detailForm,
             child: Column(
               children: [
-                getField("Project Name", LineIcons.book, validate: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter project name';
-                  }
-                }),
+                MyTextFormField(
+                    label: "Project Name",
+                    icon: LineIcons.book,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter project name';
+                      }
+                    }),
                 const SizedBox(
                   height: 16,
                 ),
-                getField("Customer Name", LineIcons.addressCard),
+                const MyTextFormField(
+                    label: "Customer Name", icon: LineIcons.addressCard),
                 const SizedBox(
                   height: 16,
                 ),
-                getField("Customer Phone", LineIcons.phone),
+                const MyTextFormField(
+                    label: "Customer Phone", icon: LineIcons.phone),
                 const SizedBox(
                   height: 16,
                 ),
-                getField("Others", LineIcons.tags, lines: 4),
+                const MyTextFormField(
+                    label: "Others", icon: LineIcons.tags, lines: 4),
               ],
             ),
           ),
@@ -68,7 +75,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                       Material(
                         elevation: 2.0,
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
+                            const BorderRadius.all(Radius.circular(5)),
                         child: Container(
                           height: 48,
                           color: Colors.transparent,
@@ -157,15 +164,18 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  getField("Height", LineIcons.rulerVertical),
+                  const MyTextFormField(
+                      label: "Height", icon: LineIcons.rulerVertical),
                   const SizedBox(
                     height: 16,
                   ),
-                  getField("Width", LineIcons.rulerHorizontal),
+                  const MyTextFormField(
+                      label: "Width", icon: LineIcons.rulerHorizontal),
                   const SizedBox(
                     height: 16,
                   ),
-                  getField("Remarks", LineIcons.pencilRuler),
+                  const MyTextFormField(
+                      label: "Remarks", icon: LineIcons.pencilRuler),
                   const SizedBox(
                     height: 16,
                   ),
@@ -230,42 +240,26 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   child: TextButton(
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                     ),
                     onPressed: details.onStepCancel,
-                    child: const Text('Back'),
+                    child: const Text(
+                      'Back',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 4),
-                            blurRadius: 5.0)
-                      ],
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0.0, 1.0],
-                        colors: [
-                          Colors.amber[700]!,
-                          Colors.amber[700]!,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: MyButtonHelperWidget(
-                        titleX: isLastStep ? 'Submit' : 'Next',
-                        onPressedFunction: details.onStepContinue!,
-                        widthx: SizeConfig.blockSizeHorizontal * 100,
-                        heightX: SizeConfig.blockSizeVertical * 6.5,
-                        colorx: Colors.transparent,
-                        radiusX: 5.0),
+                  child: MyButtonHelperWidget(
+                    titleX: isLastStep ? 'Submit' : 'Next',
+                    onPressedFunction: details.onStepContinue!,
+                    // widthx: SizeConfig.blockSizeHorizontal * 100,
+                    // heightX: SizeConfig.blockSizeVertical * 5,
+                    // colorx: Colors.transparent,
+                    // radiusX: 5.0
                   ),
                 ),
               ),
@@ -273,51 +267,6 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget getField(String hText, IconData icon,
-      {String? Function(String?)? validate, onSaved, int lines = 1}) {
-    return Stack(
-      children: [
-        Material(
-          elevation: 2.0,
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-          child: Container(
-            height: lines != 1 ? 100 : 48,
-            color: Colors.transparent,
-          ),
-        ),
-        TextFormField(
-          cursorColor: Colors.amber[700],
-          maxLines: lines,
-          validator: (value) {
-            if (validate != null) {
-              return validate(value);
-            }
-            return null;
-          },
-          onSaved: onSaved,
-          decoration: InputDecoration(
-              hintText: hText,
-              fillColor: Colors.transparent,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  widthFactor: 1.0,
-                  heightFactor: lines * 1.0,
-                  child: Icon(
-                    icon,
-                    // color: Colors.amber,
-                  ),
-                ),
-              ),
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-        ),
-      ],
     );
   }
 }

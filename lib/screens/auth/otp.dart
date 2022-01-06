@@ -37,6 +37,7 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
   final OTPService otps = OTPService();
   late String otp;
+  late TimerService timerService;
 
   @override
   void initState() {
@@ -50,9 +51,9 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
     int max = 9999;
     otp = (min + random.nextInt(max - min)).toString();
     otps.sendOTP(widget.number, otp);
-
-    context.read<TimerService>().setTimer(3 * 60);
-    context.read<TimerService>().startTimer();
+    timerService = context.read<TimerService>();
+    timerService.setTimer(3 * 60);
+    timerService.startTimer();
   }
 
   @override
@@ -112,7 +113,7 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                   style: TextStyle(
                     fontSize: 18.0,
                     fontFamily: GoogleFonts.robotoMono().fontFamily,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 )
               ]),
@@ -136,6 +137,7 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                 onPressed: otpFilled
                     ? () {
                         if (otp == filledOTP) {
+                          timerService.clearTimer();
                           Provider.of<UserServices>(context, listen: false)
                               .saveState();
                           Navigator.pushAndRemoveUntil(
@@ -163,14 +165,13 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.amber,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                   minimumSize: const Size(200, 48),
                 ),
                 child: const Text(
                   "CONFIRM",
-                  style: TextStyle(fontSize: 18.0, color: Colors.black),
+                  style: TextStyle(fontSize: 18.0),
                 ),
               )
             ],

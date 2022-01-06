@@ -49,7 +49,11 @@ class _AppState extends State<App> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: Colors.amber,
+              bottomAppBarColor: const Color(0xFFFCB21F),
+              colorScheme: const ColorScheme.light(
+                  onBackground: Color(0xFFFCB21F),
+                  primary: Color(0xFFFCB21F),
+                  onPrimary: Colors.black),
               fontFamily: GoogleFonts.inter().fontFamily,
               // primaryColor: Colors.black,
               appBarTheme: const AppBarTheme(

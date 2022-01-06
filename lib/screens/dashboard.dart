@@ -5,7 +5,6 @@ import 'package:makemywindoor/screens/create_project.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'myaccount/my_account.dart';
 
@@ -94,7 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
-        color: Colors.amber,
+        // color: Colors.amber,
         shape: const CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
