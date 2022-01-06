@@ -3,43 +3,43 @@ import 'package:makemywindoor/model/project_dimens.dart';
 
 class Project {
   ProjectDetails projectDetails;
-  ProjectDimesnion projectDimesnion;
+  List<ProjectDimensions> projectDimensions;
   int estimatedCharge;
   int totalCharge;
 
-  factory Project.empty() => Project(
-        projectDetails: ProjectDetails.empty(),
-        projectDimesnion: ProjectDimesnion.empty(),
-        estimatedCharge: 0,
-        totalCharge: 0,
-      );
-
   Project(
       {required this.projectDetails,
-      required this.projectDimesnion,
+      required this.projectDimensions,
       required this.estimatedCharge,
       required this.totalCharge});
 
-  factory Project.fromJson(Map<String, dynamic> json) {
+  factory Project.empty() {
     return Project(
-      projectDetails: ProjectDetails.fromJson(json['projectDetails']),
-      projectDimesnion: ProjectDimesnion.fromJson(json['projectDimesnion']),
-      estimatedCharge: json['estimatedCharge'],
-      totalCharge: json['totalCharge'],
-    );
+        projectDetails: ProjectDetails.empty(),
+        projectDimensions: [],
+        estimatedCharge: 0,
+        totalCharge: 0);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'projectDetails': projectDetails.toJson(),
-      'projectDimesnion': projectDimesnion.toJson(),
+      'ProjectDimensionss': projectDimensions,
       'estimatedCharge': estimatedCharge,
-      'totalCharge': totalCharge,
+      'totalCharge': totalCharge
     };
+  }
+
+  factory Project.fromJson(Map<String, dynamic> json) {
+    return Project(
+        projectDetails: ProjectDetails.fromJson(json['projectDetails']),
+        projectDimensions: json['projectDimensions'],
+        estimatedCharge: json['estimatedCharge'],
+        totalCharge: json['totalCharge']);
   }
 
   @override
   String toString() {
-    return 'Project{projectDetails: $projectDetails, projectDimesnion: $projectDimesnion, estimatedCharge: $estimatedCharge, totalCharge: $totalCharge}';
+    return 'Project{projectDetails: $projectDetails, projectDimensions: $projectDimensions, estimatedCharge: $estimatedCharge, totalCharge: $totalCharge}';
   }
 }

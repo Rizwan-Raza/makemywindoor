@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/model/project_details.dart';
+import 'package:makemywindoor/model/project_dimens.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:makemywindoor/utils/size_config.dart';
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({Key? key}) : super(key: key);
@@ -13,7 +15,8 @@ class CreateProjectScreen extends StatefulWidget {
 
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
   int _activeStepIndex = 0;
-  ProjectDetails pd = ProjectDetails.empty();
+  ProjectDetails pdts = ProjectDetails.empty();
+  ProjectDimensions pdim = ProjectDimensions.empty();
 
   final GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
   final GlobalKey<FormState> _dimensForm = GlobalKey<FormState>();
@@ -44,9 +47,6 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   height: 16,
                 ),
                 getField("Others", LineIcons.tags, lines: 4),
-                const SizedBox(
-                  height: 16,
-                ),
               ],
             ),
           ),
@@ -59,8 +59,99 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             content: Form(
               key: _dimensForm,
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  getField("Type", LineIcons.hardHat),
+                  Stack(
+                    children: [
+                      Material(
+                        elevation: 2.0,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        child: Container(
+                          height: 48,
+                          color: Colors.transparent,
+                        ),
+                      ),
+                      // TextFormField(
+                      //   cursorColor: Colors.amber[700],
+                      //   decoration: InputDecoration(
+                      //       hintText: hText,
+                      //       fillColor: Colors.transparent,
+                      //       prefixIcon: Padding(
+                      //         padding: const EdgeInsets.all(12.0),
+                      //         child: Align(
+                      //           alignment: Alignment.topCenter,
+                      //           widthFactor: 1.0,
+                      //           heightFactor: lines * 1.0,
+                      //           child: Icon(
+                      //             icon,
+                      //             // color: Colors.amber,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       border: InputBorder.none,
+                      //       contentPadding: const EdgeInsets.symmetric(
+                      //           horizontal: 25, vertical: 13)),
+                      // ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: Row(
+                          // mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(12, 12, 8, 12),
+                              child: Icon(LineIcons.hardHat,
+                                  size: 24, color: Colors.black54),
+                            ),
+                            SizedBox(
+                              // color: Colors.red,
+                              width: SizeConfig.blockSizeHorizontal * 73,
+                              child: DropdownButton<String>(
+                                value: pdim.type,
+                                icon: Expanded(
+                                  child: Row(
+                                    children: const [
+                                      Expanded(child: SizedBox()),
+                                      Icon(LineIcons.angleDown),
+                                    ],
+                                  ),
+                                ),
+                                itemHeight: 48,
+                                underline: Container(
+                                  height: 0,
+                                ),
+                                items: <String>[
+                                  'Type',
+                                  'Custom',
+                                  'Door',
+                                  'Window'
+                                ].map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    enabled: value != 'Type',
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          color: value == "Type"
+                                              ? Colors.black54
+                                              : Colors.black),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (type) {
+                                  setState(() {
+                                    pdim.type = type!;
+                                  });
+                                },
+                                hint: const Text("Type"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -73,6 +164,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: 16,
                   ),
                   getField("Remarks", LineIcons.pencilRuler),
+                  const SizedBox(
+                    height: 16,
+                  ),
                 ],
               ),
             )),
@@ -93,7 +187,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[0],
+        appbarTitle: MyConstants.appbarTitle[1],
       ),
       body: Stepper(
         type: StepperType.horizontal,
@@ -130,12 +224,21 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
               if (_activeStepIndex > 0)
                 Expanded(
                   child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
                     onPressed: details.onStepCancel,
                     child: const Text('Back'),
                   ),
                 ),
               Expanded(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                  ),
                   onPressed: details.onStepContinue,
                   child:
                       (isLastStep) ? const Text('Submit') : const Text('Next'),

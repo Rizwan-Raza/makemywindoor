@@ -260,11 +260,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   number: number,
                                 )));
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          'Seems like you are not registered, please register'),
-                      duration: Duration(seconds: 3),
-                    ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignupScreen(
+                                  number: number,
+                                )));
                   }
                 }
               },
