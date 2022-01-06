@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/screens/create_project.dart';
+import 'package:makemywindoor/screens/home.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
@@ -27,24 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Bottom Pages
   List<Widget> pages = [
-    Scaffold(
-      appBar: AppBar(
-        title: Center(
-            child: SizedBox(
-                height: 200,
-                child: Image.asset(
-                  "assets/imgs/logo.png",
-                  gaplessPlayback: true,
-                ))),
-      ),
-      body: Container(
-        color: Colors.red,
-        child: const Center(
-          child: Text('Dashboard'),
-        ),
-        key: const PageStorageKey("Page1"),
-      ),
-    ),
+    Home(),
     Scaffold(
       appBar: MyAppBar(
         appbarTitle: MyConstants.appbarTitle[0],
