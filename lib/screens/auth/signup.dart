@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:makemywindoor/helperwidgets/my_button.dart';
 import 'package:makemywindoor/helperwidgets/my_textfield.dart';
 import 'package:makemywindoor/model/user.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
@@ -141,17 +142,8 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.amber,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                minimumSize: const Size(200, 48),
-              ),
-              child: const Text(
-                "CREATE",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
+            child: MyButton(
+              title: "CREATE",
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();

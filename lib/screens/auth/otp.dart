@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:makemywindoor/helperwidgets/my_button.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/services/otp_service.dart';
 import 'package:makemywindoor/services/timer.dart';
@@ -133,7 +134,7 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                     : null,
               ),
               const SizedBox(height: 30.0),
-              ElevatedButton(
+              MyButton(
                 onPressed: otpFilled
                     ? () {
                         if (otp == filledOTP) {
@@ -164,15 +165,7 @@ class _OTPScreenState extends State<OTPScreen> with TickerProviderStateMixin {
                         }
                       }
                     : null,
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  minimumSize: const Size(200, 48),
-                ),
-                child: const Text(
-                  "CONFIRM",
-                  style: TextStyle(fontSize: 18.0),
-                ),
+                title: "CONFIRM",
               )
             ],
           ),

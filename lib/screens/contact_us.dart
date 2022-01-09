@@ -1,19 +1,17 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperWidgets/my_button.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:mailer2/mailer.dart';
+import 'package:makemywindoor/helperwidgets/my_button.dart';
+import 'package:makemywindoor/helperwidgets/my_textfield.dart';
 import 'package:makemywindoor/model/contacts_us.dart';
-
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
-
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:mailer2/mailer.dart';
-
-import 'package:provider/provider.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -50,15 +48,20 @@ class _ContactUsState extends State<ContactUs> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                helpSupportInput(
-                  0,
-                  'Name ',
-                  'Name',
-                  'Name is Required.',
-                  '',
-                  TextInputType.name,
-                  1,
+                const MyTextFormField(
+                  label: "Name",
+                  icon: LineIcons.user,
                 ),
+                const SizedBox(height: 30.0),
+                // helpSupportInput(
+                //   0,
+                //   'Name ',
+                //   'Name',
+                //   'Name is Required.',
+                //   '',
+                //   TextInputType.name,
+                //   1,
+                // ),
                 helpSupportInput(
                   1,
                   'Mobile Number ',
@@ -107,13 +110,14 @@ class _ContactUsState extends State<ContactUs> {
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: MyButtonHelperWidget(
-                        titleX: 'Send',
-                        onPressedFunction: onPressedFunction,
-                        widthx: SizeConfig.blockSizeHorizontal * 100,
-                        heightX: SizeConfig.blockSizeVertical * 6.5,
-                        colorx: Colors.transparent,
-                        radiusX: 5.0),
+                    child: MyButton(
+                      title: 'Send',
+                      onPressed: onPressedFunction,
+                      // widthx: SizeConfig.blockSizeHorizontal * 100,
+                      // heightX: SizeConfig.blockSizeVertical * 6.5,
+                      // colorx: Colors.transparent,
+                      // radiusX: 5.0,
+                    ),
                   ),
                 ),
                 const SizedBox(

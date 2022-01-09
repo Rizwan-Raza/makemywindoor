@@ -7,6 +7,7 @@ class MyTextFormField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final int lines;
   final String? defaultValue;
+  final TextInputType? keyboardType;
   const MyTextFormField(
       {Key? key,
       required this.label,
@@ -14,7 +15,8 @@ class MyTextFormField extends StatelessWidget {
       this.validator,
       this.onSaved,
       this.lines = 1,
-      this.defaultValue})
+      this.defaultValue,
+      this.keyboardType})
       : super(key: key);
 
   @override
@@ -40,6 +42,7 @@ class MyTextFormField extends StatelessWidget {
             return null;
           },
           onSaved: onSaved,
+          keyboardType: keyboardType,
           decoration: InputDecoration(
               hintText: label,
               fillColor: Colors.transparent,

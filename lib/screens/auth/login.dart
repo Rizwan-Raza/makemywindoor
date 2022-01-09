@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
+import 'package:makemywindoor/helperwidgets/my_button.dart';
 import 'package:makemywindoor/model/user.dart';
 import 'package:makemywindoor/screens/auth/otp.dart';
 import 'package:makemywindoor/screens/auth/signup.dart';
@@ -213,16 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                minimumSize: const Size(200, 48),
-              ),
-              child: const Text(
-                "VERIFY",
-                style: TextStyle(fontSize: 18),
-              ),
+            child: MyButton(
+              title: "VERIFY",
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   if (validNumber) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
-import 'package:makemywindoor/screens/create_project.dart';
+import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/home.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
@@ -28,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Bottom Pages
   List<Widget> pages = [
-    Home(),
+    const Home(key: PageStorageKey("Page1")),
     Scaffold(
       appBar: MyAppBar(
         appbarTitle: MyConstants.appbarTitle[0],
@@ -51,6 +51,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: _selectedIndex,
         children: pages.map((Widget p) {
@@ -75,72 +77,76 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         elevation: 2.0,
       ),
-      bottomNavigationBar: BottomAppBar(
-        //bottom navigation bar on scaffold
-        // color: Colors.amber,
-        shape: const CircularNotchedRectangle(), //shape of notch
-        notchMargin:
-            5, //notche margin between floating button and bottom appbar
-        child: Row(
-          //children inside bottom appbar
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(
-                LineIcons.home,
-                color: Colors.black,
+      bottomNavigationBar: Container(
+        color: Colors.transparent,
+        child: BottomAppBar(
+          //bottom navigation bar on scaffold
+          // color: Colors.transparent,
+          //shape of notch
+          shape: const CircularNotchedRectangle(),
+          //notche margin between floating button and bottom appbar
+          // notchMargin: 5,
+          child: Row(
+            //children inside bottom appbar
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  LineIcons.home,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 0;
-                });
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                LineIcons.briefcase,
-                color: Colors.black,
+              IconButton(
+                icon: const Icon(
+                  LineIcons.briefcase,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 1;
-                });
-              },
-            ),
-            SizedBox(
-              width: SizeConfig.blockSizeHorizontal * 16,
-            ),
-            // IconButton(
-            //   icon: const Icon(
-            //     LineIcons.dotCircle,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {},
-            // ),
-            IconButton(
-              icon: const Icon(
-                LineIcons.shoppingCart,
-                color: Colors.black,
+              SizedBox(
+                width: SizeConfig.blockSizeHorizontal * 16,
               ),
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 3;
-                });
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                LineIcons.user,
-                color: Colors.black,
+              // IconButton(
+              //   icon: const Icon(
+              //     LineIcons.dotCircle,
+              //     color: Colors.white,
+              //   ),
+              //   onPressed: () {},
+              // ),
+              IconButton(
+                icon: const Icon(
+                  LineIcons.shoppingCart,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 4;
-                });
-              },
-            ),
-          ],
+              IconButton(
+                icon: const Icon(
+                  LineIcons.user,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 4;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
       // bottomNavigationBar: BottomAppBar(

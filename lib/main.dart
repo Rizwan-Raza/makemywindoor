@@ -49,13 +49,28 @@ class _AppState extends State<App> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              // primarySwatch: const MaterialColor(
+              //   0xFFFCB21F,
+              //   <int, Color>{
+              //     50: Color(0xFFFCB21F),
+              //     100: Color(0xFFFCB21F),
+              //     200: Color(0xFFFCB21F),
+              //     300: Color(0xFFFCB21F),
+              //     400: Color(0xFFFCB21F),
+              //     500: Color(0xFFFCB21F),
+              //     600: Color(0xFFFCB21F),
+              //     700: Color(0xFFFCB21F),
+              //     800: Color(0xFFFCB21F),
+              //     900: Color(0xFFFCB21F),
+              //   },
+              // ),
               bottomAppBarColor: const Color(0xFFFCB21F),
               colorScheme: const ColorScheme.light(
                   onBackground: Color(0xFFFCB21F),
                   primary: Color(0xFFFCB21F),
                   onPrimary: Colors.black),
               fontFamily: GoogleFonts.inter().fontFamily,
-              // primaryColor: Colors.black,
+              primaryColor: Colors.black,
               appBarTheme: const AppBarTheme(
                   systemOverlayStyle: SystemUiOverlayStyle.dark),
               iconTheme: const IconThemeData(color: Colors.white),

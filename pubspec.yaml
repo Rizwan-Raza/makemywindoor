@@ -46,6 +46,7 @@ dependencies:
   mailer2: any
   firebase_core: ^1.10.6
   cloud_firestore: ^3.1.5
+  expandable: ^5.0.1
 
 
 dev_dependencies:
