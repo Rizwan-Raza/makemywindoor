@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: SizeConfig.blockSizeHorizontal * 80,
                     height: SizeConfig.blockSizeVertical * 80,
-                    child:
-                        Lottie.asset("assets/imgs/login.json", reverse: true),
+                    child: Lottie.asset("assets/imgs/lotties/login.json",
+                        reverse: true),
                   ),
                 ),
               ),

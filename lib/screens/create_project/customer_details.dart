@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_textfield.dart';
+import 'package:makemywindoor/model/project_details.dart';
 
 class CustomerDetails extends StatelessWidget {
   final GlobalKey<FormState> detailForm;
-  const CustomerDetails({Key? key, required this.detailForm}) : super(key: key);
+  final ProjectDetails projectDetails;
+  const CustomerDetails(
+      {Key? key, required this.detailForm, required this.projectDetails})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +23,48 @@ class CustomerDetails extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'Please enter project name';
                 }
+              },
+              onSaved: (value) {
+                projectDetails.projectName = value!;
               }),
           const SizedBox(
             height: 16,
           ),
-          const MyTextFormField(
-              label: "Customer Name", icon: LineIcons.addressCard),
+          MyTextFormField(
+              label: "Customer Name",
+              icon: LineIcons.addressCard,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter customer name';
+                }
+              },
+              onSaved: (value) {
+                projectDetails.customerName = value!;
+              }),
           const SizedBox(
             height: 16,
           ),
-          const MyTextFormField(label: "Customer Phone", icon: LineIcons.phone),
+          MyTextFormField(
+              label: "Customer Phone",
+              icon: LineIcons.phone,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter customer phone';
+                }
+              },
+              onSaved: (value) {
+                projectDetails.customerNumber = value!;
+              }),
           const SizedBox(
             height: 16,
           ),
-          const MyTextFormField(
-              label: "Others", icon: LineIcons.tags, lines: 4),
+          MyTextFormField(
+              label: "Others",
+              icon: LineIcons.tags,
+              lines: 4,
+              onSaved: (value) {
+                projectDetails.others = value!;
+              }),
         ],
       ),
     );

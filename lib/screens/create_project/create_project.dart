@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/helperwidgets/my_button.dart';
-import 'package:makemywindoor/model/project_details.dart';
+import 'package:makemywindoor/model/project.dart';
+import 'package:makemywindoor/model/project_dimens.dart';
 import 'package:makemywindoor/screens/create_project/customer_details.dart';
-import 'package:makemywindoor/screens/create_project/dimens.dart';
+import 'package:makemywindoor/screens/create_project/dimensions.dart';
+import 'package:makemywindoor/screens/create_project/invoice.dart';
+import 'package:makemywindoor/services/project_service.dart';
+import 'package:makemywindoor/services/user_service.dart';
+import 'package:makemywindoor/utils/invoice_pdf.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:provider/provider.dart';
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({Key? key}) : super(key: key);
@@ -15,7 +21,7 @@ class CreateProjectScreen extends StatefulWidget {
 
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
   int _activeStepIndex = 0;
-  ProjectDetails pdts = ProjectDetails.empty();
+  Project project = Project.empty();
 
   final GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
   final GlobalKey<FormState> _dimensForm = GlobalKey<FormState>();
@@ -25,32 +31,27 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             state:
                 _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
             isActive: _activeStepIndex >= 0,
-            title: const Text('Project Details'),
+            title: const Text('Details'),
             content: CustomerDetails(
               detailForm: _detailForm,
+              projectDetails: project.projectDetails,
             )),
         Step(
             state:
                 _activeStepIndex <= 1 ? StepState.editing : StepState.complete,
             isActive: _activeStepIndex >= 1,
             title: const Text('Dimensions'),
-            // content: DimensionsScreen(
-            //   dimensForm: _dimensForm,
-            // )),
-            content: DimensScreen(
+            content: DimensionScreen(
               dimensForm: _dimensForm,
+              projectDimensions: project.projectDimensions,
             )),
         Step(
             state: StepState.complete,
             isActive: _activeStepIndex >= 2,
             title: const Text('Share'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text('Password: *****'),
-              ],
-            ))
+            content: InvoiceScreen(
+              project: project,
+            )),
       ];
 
   @override
@@ -66,27 +67,68 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         currentStep: _activeStepIndex,
         steps: stepList(),
         onStepContinue: () {
-          if (_activeStepIndex < (stepList().length - 1)) {
-            setState(() {
-              _activeStepIndex += 1;
-            });
+          if (_activeStepIndex < 2) {
+            if (validate()) {
+              setState(() {
+                _activeStepIndex = _activeStepIndex + 1;
+              });
+            }
           } else {
-            // print('Submited');
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                      title: const Text('Creating'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text('Creating Project, please wait'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(child: CircularProgressIndicator()),
+                        ],
+                      ));
+                });
+
+            Provider.of<ProjectServices>(context, listen: false)
+                .createProject(
+              project,
+            )
+                .then((value) {
+              _detailForm.currentState!.reset();
+              _dimensForm.currentState!.reset();
+              // lessgo!
+              InvoicePDF.createPDF(context, project, true).then((value) {
+                setState(() {
+                  _activeStepIndex = 0;
+                });
+              });
+            });
           }
         },
         onStepCancel: () {
           if (_activeStepIndex == 0) {
             return;
           }
-
+          // if (_activeStepIndex < (stepList().length - 1)) {
+          // validate();
           setState(() {
             _activeStepIndex -= 1;
           });
+          // }
         },
         onStepTapped: (int index) {
-          setState(() {
-            _activeStepIndex = index;
-          });
+          if (index < _activeStepIndex) {
+            setState(() {
+              _activeStepIndex -= 1;
+            });
+          }
+          if (validate()) {
+            setState(() {
+              _activeStepIndex = index;
+            });
+          }
         },
         controlsBuilder: (context, details) {
           final isLastStep = _activeStepIndex == stepList().length - 1;
@@ -112,12 +154,8 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: MyButton(
-                    title: isLastStep ? 'Submit' : 'Next',
+                    title: isLastStep ? 'Share' : 'Next',
                     onPressed: details.onStepContinue!,
-                    // widthx: SizeConfig.blockSizeHorizontal * 100,
-                    // heightX: SizeConfig.blockSizeVertical * 5,
-                    // colorx: Colors.transparent,
-                    // radiusX: 5.0,
                     min: true,
                   ),
                 ),
@@ -127,5 +165,36 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         },
       ),
     );
+  }
+
+  bool validate() {
+    switch (_activeStepIndex) {
+      case 0:
+        if (_detailForm.currentState!.validate()) {
+          _detailForm.currentState!.save();
+          return true;
+        }
+        break;
+      case 1:
+        if (_dimensForm.currentState!.validate()) {
+          _dimensForm.currentState!.save();
+          project.totalCost = (project.projectDimensions
+              .map((ProjectDimensions e) => e.height * e.width * e.rate)
+              .reduce((a, b) => a + b));
+          project.totalCharge =
+              project.totalCost + (project.totalCost * 18 / 100);
+          project.createdBy = Provider.of<UserServices>(context, listen: false)
+              .currentUser!
+              .phone;
+          project.projectID = DateTime.now().millisecondsSinceEpoch.toString();
+          return true;
+        }
+        if (project.projectDimensions.length > 2) {
+          setState(() {});
+        }
+        break;
+    }
+    // return true;
+    return false;
   }
 }

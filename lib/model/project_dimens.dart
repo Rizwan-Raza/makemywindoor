@@ -1,38 +1,55 @@
 class ProjectDimensions {
+  String dimensionID;
   int height;
   int width;
+  int esft;
+  int rate;
   String? remarks;
   String type;
 
-  factory ProjectDimensions.empty() =>
-      ProjectDimensions(height: 0, width: 0, remarks: null, type: 'Type');
+  factory ProjectDimensions.empty() => ProjectDimensions(
+        dimensionID: '',
+        height: 0,
+        width: 0,
+        esft: 0,
+        rate: 0,
+        remarks: '',
+        type: '',
+      );
 
-  ProjectDimensions(
-      {required this.height,
-      required this.width,
-      this.remarks,
-      required this.type});
+  ProjectDimensions({
+    required this.dimensionID,
+    required this.height,
+    required this.width,
+    required this.esft,
+    required this.rate,
+    this.remarks,
+    required this.type,
+  });
 
-  factory ProjectDimensions.fromJson(Map<String, dynamic> json) {
-    return ProjectDimensions(
-      height: json['height'] as int,
-      width: json['width'] as int,
-      remarks: json['remarks'] as String,
-      type: json['type'] as String,
-    );
-  }
+  factory ProjectDimensions.fromMap(Map<String, dynamic> json) =>
+      ProjectDimensions(
+        dimensionID: json["dimensionID"],
+        height: json["height"],
+        width: json["width"],
+        esft: json["esft"],
+        rate: json["rate"],
+        remarks: json["remarks"],
+        type: json["type"],
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'height': height,
-      'width': width,
-      'remarks': remarks,
-      'type': type,
-    };
-  }
+  Map<String, dynamic> toMap() => {
+        "dimensionID": dimensionID,
+        "height": height,
+        "width": width,
+        "esft": esft,
+        "rate": rate,
+        "remarks": remarks,
+        "type": type,
+      };
 
   @override
   String toString() {
-    return 'ProjectDimensions{height: $height, width: $width, remarks: $remarks, type: $type}';
+    return 'ProjectDimensions{dimensionID: $dimensionID, height: $height, width: $width, esft: $esft, rate: $rate, remarks: $remarks, type: $type}';
   }
 }

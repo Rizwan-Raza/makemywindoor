@@ -1,19 +1,19 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/contact_us.dart';
 import 'package:makemywindoor/screens/myaccount/user_profile.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
-
 import 'package:makemywindoor/utils/size_config.dart';
-import 'package:provider/src/provider.dart';
-import 'package:share/share.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:ui' as ui;
 
 import '../about_us.dart';
 
@@ -264,6 +264,8 @@ class _MyAccountState extends State<MyAccount> {
         return openAboutUsScreen();
       case 5:
         return openContactUsScreen();
+      case 6:
+        return logout();
     }
   }
 
@@ -279,7 +281,7 @@ class _MyAccountState extends State<MyAccount> {
 
   openProfileScreen() {
     Navigator.push(
-        context, CupertinoPageRoute(builder: (context) => UserProfile()));
+        context, CupertinoPageRoute(builder: (context) => const UserProfile()));
   }
 
   onShareTap() {
@@ -316,7 +318,7 @@ class _MyAccountState extends State<MyAccount> {
                   color: Colors.white,
                   width: 100,
                   height: 80,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () async {
                       openURL(MyConstants.fbLink);
                     },
@@ -331,7 +333,7 @@ class _MyAccountState extends State<MyAccount> {
                   color: Colors.white,
                   width: 100,
                   height: 80,
-                  child: FlatButton(
+                  child: TextButton(
                       onPressed: () {
                         openURL(MyConstants.instaLink);
                       },
@@ -355,7 +357,7 @@ class _MyAccountState extends State<MyAccount> {
                   color: Colors.white,
                   width: 100,
                   height: 80,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       openURL(MyConstants.twitterLink);
                     },
@@ -384,5 +386,14 @@ class _MyAccountState extends State<MyAccount> {
         );
       },
     );
+  }
+
+  void logout() {
+    Provider.of<UserServices>(context, listen: false)
+        .logout()
+        .then((value) => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            ));
   }
 }

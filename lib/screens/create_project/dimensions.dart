@@ -4,34 +4,102 @@ import 'package:makemywindoor/helperwidgets/my_textfield.dart';
 import 'package:makemywindoor/model/project_dimens.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
-class DimensionsScreen extends StatefulWidget {
+// stores ExpansionPanel state information
+class Item {
+  Item({this.isExpanded = false, this.sfx = 1, this.type = 'Type'});
+  int sfx;
+  bool isExpanded;
+  String type;
+  TextEditingController esqt = TextEditingController();
+}
+
+class DimensionScreen extends StatefulWidget {
+  final List<ProjectDimensions> projectDimensions;
   final GlobalKey<FormState> dimensForm;
-  const DimensionsScreen({Key? key, required this.dimensForm})
+  const DimensionScreen(
+      {Key? key, required this.dimensForm, required this.projectDimensions})
       : super(key: key);
 
   @override
-  State<DimensionsScreen> createState() => _DimensionsScreenState();
+  State<DimensionScreen> createState() => _DimensionScreenState();
 }
 
-class _DimensionsScreenState extends State<DimensionsScreen> {
-  ProjectDimensions pdim = ProjectDimensions.empty();
+class _DimensionScreenState extends State<DimensionScreen> {
+  bool hasError = false;
+  late List<Item> items = [
+    Item(isExpanded: true),
+  ];
+  @override
+  void initState() {
+    super.initState();
+    widget.projectDimensions.add(ProjectDimensions.empty());
+  }
+
+  Map<String, int> types = {
+    "Type": 1,
+    "Custom": 0,
+    "Door": 0,
+    "Window": 0,
+  };
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: widget.dimensForm,
-      child: ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
-          setState(() {
-            items[index].isExpanded = !isExpanded;
-          });
-        },
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          ExpansionPanel(
-            headerBuilder: (context, isExpanded) => const ListTile(
-              title: Text("Window 1"),
-            ),
-            body: Column(
+          Form(key: widget.dimensForm, child: _buildPanel()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton.icon(
+                  onPressed: () {
+                    for (var element in items) {
+                      element.isExpanded = false;
+                    }
+                    types["Type"] = types["Type"]! + 1;
+                    items.add(Item(isExpanded: true, sfx: types["Type"]!));
+                    widget.projectDimensions.add(ProjectDimensions.empty());
+                    setState(() {});
+                  },
+                  icon: const Icon(LineIcons.plusCircle),
+                  label: const Text("Add more")),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      elevation: 0,
+      key: GlobalKey(),
+      expandedHeaderPadding: EdgeInsets.zero,
+      expansionCallback: (int index, bool isExpanded) {
+        if (!isExpanded) {
+          for (var element in items) {
+            element.isExpanded = false;
+          }
+        }
+        setState(() {
+          items[index].isExpanded = !isExpanded;
+        });
+      },
+      children: items.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          canTapOnHeader: true,
+          backgroundColor: Colors.grey[200],
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            widget.projectDimensions[items.indexOf(item)].dimensionID =
+                item.type + " " + item.sfx.toString();
+            return ListTile(
+              dense: true,
+              title: Text(item.type + " " + item.sfx.toString()),
+            );
+          },
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Stack(
@@ -57,9 +125,9 @@ class _DimensionsScreenState extends State<DimensionsScreen> {
                           ),
                           SizedBox(
                             // color: Colors.red,
-                            width: SizeConfig.blockSizeHorizontal * 73,
-                            child: DropdownButton<String>(
-                              value: pdim.type,
+                            width: SizeConfig.blockSizeHorizontal * 69,
+                            child: DropdownButtonFormField<String>(
+                              value: item.type,
                               icon: Expanded(
                                 child: Row(
                                   children: const [
@@ -69,9 +137,34 @@ class _DimensionsScreenState extends State<DimensionsScreen> {
                                 ),
                               ),
                               itemHeight: 48,
-                              underline: Container(
-                                height: 0,
+                              decoration: const InputDecoration(
+                                errorText: null,
+                                enabledBorder: InputBorder.none,
                               ),
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    value == "Type") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Please select a type"),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                  hasError = true;
+                                  for (var element in items) {
+                                    element.isExpanded = false;
+                                  }
+                                  setState(() {
+                                    item.isExpanded = true;
+                                  });
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                widget.projectDimensions[items.indexOf(item)]
+                                    .type = value!;
+                              },
                               items: <String>[
                                 'Type',
                                 'Custom',
@@ -91,9 +184,23 @@ class _DimensionsScreenState extends State<DimensionsScreen> {
                                 );
                               }).toList(),
                               onChanged: (type) {
-                                setState(() {
-                                  pdim.type = type!;
-                                });
+                                // types[item.type] =
+                                //     types[item.type]! - 1;
+                                if (item.type != type) {
+                                  for (var element in items) {
+                                    // decrement all
+                                    if (element.type == item.type &&
+                                        item.sfx < element.sfx) {
+                                      element.sfx--;
+                                    }
+                                  }
+                                  types[item.type] = types[item.type]! - 1;
+                                  setState(() {
+                                    item.type = type!;
+                                  });
+                                  types[item.type] = types[item.type]! + 1;
+                                  item.sfx = types[item.type]!;
+                                }
                               },
                               hint: const Text("Type"),
                             ),
@@ -106,56 +213,218 @@ class _DimensionsScreenState extends State<DimensionsScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                const MyTextFormField(
-                    label: "Height", icon: LineIcons.rulerVertical),
+                MyTextFormField(
+                  label: "Height (in inches)",
+                  icon: LineIcons.rulerVertical,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      for (var element in items) {
+                        element.isExpanded = false;
+                      }
+                      // setState(() {
+                      //   item.isExpanded = true;
+                      // });
+                      item.isExpanded = true;
+
+                      return "Please enter a height";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    widget.projectDimensions[items.indexOf(item)].height =
+                        int.parse(value!);
+                  },
+                  keyboardType: TextInputType.number,
+                  defaultValue:
+                      widget.projectDimensions[items.indexOf(item)].height != 0
+                          ? widget.projectDimensions[items.indexOf(item)].height
+                              .toString()
+                          : null,
+                  onChanged: (value) {
+                    widget.projectDimensions[items.indexOf(item)].height =
+                        value.isNotEmpty ? int.parse(value) : 0;
+                    item.esqt.text = widget
+                                    .projectDimensions[items.indexOf(item)]
+                                    .width *
+                                widget.projectDimensions[items.indexOf(item)]
+                                    .height !=
+                            0
+                        ? (widget.projectDimensions[items.indexOf(item)].width *
+                                widget.projectDimensions[items.indexOf(item)]
+                                    .height)
+                            .toString()
+                        : "";
+                  },
+                ),
                 const SizedBox(
                   height: 16,
                 ),
-                const MyTextFormField(
-                    label: "Width", icon: LineIcons.rulerHorizontal),
+                MyTextFormField(
+                  label: "Width (in inches)",
+                  icon: LineIcons.rulerHorizontal,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      for (var element in items) {
+                        element.isExpanded = false;
+                      }
+                      // setState(() {
+                      //   item.isExpanded = true;
+                      // });
+                      item.isExpanded = true;
+
+                      return "Please enter a width";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    widget.projectDimensions[items.indexOf(item)].width =
+                        int.parse(value!);
+                  },
+                  keyboardType: TextInputType.number,
+                  defaultValue:
+                      widget.projectDimensions[items.indexOf(item)].width != 0
+                          ? widget.projectDimensions[items.indexOf(item)].width
+                              .toString()
+                          : null,
+                  onChanged: (value) {
+                    widget.projectDimensions[items.indexOf(item)].width =
+                        value.isNotEmpty ? int.parse(value) : 0;
+                    item.esqt.text = widget
+                                    .projectDimensions[items.indexOf(item)]
+                                    .width *
+                                widget.projectDimensions[items.indexOf(item)]
+                                    .height !=
+                            0
+                        ? (widget.projectDimensions[items.indexOf(item)].width *
+                                widget.projectDimensions[items.indexOf(item)]
+                                    .height)
+                            .toString()
+                        : "";
+                  },
+                ),
                 const SizedBox(
                   height: 16,
                 ),
-                const MyTextFormField(
-                    label: "Remarks", icon: LineIcons.pencilRuler),
+                MyTextFormField(
+                    label: "Estimated sqrt",
+                    icon: LineIcons.rulerCombined,
+                    controller: item.esqt,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        for (var element in items) {
+                          element.isExpanded = false;
+                        }
+                        // setState(() {
+                        //   item.isExpanded = true;
+                        // });
+                        item.isExpanded = true;
+
+                        return "Please enter an estimated sqrt";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      widget.projectDimensions[items.indexOf(item)].esft =
+                          value!.isNotEmpty ? int.parse(value) : 0;
+                    },
+                    keyboardType: TextInputType.number,
+                    // defaultValue: (widget
+                    //             .projectDimensions[items.indexOf(item)].height *
+                    //         widget.projectDimensions[items.indexOf(item)].width)
+                    //     .toString(),
+                    onChanged: (value) {
+                      widget.projectDimensions[items.indexOf(item)].esft =
+                          value.isNotEmpty ? int.parse(value) : 0;
+                    }),
                 const SizedBox(
                   height: 16,
                 ),
+                MyTextFormField(
+                    label: "Rate",
+                    icon: LineIcons.percentage,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        for (var element in items) {
+                          element.isExpanded = false;
+                        }
+                        // setState(() {
+                        //   item.isExpanded = true;
+                        // });
+                        item.isExpanded = true;
+
+                        return "Please enter a rate";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      widget.projectDimensions[items.indexOf(item)].rate =
+                          value!.isNotEmpty ? int.parse(value) : 0;
+                    },
+                    defaultValue:
+                        widget.projectDimensions[items.indexOf(item)].rate != 0
+                            ? widget.projectDimensions[items.indexOf(item)].rate
+                                .toString()
+                            : null,
+                    onChanged: (value) {
+                      widget.projectDimensions[items.indexOf(item)].rate =
+                          value.isNotEmpty ? int.parse(value) : 0;
+                    }),
+                const SizedBox(
+                  height: 16,
+                ),
+                MyTextFormField(
+                    label: "Remarks",
+                    icon: LineIcons.pencilRuler,
+                    onSaved: (value) {
+                      widget.projectDimensions[items.indexOf(item)].remarks =
+                          value!;
+                    },
+                    defaultValue:
+                        widget.projectDimensions[items.indexOf(item)].remarks,
+                    onChanged: (value) {
+                      widget.projectDimensions[items.indexOf(item)].remarks =
+                          value;
+                    }),
+                const SizedBox(
+                  height: 16,
+                ),
+                if (items.length > 1)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton.icon(
+                        onPressed: () {
+                          for (var element in items) {
+                            // decrement all
+                            if (element.type == item.type &&
+                                item.sfx < element.sfx) {
+                              element.sfx--;
+                            }
+                          }
+                          types[item.type] = types[item.type]! - 1;
+                          items.removeAt(items.indexOf(item));
+                          items.last.isExpanded = true;
+                          setState(() {});
+                        },
+                        icon: const Icon(LineIcons.trash),
+                        label: const Text("Delete")),
+                  ),
               ],
+
+// ListTile(
+//               title: Text(item.expandedValue),
+//               subtitle:
+//                   const Text('To delete this panel, tap the trash can icon'),
+//               trailing: const Icon(Icons.delete),
+//               onTap: () {
+//                 setState(() {
+//                   items.removeWhere((Item currentItem) => item == currentItem);
+//                 });
+//               }),
             ),
           ),
-        ],
-      ),
+          isExpanded: item.isExpanded,
+        );
+      }).toList(),
     );
   }
 }
-
-class ExpansionItem {
-  ExpansionItem({
-    // required this.expandedValue,
-    // required this.headerValue,
-    this.isExpanded = false,
-  });
-
-  // String expandedValue;
-  // String headerValue;
-  bool isExpanded;
-}
-
-List<ExpansionItem> items = [
-  ExpansionItem(
-    // expandedValue: 'Expanded 1',
-    // headerValue: 'Header 1',
-    isExpanded: false,
-  ),
-  ExpansionItem(
-    // expandedValue: 'Expanded 2',
-    // headerValue: 'Header 2',
-    isExpanded: false,
-  ),
-  ExpansionItem(
-    // expandedValue: 'Expanded 3',
-    // headerValue: 'Header 3',
-    isExpanded: false,
-  ),
-];

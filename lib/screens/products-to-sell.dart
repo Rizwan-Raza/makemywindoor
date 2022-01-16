@@ -70,8 +70,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               width: SizeConfig.screenWidth * 0.5,
                               height: SizeConfig.screenHeight * 0.5,
                               child: Lottie.asset(
-                                "assets/imgs/lotties/empty.json",
-                              ),
+                                  "assets/imgs/lotties/empty.json",
+                                  repeat: false),
                             ),
                             const Text("No Products Available"),
                           ],

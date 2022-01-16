@@ -40,13 +40,16 @@ dependencies:
   google_fonts: ^2.1.0
   provider: ^6.0.1
   fluttertoast: ^8.0.8
-  share: ^2.0.4
   url_launcher: ^6.0.8
   shared_preferences: any
   mailer2: any
   firebase_core: ^1.10.6
   cloud_firestore: ^3.1.5
-  expandable: ^5.0.1
+  pdf: ^3.6.5
+  permission_handler: ^8.3.0
+  share_plus: ^3.0.4
+  printing: ^5.6.6
+  cached_network_image: ^3.2.0
 
 
 dev_dependencies:
@@ -75,6 +78,7 @@ flutter:
   assets:
     - assets/imgs/
     - assets/imgs/lotties/
+    - assets/OpenSans-Regular.ttf
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

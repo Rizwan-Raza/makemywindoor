@@ -7,6 +7,7 @@ import 'package:makemywindoor/firebase_options.dart';
 import 'package:makemywindoor/model/user.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
+import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/timer.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
@@ -19,6 +20,7 @@ void main() async {
   );
   runApp(MultiProvider(providers: [
     Provider(create: (_) => UserServices()),
+    Provider(create: (_) => ProjectServices()),
     ChangeNotifierProvider(create: (context) => TimerService()),
   ], child: const App()));
 
@@ -49,22 +51,21 @@ class _AppState extends State<App> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              // primarySwatch: const MaterialColor(
-              //   0xFFFCB21F,
-              //   <int, Color>{
-              //     50: Color(0xFFFCB21F),
-              //     100: Color(0xFFFCB21F),
-              //     200: Color(0xFFFCB21F),
-              //     300: Color(0xFFFCB21F),
-              //     400: Color(0xFFFCB21F),
-              //     500: Color(0xFFFCB21F),
-              //     600: Color(0xFFFCB21F),
-              //     700: Color(0xFFFCB21F),
-              //     800: Color(0xFFFCB21F),
-              //     900: Color(0xFFFCB21F),
-              //   },
-              // ),
-              bottomAppBarColor: const Color(0xFFFCB21F),
+              primarySwatch: const MaterialColor(
+                0xFFFCB21F,
+                <int, Color>{
+                  50: Color(0xFFFCB21F),
+                  100: Color(0xFFFCB21F),
+                  200: Color(0xFFFCB21F),
+                  300: Color(0xFFFCB21F),
+                  400: Color(0xFFFCB21F),
+                  500: Color(0xFFFCB21F),
+                  600: Color(0xFFFCB21F),
+                  700: Color(0xFFFCB21F),
+                  800: Color(0xFFFCB21F),
+                  900: Color(0xFFFCB21F),
+                },
+              ),
               colorScheme: const ColorScheme.light(
                   onBackground: Color(0xFFFCB21F),
                   primary: Color(0xFFFCB21F),
@@ -72,7 +73,10 @@ class _AppState extends State<App> {
               fontFamily: GoogleFonts.inter().fontFamily,
               primaryColor: Colors.black,
               appBarTheme: const AppBarTheme(
-                  systemOverlayStyle: SystemUiOverlayStyle.dark),
+                  toolbarTextStyle: TextStyle(
+                    color: Colors.black,
+                  ),
+                  systemOverlayStyle: SystemUiOverlayStyle.light),
               iconTheme: const IconThemeData(color: Colors.white),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),

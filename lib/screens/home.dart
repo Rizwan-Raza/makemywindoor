@@ -1,6 +1,8 @@
 // import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:makemywindoor/screens/create_project/create_project.dart';
+import 'package:makemywindoor/screens/products-to-sell.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
@@ -25,7 +27,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         title: Center(
             child: SizedBox(
-                height: 200,
+                height: 40,
                 child: Image.asset(
                   "assets/imgs/logo.png",
                   gaplessPlayback: true,
@@ -51,38 +53,71 @@ class _HomeState extends State<Home> {
   }
 
   Widget windoorType(int i) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          titleimgURL[i],
-          fit: BoxFit.cover,
-        ),
-        Container(
-          // color: ColorCodeGen.colorFromHex('hexColor'),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: const [0.0, 1.0],
-              colors: [
-                ColorCodeGen.colorFromHex('#000000').withOpacity(.2),
-                ColorCodeGen.colorFromHex('#000000').withOpacity(.4),
-              ],
+    return InkWell(
+      onTap: () {
+        switch (i) {
+          case 0:
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CreateProjectScreen()),
+            );
+            break;
+          case 1:
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProductsScreen(
+                        selectedFilter: 2,
+                      )),
+            );
+            break;
+          case 2:
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProductsScreen(
+                        selectedFilter: 1,
+                      )),
+            );
+            break;
+          default:
+            break;
+        }
+      },
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            titleimgURL[i],
+            fit: BoxFit.cover,
+          ),
+          Container(
+            // color: ColorCodeGen.colorFromHex('hexColor'),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: const [0.0, 1.0],
+                colors: [
+                  ColorCodeGen.colorFromHex('#000000').withOpacity(.2),
+                  ColorCodeGen.colorFromHex('#000000').withOpacity(.4),
+                ],
+              ),
             ),
           ),
-        ),
-        Positioned(
-            bottom: 20,
-            left: SizeConfig.blockSizeHorizontal * 10,
-            child: Text(
-              title[i],
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ))
-      ],
+          Positioned(
+              bottom: 20,
+              left: SizeConfig.blockSizeHorizontal * 10,
+              child: Text(
+                title[i],
+                style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ))
+        ],
+      ),
     );
   }
 }

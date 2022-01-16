@@ -18,14 +18,14 @@ class ProjectDetails {
         others: '',
       );
 
-  factory ProjectDetails.fromJson(Map<String, dynamic> json) => ProjectDetails(
+  factory ProjectDetails.fromMap(Map<String, dynamic> json) => ProjectDetails(
         projectName: json["projectName"],
         customerName: json["customerName"],
         customerNumber: json["customerNumber"],
         others: json["others"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "projectName": projectName,
         "customerName": customerName,
         "customerNumber": customerNumber,

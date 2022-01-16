@@ -44,7 +44,7 @@ class MyConstants {
   );
 
   static List<String> appbarTitle = [
-    'My Project',
+    'My Projects',
     'Create Project',
     'Products Sell',
     'My Account'
@@ -62,6 +62,7 @@ class MyConstants {
     LineIcons.thumbsUpAlt,
     LineIcons.identificationCard,
     LineIcons.phone,
+    LineIcons.alternateSignOut,
   ];
   static List<String> myAccountIcontitle = [
     'My Profile',
@@ -69,7 +70,8 @@ class MyConstants {
     'Rate Us',
     'Social Networks',
     'About MakeMyWindoor',
-    'Contact us'
+    'Contact us',
+    'Logout'
   ];
   static const String aboutUs =
       'Our 10000+ users are the 10000+ reasons why we lead , practical designs and plugins with advance features.Most of the App fails after few months of launch because of lacking technical support. A good amount of monetory and labor is involved which makes it expensive to afford.\n\n MakeMyWindoor is the cost effective solutions for the customers looking for affordable ready made white label travel booking engine.Let a local enrich your discovery of what a Place has to offer. Explore Our All Inclusive Packages.\n\nQuality Has Always Been Our First Priority. Skilled travel professionals for providing reliable, personalized and professional services.Why Take Common Tours When You Can Have Your Own. Let Us Be Your Travel Tailor For An Life Time Experience Tailored Just For You.When You Want The Highest Quality & Reasonable Prices, Look No Further , Get In Touch With Us.';

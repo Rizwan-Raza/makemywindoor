@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -28,8 +29,9 @@ class _ContactUsState extends State<ContactUs> {
       appBar: AppBar(
         title: Text(
           "Contact Us",
-          style: MyConstants.buttonLoginRegStyle
-              .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -48,11 +50,21 @@ class _ContactUsState extends State<ContactUs> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                const MyTextFormField(
+                MyTextFormField(
                   label: "Name",
                   icon: LineIcons.user,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    helpsupport.name = value!;
+                  },
+                  keyboardType: TextInputType.name,
                 ),
-                const SizedBox(height: 30.0),
+                const SizedBox(height: 24.0),
                 // helpSupportInput(
                 //   0,
                 //   'Name ',
@@ -62,33 +74,84 @@ class _ContactUsState extends State<ContactUs> {
                 //   TextInputType.name,
                 //   1,
                 // ),
-                helpSupportInput(
-                  1,
-                  'Mobile Number ',
-                  'Mobile Number',
-                  'Mobile Number is Required.',
-                  '',
-                  TextInputType.number,
-                  1,
+                MyTextFormField(
+                  label: "Mobile Number",
+                  icon: LineIcons.user,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your mobile number';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    helpsupport.phone = value!;
+                  },
+                  keyboardType: TextInputType.phone,
                 ),
-                helpSupportInput(
-                  2,
-                  'Email ',
-                  'Email ',
-                  'Email is Required.',
-                  '',
-                  TextInputType.emailAddress,
-                  1,
+                const SizedBox(height: 24.0),
+
+                // helpSupportInput(
+                //   1,
+                //   'Mobile Number ',
+                //   'Mobile Number',
+                //   'Mobile Number is Required.',
+                //   '',
+                //   TextInputType.number,
+                //   1,
+                // ),
+                MyTextFormField(
+                  label: "Email",
+                  icon: LineIcons.envelope,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    helpsupport.email = value!;
+                  },
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                helpSupportInput(
-                  3,
-                  'Drop Your Query ',
-                  'Drop Your Query',
-                  'Just drop your query...',
-                  '',
-                  TextInputType.text,
-                  6,
+
+                const SizedBox(height: 24.0),
+
+                // helpSupportInput(
+                //   2,
+                //   'Email ',
+                //   'Email ',
+                //   'Email is Required.',
+                //   '',
+                //   TextInputType.emailAddress,
+                //   1,
+                // ),
+                MyTextFormField(
+                  label: "Message",
+                  icon: LineIcons.envelope,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your message';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    helpsupport.query = value!;
+                  },
+                  keyboardType: TextInputType.multiline,
+                  lines: 3,
                 ),
+
+                const SizedBox(height: 24.0),
+
+                // helpSupportInput(
+                //   3,
+                //   'Drop Your Query ',
+                //   'Drop Your Query',
+                //   'Just drop your query...',
+                //   '',
+                //   TextInputType.text,
+                //   6,
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: Container(

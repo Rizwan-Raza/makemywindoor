@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/home.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
-import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:makemywindoor/screens/products-to-sell.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
 import 'myaccount/my_account.dart';
@@ -24,25 +23,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   // Bottom Pages
   List<Widget> pages = [
     const Home(key: PageStorageKey("Page1")),
-    Scaffold(
-      appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[0],
-      ),
-      body: Container(
-        color: Colors.yellow,
-        child: const Center(
-          child: Text('My Products'),
-        ),
-        key: const PageStorageKey("Page2"),
-      ),
-    ),
+    const MyProjects(key: PageStorageKey("Page2")),
     const CreateProjectScreen(key: PageStorageKey("Page3")),
-    const MyProjects(key: PageStorageKey("Page4")),
+    const ProductsScreen(key: PageStorageKey("Page4")),
     const MyAccount(key: PageStorageKey("Page5")),
   ];
 
@@ -51,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      extendBody: _selectedIndex != 2,
       resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: _selectedIndex,
@@ -70,7 +58,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _selectedIndex = 2;
           });
         },
-        tooltip: 'Increment',
+        tooltip: 'Create Project',
         child: const Icon(
           LineIcons.plus,
           color: Colors.amber,
@@ -81,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         color: Colors.transparent,
         child: BottomAppBar(
           //bottom navigation bar on scaffold
-          // color: Colors.transparent,
+          color: Theme.of(context).colorScheme.primary,
           //shape of notch
           shape: const CircularNotchedRectangle(),
           //notche margin between floating button and bottom appbar
@@ -92,9 +80,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   LineIcons.home,
-                  color: Colors.black,
+                  color: _selectedIndex == 0 ? Colors.black : Colors.black54,
                 ),
                 onPressed: () {
                   setState(() {
@@ -103,9 +91,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               ),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   LineIcons.briefcase,
-                  color: Colors.black,
+                  color: _selectedIndex == 1 ? Colors.black : Colors.black54,
                 ),
                 onPressed: () {
                   setState(() {
@@ -117,16 +105,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 width: SizeConfig.blockSizeHorizontal * 16,
               ),
               // IconButton(
-              //   icon: const Icon(
+              //   icon: Icon(
               //     LineIcons.dotCircle,
               //     color: Colors.white,
               //   ),
               //   onPressed: () {},
               // ),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   LineIcons.shoppingCart,
-                  color: Colors.black,
+                  color: _selectedIndex == 3 ? Colors.black : Colors.black54,
                 ),
                 onPressed: () {
                   setState(() {
@@ -135,9 +123,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               ),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   LineIcons.user,
-                  color: Colors.black,
+                  color: _selectedIndex == 4 ? Colors.black : Colors.black54,
                 ),
                 onPressed: () {
                   setState(() {
