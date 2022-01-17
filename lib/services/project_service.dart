@@ -33,7 +33,7 @@ class ProjectServices {
   Stream<QuerySnapshot<Map<String, dynamic>>> getProjects(String phoneNumber) {
     return _firestore
         .collection('projects')
-        .where('createdBy', isEqualTo: phoneNumber)
+        .where('createdBy.phone', isEqualTo: phoneNumber)
         .snapshots();
   }
 

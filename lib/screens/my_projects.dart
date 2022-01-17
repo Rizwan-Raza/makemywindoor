@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:makemywindoor/helperwidgets/my_appBar.dart';
 import 'package:makemywindoor/model/project.dart';
 import 'package:makemywindoor/screens/project_details.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:makemywindoor/utils/size_config.dart';
 import 'package:provider/provider.dart';
 
 class MyProjects extends StatelessWidget {
@@ -24,6 +26,23 @@ class MyProjects extends StatelessWidget {
               Provider.of<UserServices>(context).currentUser!.phone),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: SizeConfig.screenWidth * 0.5,
+                        height: SizeConfig.screenHeight * 0.5,
+                        child: Lottie.asset(
+                          "assets/imgs/lotties/empty.json",
+                          reverse: true,
+                        ),
+                      ),
+                      const Text("No Projects Available"),
+                    ],
+                  ),
+                );
+              }
               List<Project> list = snapshot.data!.docs
                   .map((e) => Project.fromMap(e.data()))
                   .toList();

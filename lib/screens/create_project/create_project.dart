@@ -183,9 +183,9 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
               .reduce((a, b) => a + b));
           project.totalCharge =
               project.totalCost + (project.totalCost * 18 / 100);
-          project.createdBy = Provider.of<UserServices>(context, listen: false)
-              .currentUser!
-              .phone;
+          project.createdBy =
+              Provider.of<UserServices>(context, listen: false).currentUser!;
+          project.status = 'Pending';
           project.projectID = DateTime.now().millisecondsSinceEpoch.toString();
           return true;
         }

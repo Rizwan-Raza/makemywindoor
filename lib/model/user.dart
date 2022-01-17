@@ -12,16 +12,16 @@ class User {
       required this.phone,
       this.company});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      company: json['company'],
+      name: map['name'],
+      email: map['email'],
+      phone: map['phone'],
+      company: map['company'],
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'email': email,

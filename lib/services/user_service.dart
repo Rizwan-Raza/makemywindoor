@@ -13,14 +13,14 @@ class UserServices {
 
   saveState() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', json.encode(currentUser?.toJson()));
+    prefs.setString('user', json.encode(currentUser?.toMap()));
     log(prefs.getString("user").toString());
   }
 
   Future<User?> getState() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
-      currentUser = User.fromJson(json.decode(prefs.getString('user')!));
+      currentUser = User.fromMap(json.decode(prefs.getString('user')!));
       return currentUser;
     }
     return null;
@@ -29,7 +29,7 @@ class UserServices {
   Future<User?> login(String phone) async {
     DocumentSnapshot<Map<String, dynamic>> d = await getUser(phone);
     if (d.exists) {
-      currentUser = User.fromJson(d.data()!);
+      currentUser = User.fromMap(d.data()!);
       return currentUser;
     }
     return User.empty();

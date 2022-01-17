@@ -60,14 +60,14 @@ class InvoiceScreen extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const TextSpan(
-                          text: " in x ",
+                          text: " cms x ",
                         ),
                         TextSpan(
                           text: e.width.toString(),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const TextSpan(
-                          text: " in = ",
+                          text: " cms = ",
                         ),
                         TextSpan(
                           text: e.esft.toString(),
@@ -81,7 +81,7 @@ class InvoiceScreen extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const TextSpan(
-                          text: " per sq.ft",
+                          text: " rate",
                         ),
                       ],
                     ),

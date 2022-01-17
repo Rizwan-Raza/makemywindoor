@@ -149,7 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   _formKey.currentState!.save();
                   UserServices us =
                       Provider.of<UserServices>(context, listen: false);
-                  us.createUser(newUser.toJson());
+                  us.createUser(newUser.toMap());
                   us.login(newUser.phone);
                   us.saveState();
 
