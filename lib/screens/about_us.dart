@@ -18,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
       appBar: AppBar(
         // backgroundColor: ColorCodeGen.colorFromHex('#342794'),
         title: Text(
-          'About Make My Indoor',
+          'About Make My Windoor',
           style: GoogleFonts.inter(
             fontWeight: FontWeight.bold,
           ),

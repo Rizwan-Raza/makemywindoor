@@ -214,7 +214,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   height: 16,
                 ),
                 MyTextFormField(
-                  label: "Height (in inches)",
+                  label: "Height (in cms)",
                   icon: LineIcons.rulerVertical,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -247,11 +247,13 @@ class _DimensionScreenState extends State<DimensionScreen> {
                                     .projectDimensions[items.indexOf(item)]
                                     .width *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height !=
+                                    .height *
+                                (0.04 * 0.04) !=
                             0
                         ? (widget.projectDimensions[items.indexOf(item)].width *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height)
+                                    .height *
+                                (0.04 * 0.04))
                             .toString()
                         : "";
                   },
@@ -260,7 +262,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   height: 16,
                 ),
                 MyTextFormField(
-                  label: "Width (in inches)",
+                  label: "Width (in cms)",
                   icon: LineIcons.rulerHorizontal,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -306,7 +308,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   height: 16,
                 ),
                 MyTextFormField(
-                    label: "Estimated sqrt",
+                    label: "Estimated SQFT",
                     icon: LineIcons.rulerCombined,
                     controller: item.esqt,
                     validator: (value) {
@@ -319,7 +321,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                         // });
                         item.isExpanded = true;
 
-                        return "Please enter an estimated sqrt";
+                        return "Please enter an estimated SQFT";
                       }
                       return null;
                     },

@@ -9,7 +9,7 @@ class MyConstants {
       ? "https://play.google.com/store/apps/details?id=com.makemy.makemywindoor"
       : 'https://apps.apple.com/us/app/';
   static String fbLink = "https://www.facebook.com/";
-  static String instaLink = "https://www.instagram.com/";
+  static String instaLink = "https://www.instagram.com/makemywindoor";
   static String twitterLink = "https://twitter.com/";
 
   static const String companyEmail = "info@makemywindoor.com";
