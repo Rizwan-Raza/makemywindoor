@@ -78,6 +78,8 @@ flutter:
   assets:
     - assets/imgs/
     - assets/imgs/lotties/
+    - assets/imgs/windows/
+    - assets/imgs/doors/
     - assets/OpenSans-Regular.ttf
   #   - images/a_dot_ham.jpeg
 

@@ -10,6 +10,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      // backwardsCompatibility: true,
+
       elevation: 0,
       // automaticallyImplyLeading: false,
       title: Text(

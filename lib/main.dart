@@ -71,7 +71,7 @@ class _AppState extends State<App> {
                   onBackground: Color(0xFFFCB21F),
                   primary: Color(0xFFFCB21F),
                   onPrimary: Colors.black),
-              fontFamily: GoogleFonts.inter().fontFamily,
+              fontFamily: GoogleFonts.overpass().fontFamily,
               primaryColor: Colors.black,
               appBarTheme: const AppBarTheme(
                   toolbarTextStyle: TextStyle(
