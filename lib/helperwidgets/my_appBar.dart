@@ -11,15 +11,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      // backwardsCompatibility: true,
+
       elevation: 0,
       // automaticallyImplyLeading: false,
-      title: Center(
-        child: Text(
-          appbarTitle,
-          style: GoogleFonts.inter(
-            textStyle: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
-          ),
+      title: Text(
+        appbarTitle,
+        style: GoogleFonts.inter(
+          textStyle: const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
         ),
       ),
       centerTitle: true,

@@ -18,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
       appBar: AppBar(
         // backgroundColor: ColorCodeGen.colorFromHex('#342794'),
         title: Text(
-          'About Make My Windoor',
+          'About Us',
           style: GoogleFonts.inter(
             fontWeight: FontWeight.bold,
           ),
@@ -31,9 +31,9 @@ class _AboutUsState extends State<AboutUs> {
           children: [
             SizedBox(height: SizeConfig.blockSizeVertical * 3),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.only(left: 25),
               child: Text(
-                'About makemywindoor',
+                'MakeMyWindoor',
                 style: GoogleFonts.inter(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class _AboutUsState extends State<AboutUs> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(25.0),
               child: Center(
                   child: Text(
                 MyConstants.aboutUs,
@@ -56,69 +56,6 @@ class _AboutUsState extends State<AboutUs> {
             ),
             const SizedBox(
               height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   CupertinoPageRoute(
-                    //       builder: (context) => TermsandConditionScreen()),
-
-                    // );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                        child: Text(
-                      'TERMS & CONDITIONS',
-                      style: GoogleFonts.inter(
-                        color: ColorCodeGen.colorFromHex('#E53E8E'),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        // letterSpacing: .2,
-                      ),
-                    )),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   CupertinoPageRoute(builder: (context) => PrivacyScreen()),
-                    // );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                        child: Text(
-                      'PRIVACY POLICY',
-                      style: GoogleFonts.inter(
-                        color: ColorCodeGen.colorFromHex('#E53E8E'),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    )),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Center(
-                  child: Text(
-                'By using makemywindoor you agree to our TnC and Privacy Policy.',
-                style: GoogleFonts.inter(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  letterSpacing: .2,
-                ),
-              )),
             ),
           ],
         ),
