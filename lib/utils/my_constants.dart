@@ -51,7 +51,7 @@ class MyConstants {
   ];
   static List<String> appbarTitle1 = [
     'Windows',
-    'Door',
+    'Doors',
   ];
 
   static List<IconData> myAccountIconLeft = [

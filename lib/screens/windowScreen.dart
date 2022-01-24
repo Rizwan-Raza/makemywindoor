@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icon.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/widgets/my_appBar.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/my_appBar.dart';
 
 class WindowScreen extends StatefulWidget {
   const WindowScreen({Key? key}) : super(key: key);
