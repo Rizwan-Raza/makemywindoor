@@ -266,17 +266,22 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   onChanged: (value) {
                     widget.projectDimensions[items.indexOf(item)].height =
                         value.isNotEmpty ? int.parse(value) : 0;
-                    item.esqt.text = widget
-                                    .projectDimensions[items.indexOf(item)]
-                                    .width *
-                                widget.projectDimensions[items.indexOf(item)]
-                                    .height *
-                                (0.034 * 0.034) !=
+                    item.esqt.text = (widget
+                                        .projectDimensions[items.indexOf(item)]
+                                        .width /
+                                    30.48 *
+                                    widget
+                                        .projectDimensions[items.indexOf(item)]
+                                        .height /
+                                    30.48)
+                                .round() !=
                             0
-                        ? (widget.projectDimensions[items.indexOf(item)].width *
+                        ? (widget.projectDimensions[items.indexOf(item)].width /
+                                30.48 *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height *
-                                (0.034 * 0.034))
+                                    .height /
+                                30.48)
+                            .round()
                             .toString()
                         : "";
                   },
@@ -314,18 +319,23 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   onChanged: (value) {
                     widget.projectDimensions[items.indexOf(item)].width =
                         value.isNotEmpty ? int.parse(value) : 0;
-                    item.esqt.text = widget
-                                    .projectDimensions[items.indexOf(item)]
-                                    .width *
-                                widget.projectDimensions[items.indexOf(item)]
-                                    .height *
-                                (0.033 * 0.033) !=
+                    item.esqt.text = (widget
+                                        .projectDimensions[items.indexOf(item)]
+                                        .width /
+                                    30.48 *
+                                    widget
+                                        .projectDimensions[items.indexOf(item)]
+                                        .height /
+                                    30.48)
+                                .round() !=
                             0
-                        ? (widget.projectDimensions[items.indexOf(item)].width *
+                        ? (widget.projectDimensions[items.indexOf(item)].width /
+                                30.48 *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height *
-                                (0.033 * 0.033))
-                            .toStringAsFixed(4)
+                                    .height /
+                                30.48)
+                            .round()
+                            .toString()
                         : "";
                   },
                 ),

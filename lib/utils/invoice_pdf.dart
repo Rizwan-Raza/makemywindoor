@@ -143,7 +143,7 @@ class InvoicePDF {
                             text: " cms = ",
                           ),
                           pw.TextSpan(
-                            text: e.esft.toStringAsFixed(4),
+                            text: e.esft.toStringAsFixed(2),
                             style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                           ),
                           const pw.TextSpan(
@@ -162,7 +162,7 @@ class InvoicePDF {
                     pw.Spacer(),
                     pw.Text(" = "),
                     pw.Text(
-                      (e.esft * e.rate).toStringAsFixed(4),
+                      (e.esft * e.rate).toStringAsFixed(2),
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                     ),
                   ],
@@ -182,7 +182,7 @@ class InvoicePDF {
                   const pw.TextSpan(text: "+ 18% GST "),
                   pw.TextSpan(
                     text: " = " +
-                        (project.totalCost * 18 / 100).toStringAsFixed(4),
+                        (project.totalCost * 18 / 100).toStringAsFixed(2),
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ],

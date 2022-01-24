@@ -109,7 +109,7 @@ class InvoiceScreen extends StatelessWidget {
                 const TextSpan(text: "+ 18% GST "),
                 TextSpan(
                   text:
-                      " = " + (project.totalCost * 18 / 100).toStringAsFixed(4),
+                      " = " + (project.totalCost * 18 / 100).toStringAsFixed(2),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],

@@ -27,15 +27,15 @@ class UserProfile extends StatelessWidget {
                     'https://images.pexels.com/photos/447592/pexels-photo-447592.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
                 title: context.read<UserServices>().currentUser!.name,
                 subtitle: "user",
-                actions: <Widget>[
-                  MaterialButton(
-                    color: Colors.white,
-                    shape: const CircleBorder(),
-                    elevation: 0,
-                    child: const Icon(LineIcons.edit),
-                    onPressed: () {},
-                  )
-                ],
+                // actions: <Widget>[
+                //   MaterialButton(
+                //     color: Colors.white,
+                //     shape: const CircleBorder(),
+                //     elevation: 0,
+                //     child: const Icon(LineIcons.edit),
+                //     onPressed: () {},
+                //   )
+                // ],
               ),
               const SizedBox(height: 10.0),
               const UserInfo(),

@@ -65,151 +65,175 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         elevation: 2.0,
       ),
-      bottomNavigationBar: Container(
-        color: Colors.transparent,
-        child: BottomAppBar(
-          //bottom navigation bar on scaffold
-          color: Theme.of(context).colorScheme.primary,
-          //shape of notch
-          shape: const CircularNotchedRectangle(),
-          //notche margin between floating button and bottom appbar
-          // notchMargin: 5,
-          child: Row(
-            //children inside bottom appbar
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                  });
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      LineIcons.home,
+      // bottomNavigationBar: _getBottomBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(LineIcons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LineIcons.folderOpen),
+            label: "My Projects",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LineIcons.dotCircle),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LineIcons.shoppingCart),
+            label: "Products",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LineIcons.user),
+            label: "My Account",
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _getBottomBar() {
+    return Container(
+      color: Colors.transparent,
+      child: BottomAppBar(
+        //bottom navigation bar on scaffold
+        color: Theme.of(context).colorScheme.primary,
+        //shape of notch
+        shape: const CircularNotchedRectangle(),
+        //notche margin between floating button and bottom appbar
+        // notchMargin: 5,
+        child: Row(
+          //children inside bottom appbar
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    LineIcons.home,
+                    color: _selectedIndex == 0 ? Colors.black : Colors.black54,
+                  ),
+                  Text(
+                    'Home',
+                    style: TextStyle(
+                      fontWeight: _selectedIndex == 0
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color:
                           _selectedIndex == 0 ? Colors.black : Colors.black54,
                     ),
-                    Text(
-                      'Home',
-                      style: TextStyle(
-                        fontWeight: _selectedIndex == 0
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color:
-                            _selectedIndex == 0 ? Colors.black : Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      LineIcons.briefcase,
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 1;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    LineIcons.briefcase,
+                    color: _selectedIndex == 1 ? Colors.black : Colors.black54,
+                  ),
+                  Text(
+                    'My Projects',
+                    style: TextStyle(
+                      fontWeight: _selectedIndex == 1
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color:
                           _selectedIndex == 1 ? Colors.black : Colors.black54,
                     ),
-                    Text(
-                      'My Projects',
-                      style: TextStyle(
-                        fontWeight: _selectedIndex == 1
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color:
-                            _selectedIndex == 1 ? Colors.black : Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: SizeConfig.blockSizeHorizontal * 16,
-              ),
-              // IconButton(
-              //   icon: Icon(
-              //     LineIcons.dotCircle,
-              //     color: Colors.white,
-              //   ),
-              //   onPressed: () {},
-              // ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 3;
-                  });
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      LineIcons.shoppingCart,
+            ),
+            SizedBox(
+              width: SizeConfig.blockSizeHorizontal * 16,
+            ),
+            // IconButton(
+            //   icon: Icon(
+            //     LineIcons.dotCircle,
+            //     color: Colors.white,
+            //   ),
+            //   onPressed: () {},
+            // ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 3;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    LineIcons.shoppingCart,
+                    color: _selectedIndex == 3 ? Colors.black : Colors.black54,
+                  ),
+                  Text(
+                    'Products',
+                    style: TextStyle(
+                      fontWeight: _selectedIndex == 3
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color:
                           _selectedIndex == 3 ? Colors.black : Colors.black54,
                     ),
-                    Text(
-                      'Products',
-                      style: TextStyle(
-                        fontWeight: _selectedIndex == 3
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color:
-                            _selectedIndex == 3 ? Colors.black : Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 4;
-                  });
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      LineIcons.user,
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 4;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    LineIcons.user,
+                    color: _selectedIndex == 4 ? Colors.black : Colors.black54,
+                  ),
+                  Text(
+                    'Account',
+                    style: TextStyle(
+                      fontWeight: _selectedIndex == 4
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color:
                           _selectedIndex == 4 ? Colors.black : Colors.black54,
                     ),
-                    Text(
-                      'Account',
-                      style: TextStyle(
-                        fontWeight: _selectedIndex == 4
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color:
-                            _selectedIndex == 4 ? Colors.black : Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   child: Row(
-      //     mainAxisSize: MainAxisSize.max,
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: const <Widget>[],
-      //   ),
-      //   // notchedShape: const CircularNotchedRectangle(),
-      //   color: Colors.blueGrey,
-      // ),
     );
   }
 }
