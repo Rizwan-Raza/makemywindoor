@@ -131,7 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         return null;
                       },
                       onSaved: (x) => newUser.phone = x!,
-                      defaultValue: widget.number),
+                      initialValue: widget.number),
                 ],
               ),
             ),

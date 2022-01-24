@@ -28,6 +28,7 @@ void main() async {
     const SystemUiOverlayStyle(
       // statusBarColor:    ColorCodeGen.colorFromHex('#342794').withOpacity(0.7),
       statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
     ),
   );
 }

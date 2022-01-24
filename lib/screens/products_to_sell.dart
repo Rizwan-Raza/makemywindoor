@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/helperwidgets/my_appbar.dart';
 import 'package:makemywindoor/helperwidgets/product_card.dart';
 import 'package:makemywindoor/model/product.dart';
 import 'package:makemywindoor/services/project_service.dart';
@@ -19,7 +19,7 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   int selected = 0;
-  List<String> chips = ["All", "Doors", "Windows", "Others"];
+  List<String> chips = ["All", "Aluminium", "UPVC", "Glass"];
   @override
   void initState() {
     super.initState();
@@ -57,8 +57,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: Provider.of<ProjectServices>(context)
-                    .getProductsOf(selected),
+                stream: Provider.of<ProjectServices>(context).getProductsOf(
+                    selected > 0 && selected < 4 ? chips[selected] : ""),
                 // stream: Provider.of<ProjectServices>(context).getAllProducts(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {

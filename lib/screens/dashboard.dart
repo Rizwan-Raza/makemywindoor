@@ -3,7 +3,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/home.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
-import 'package:makemywindoor/screens/products-to-sell.dart';
+import 'package:makemywindoor/screens/products_to_sell.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
 import 'myaccount/my_account.dart';
@@ -77,29 +77,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Row(
             //children inside bottom appbar
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  LineIcons.home,
-                  color: _selectedIndex == 0 ? Colors.black : Colors.black54,
-                ),
+              TextButton(
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 0;
                   });
                 },
-              ),
-              IconButton(
-                icon: Icon(
-                  LineIcons.briefcase,
-                  color: _selectedIndex == 1 ? Colors.black : Colors.black54,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LineIcons.home,
+                      color:
+                          _selectedIndex == 0 ? Colors.black : Colors.black54,
+                    ),
+                    Text(
+                      'Home',
+                      style: TextStyle(
+                        color:
+                            _selectedIndex == 0 ? Colors.black : Colors.black54,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              TextButton(
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 1;
                   });
                 },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LineIcons.briefcase,
+                      color:
+                          _selectedIndex == 1 ? Colors.black : Colors.black54,
+                    ),
+                    Text(
+                      'My Projects',
+                      style: TextStyle(
+                        color:
+                            _selectedIndex == 1 ? Colors.black : Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 width: SizeConfig.blockSizeHorizontal * 16,
@@ -111,27 +137,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
               //   ),
               //   onPressed: () {},
               // ),
-              IconButton(
-                icon: Icon(
-                  LineIcons.shoppingCart,
-                  color: _selectedIndex == 3 ? Colors.black : Colors.black54,
-                ),
+              TextButton(
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 3;
                   });
                 },
-              ),
-              IconButton(
-                icon: Icon(
-                  LineIcons.user,
-                  color: _selectedIndex == 4 ? Colors.black : Colors.black54,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LineIcons.shoppingCart,
+                      color:
+                          _selectedIndex == 3 ? Colors.black : Colors.black54,
+                    ),
+                    Text(
+                      'Products',
+                      style: TextStyle(
+                        color:
+                            _selectedIndex == 3 ? Colors.black : Colors.black54,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              TextButton(
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 4;
                   });
                 },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      LineIcons.user,
+                      color:
+                          _selectedIndex == 4 ? Colors.black : Colors.black54,
+                    ),
+                    Text(
+                      'Account',
+                      style: TextStyle(
+                        color:
+                            _selectedIndex == 4 ? Colors.black : Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

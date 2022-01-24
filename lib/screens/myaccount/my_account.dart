@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/helperwidgets/my_appbar.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/contact_us.dart';
 import 'package:makemywindoor/screens/myaccount/user_profile.dart';
@@ -25,11 +25,11 @@ class MyAccount extends StatefulWidget {
 }
 
 class _MyAccountState extends State<MyAccount> {
-  late ScrollController _scrollControllerTopBenifitModule;
+  // late ScrollController _scrollControllerTopBenifitModule;
   @override
   void initState() {
     super.initState();
-    _scrollControllerTopBenifitModule = ScrollController();
+    // _scrollControllerTopBenifitModule = ScrollController();
   }
 
   // void onMyAccountLoginPressed() {
@@ -99,7 +99,7 @@ class _MyAccountState extends State<MyAccount> {
             ),
             for (int i = 0; i < MyConstants.myAccountIconLeft.length; i++)
               i == 0
-                  ? 'context.watch<MyUser>().email' != null
+                  ? context.watch<UserServices>().currentUser != null
                       ? Material(
                           child: InkWell(
                             onTap: () {

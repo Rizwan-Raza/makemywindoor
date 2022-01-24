@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/helperwidgets/my_appbar.dart';
 import 'package:makemywindoor/model/project.dart';
+import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/project_details.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/user_service.dart';
@@ -55,14 +56,14 @@ class MyProjects extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Dismissible(
                       secondaryBackground: Container(
-                          color: Colors.red,
-                          // color: Colors.green,
+                          // color: Colors.red,
+                          color: Colors.green,
                           alignment: AlignmentDirectional.centerEnd,
                           child: const Padding(
                             padding: EdgeInsets.only(right: 16.0),
                             child: Icon(
-                              LineIcons.trash,
-                              // LineIcons.edit,
+                              // LineIcons.trash,
+                              LineIcons.edit,
                               color: Colors.white,
                             ),
                           )),
@@ -84,8 +85,11 @@ class MyProjects extends StatelessWidget {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text("Confirm"),
-                                content: const Text(
-                                    "Are you sure you want to delete this project?"),
+                                content: Text("Are you sure you want to " +
+                                    (direction == DismissDirection.endToStart
+                                        ? "edit"
+                                        : "delete") +
+                                    " this project?"),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
@@ -93,9 +97,28 @@ class MyProjects extends StatelessWidget {
                                     child: const Text("CANCEL"),
                                   ),
                                   TextButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(true),
-                                      child: const Text("DELETE")),
+                                      onPressed: () {
+                                        direction == DismissDirection.endToStart
+                                            ? {
+                                                Navigator.of(context)
+                                                    .pop(false),
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CreateProjectScreen(
+                                                            isEdit: true,
+                                                            project:
+                                                                list[index],
+                                                          )),
+                                                )
+                                              }
+                                            : Navigator.of(context).pop(true);
+                                      },
+                                      child: Text(direction ==
+                                              DismissDirection.endToStart
+                                          ? "EDIT"
+                                          : "DELETE")),
                                 ],
                               );
                             });

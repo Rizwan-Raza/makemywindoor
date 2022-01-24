@@ -6,18 +6,28 @@ import 'package:makemywindoor/utils/size_config.dart';
 
 // stores ExpansionPanel state information
 class Item {
-  Item({this.isExpanded = false, this.sfx = 1, this.type = 'Type'});
+  Item(
+      {this.isExpanded = false,
+      this.sfx = 1,
+      this.type = 'Type',
+      this.esqtText})
+      : esqt = TextEditingController(text: esqtText);
   int sfx;
   bool isExpanded;
   String type;
-  TextEditingController esqt = TextEditingController();
+  String? esqtText;
+  TextEditingController esqt;
 }
 
 class DimensionScreen extends StatefulWidget {
   final List<ProjectDimensions> projectDimensions;
   final GlobalKey<FormState> dimensForm;
+  final bool isEdit;
   const DimensionScreen(
-      {Key? key, required this.dimensForm, required this.projectDimensions})
+      {Key? key,
+      required this.dimensForm,
+      required this.projectDimensions,
+      required this.isEdit})
       : super(key: key);
 
   @override
@@ -26,21 +36,34 @@ class DimensionScreen extends StatefulWidget {
 
 class _DimensionScreenState extends State<DimensionScreen> {
   bool hasError = false;
-  late List<Item> items = [
-    Item(isExpanded: true),
-  ];
-  @override
-  void initState() {
-    super.initState();
-    widget.projectDimensions.add(ProjectDimensions.empty());
-  }
-
+  late List<Item> items;
   Map<String, int> types = {
-    "Type": 1,
+    "Type": 0,
     "Custom": 0,
     "Door": 0,
     "Window": 0,
   };
+  @override
+  void initState() {
+    super.initState();
+    items = widget.isEdit
+        ? widget.projectDimensions.map((e) {
+            types[e.type] = int.parse(e.dimensionID.split(" ").last);
+            return Item(
+              sfx: int.parse(e.dimensionID.split(" ").last),
+              type: e.type,
+              esqtText: e.esft.toString(),
+            );
+          }).toList()
+        : [Item(isExpanded: true)];
+
+    widget.isEdit
+        ? items[0].isExpanded = true
+        : {
+            types['Type'] = 1,
+            widget.projectDimensions.add(ProjectDimensions.empty())
+          };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +258,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                         int.parse(value!);
                   },
                   keyboardType: TextInputType.number,
-                  defaultValue:
+                  initialValue:
                       widget.projectDimensions[items.indexOf(item)].height != 0
                           ? widget.projectDimensions[items.indexOf(item)].height
                               .toString()
@@ -248,12 +271,12 @@ class _DimensionScreenState extends State<DimensionScreen> {
                                     .width *
                                 widget.projectDimensions[items.indexOf(item)]
                                     .height *
-                                (0.04 * 0.04) !=
+                                (0.034 * 0.034) !=
                             0
                         ? (widget.projectDimensions[items.indexOf(item)].width *
                                 widget.projectDimensions[items.indexOf(item)]
                                     .height *
-                                (0.04 * 0.04))
+                                (0.034 * 0.034))
                             .toString()
                         : "";
                   },
@@ -283,7 +306,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                         int.parse(value!);
                   },
                   keyboardType: TextInputType.number,
-                  defaultValue:
+                  initialValue:
                       widget.projectDimensions[items.indexOf(item)].width != 0
                           ? widget.projectDimensions[items.indexOf(item)].width
                               .toString()
@@ -295,11 +318,13 @@ class _DimensionScreenState extends State<DimensionScreen> {
                                     .projectDimensions[items.indexOf(item)]
                                     .width *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height !=
+                                    .height *
+                                (0.033 * 0.033) !=
                             0
                         ? (widget.projectDimensions[items.indexOf(item)].width *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height)
+                                    .height *
+                                (0.033 * 0.033))
                             .toString()
                         : "";
                   },
@@ -330,7 +355,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                           value!.isNotEmpty ? int.parse(value) : 0;
                     },
                     keyboardType: TextInputType.number,
-                    // defaultValue: (widget
+                    // initialValue: (widget
                     //             .projectDimensions[items.indexOf(item)].height *
                     //         widget.projectDimensions[items.indexOf(item)].width)
                     //     .toString(),
@@ -362,7 +387,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                       widget.projectDimensions[items.indexOf(item)].rate =
                           value!.isNotEmpty ? int.parse(value) : 0;
                     },
-                    defaultValue:
+                    initialValue:
                         widget.projectDimensions[items.indexOf(item)].rate != 0
                             ? widget.projectDimensions[items.indexOf(item)].rate
                                 .toString()
@@ -381,7 +406,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                       widget.projectDimensions[items.indexOf(item)].remarks =
                           value!;
                     },
-                    defaultValue:
+                    initialValue:
                         widget.projectDimensions[items.indexOf(item)].remarks,
                     onChanged: (value) {
                       widget.projectDimensions[items.indexOf(item)].remarks =

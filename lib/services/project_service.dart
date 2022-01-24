@@ -19,11 +19,11 @@ class ProjectServices {
     return _firestore.collection('products').snapshots();
   }
 
-  getProductsOf(int type) {
-    if (type > 0 && type < 4) {
+  getProductsOf(String type) {
+    if (type.isNotEmpty) {
       return _firestore
           .collection('products')
-          .where('pType', isEqualTo: getType(type))
+          .where('pType', isEqualTo: type)
           .snapshots();
     } else {
       return getAllProducts();
@@ -46,21 +46,5 @@ class ProjectServices {
 
   Future<void> deleteProject(Project project) async {
     await _firestore.collection('projects').doc(project.projectID).delete();
-  }
-
-  /////////
-  getType(int type) {
-    switch (type) {
-      case 0:
-        return "";
-      case 1:
-        return "Door";
-      case 2:
-        return "Window";
-      case 3:
-        return "Others";
-      default:
-        return "";
-    }
   }
 }

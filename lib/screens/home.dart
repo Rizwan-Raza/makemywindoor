@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
-import 'package:makemywindoor/screens/products-to-sell.dart';
+import 'package:makemywindoor/screens/products_to_sell.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 

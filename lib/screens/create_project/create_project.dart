@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makemywindoor/helperwidgets/my_appBar.dart';
+import 'package:makemywindoor/helperwidgets/my_appbar.dart';
 import 'package:makemywindoor/helperwidgets/my_button.dart';
 import 'package:makemywindoor/model/project.dart';
 import 'package:makemywindoor/model/project_dimens.dart';
@@ -13,7 +13,13 @@ import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:provider/provider.dart';
 
 class CreateProjectScreen extends StatefulWidget {
-  const CreateProjectScreen({Key? key}) : super(key: key);
+  final bool isEdit;
+  final Project? project;
+  const CreateProjectScreen({
+    Key? key,
+    this.isEdit = false,
+    this.project,
+  }) : super(key: key);
 
   @override
   _CreateProjectScreenState createState() => _CreateProjectScreenState();
@@ -21,7 +27,12 @@ class CreateProjectScreen extends StatefulWidget {
 
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
   int _activeStepIndex = 0;
-  Project project = Project.empty();
+  late Project project;
+  @override
+  void initState() {
+    super.initState();
+    project = widget.isEdit ? widget.project! : Project.empty();
+  }
 
   final GlobalKey<FormState> _detailForm = GlobalKey<FormState>();
   final GlobalKey<FormState> _dimensForm = GlobalKey<FormState>();
@@ -35,6 +46,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             content: CustomerDetails(
               detailForm: _detailForm,
               projectDetails: project.projectDetails,
+              isEdit: widget.isEdit,
             )),
         Step(
             state:
@@ -44,6 +56,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             content: DimensionScreen(
               dimensForm: _dimensForm,
               projectDimensions: project.projectDimensions,
+              isEdit: widget.isEdit,
             )),
         Step(
             state: StepState.complete,
@@ -58,7 +71,8 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[1],
+        appbarTitle:
+            widget.isEdit ? "Edit Project" : MyConstants.appbarTitle[1],
       ),
       body: Stepper(
         // margin: EdgeInsets.zero,
@@ -78,15 +92,16 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                      title: const Text('Creating'),
+                      title: Text(widget.isEdit ? 'Editing' : 'Creating'),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text('Creating Project, please wait'),
-                          SizedBox(
+                        children: [
+                          Text((widget.isEdit ? 'Editing' : 'Creating') +
+                              ' Project, please wait'),
+                          const SizedBox(
                             height: 10,
                           ),
-                          Center(child: CircularProgressIndicator()),
+                          const Center(child: CircularProgressIndicator()),
                         ],
                       ));
                 });
@@ -103,6 +118,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 setState(() {
                   _activeStepIndex = 0;
                 });
+                widget.isEdit ? Navigator.pop(context) : null;
               });
             });
           }
@@ -179,14 +195,17 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         if (_dimensForm.currentState!.validate()) {
           _dimensForm.currentState!.save();
           project.totalCost = (project.projectDimensions
-              .map((ProjectDimensions e) => e.height * e.width * e.rate)
+              .map((ProjectDimensions e) => e.esft * e.rate)
               .reduce((a, b) => a + b));
           project.totalCharge =
               project.totalCost + (project.totalCost * 18 / 100);
           project.createdBy =
               Provider.of<UserServices>(context, listen: false).currentUser!;
           project.status = 'Pending';
-          project.projectID = DateTime.now().millisecondsSinceEpoch.toString();
+          !widget.isEdit
+              ? project.projectID =
+                  DateTime.now().millisecondsSinceEpoch.toString()
+              : null;
           return true;
         }
         if (project.projectDimensions.length > 2) {

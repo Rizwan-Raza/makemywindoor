@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({Key? key}) : super(key: key);

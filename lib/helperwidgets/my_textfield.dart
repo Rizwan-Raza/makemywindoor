@@ -7,7 +7,7 @@ class MyTextFormField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final int lines;
-  final String? defaultValue;
+  final String? initialValue;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   const MyTextFormField(
@@ -17,7 +17,7 @@ class MyTextFormField extends StatelessWidget {
       this.validator,
       this.onSaved,
       this.lines = 1,
-      this.defaultValue,
+      this.initialValue,
       this.keyboardType,
       this.onChanged,
       this.controller})
@@ -39,7 +39,7 @@ class MyTextFormField extends StatelessWidget {
           cursorColor: Colors.amber[700],
           controller: controller,
           maxLines: lines,
-          initialValue: defaultValue,
+          initialValue: initialValue,
           validator: (value) {
             if (validator != null) {
               return validator!(value);
