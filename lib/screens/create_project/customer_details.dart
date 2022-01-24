@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_textfield.dart';
-import 'package:makemywindoor/model/project_details.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
+import 'package:makemywindoor/models/project_details.dart';
 
 class CustomerDetails extends StatelessWidget {
   final GlobalKey<FormState> detailForm;

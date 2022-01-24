@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperwidgets/my_button.dart';
-import 'package:makemywindoor/helperwidgets/my_textfield.dart';
-import 'package:makemywindoor/model/contacts_us.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
+import 'package:makemywindoor/models/contacts_us.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 

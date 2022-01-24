@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/contact_us.dart';
 import 'package:makemywindoor/screens/myaccount/user_profile.dart';

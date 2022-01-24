@@ -1,12 +1,12 @@
-import 'package:makemywindoor/model/project_details.dart';
-import 'package:makemywindoor/model/project_dimens.dart';
-import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/models/project_details.dart';
+import 'package:makemywindoor/models/project_dimens.dart';
+import 'package:makemywindoor/models/user.dart';
 
 class Project {
   String projectID;
   ProjectDetails projectDetails;
   List<ProjectDimensions> projectDimensions;
-  int totalCost;
+  num totalCost;
   double totalCharge;
   DateTime createdOn;
   User createdBy;
@@ -27,7 +27,7 @@ class Project {
         projectID: '',
         projectDetails: ProjectDetails.empty(),
         projectDimensions: [],
-        totalCost: 0,
+        totalCost: 0.0,
         totalCharge: 0.0,
         createdOn: DateTime.now(),
         createdBy: User.empty(),
@@ -42,7 +42,7 @@ class Project {
             .map<ProjectDimensions>(
                 (dynamic item) => ProjectDimensions.fromMap(item))
             .toList(),
-        totalCost: map['totalCost'],
+        totalCost: map['totalCost'] as num,
         totalCharge: map['totalCharge'] as double,
         createdOn: DateTime.parse(map['createdOn']),
         createdBy: User.fromMap(map['createdBy']),

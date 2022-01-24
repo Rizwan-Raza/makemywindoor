@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_button.dart';
-import 'package:makemywindoor/helperwidgets/my_textfield.dart';
-import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
+import 'package:makemywindoor/models/user.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/auth/otp.dart';
 import 'package:makemywindoor/services/user_service.dart';

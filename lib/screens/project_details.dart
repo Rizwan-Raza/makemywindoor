@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/model/project.dart';
+import 'package:makemywindoor/models/project.dart';
 import 'package:makemywindoor/screens/create_project/invoice.dart';
 import 'package:makemywindoor/utils/invoice_pdf.dart';
 

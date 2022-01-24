@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:makemywindoor/model/project.dart';
-import 'package:makemywindoor/model/project_dimens.dart';
+import 'package:makemywindoor/models/project.dart';
+import 'package:makemywindoor/models/project_dimens.dart';
 
 class InvoiceScreen extends StatelessWidget {
   final Project project;
@@ -89,7 +89,7 @@ class InvoiceScreen extends StatelessWidget {
                   const Spacer(),
                   const Text(" = "),
                   Text(
-                    (e.height * e.width * e.rate).toString(),
+                    (e.esft * e.rate).toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -108,7 +108,8 @@ class InvoiceScreen extends StatelessWidget {
               children: [
                 const TextSpan(text: "+ 18% GST "),
                 TextSpan(
-                  text: " = " + (project.totalCost * 18 / 100).toString(),
+                  text:
+                      " = " + (project.totalCost * 18 / 100).toStringAsFixed(4),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -116,10 +117,13 @@ class InvoiceScreen extends StatelessWidget {
             textAlign: TextAlign.right,
           ),
         ),
+        const SizedBox(
+          height: 8,
+        ),
         SizedBox(
           width: double.infinity,
           child: Text(
-            "Total : " + project.totalCharge.toString(),
+            "Total : " + project.totalCharge.toStringAsFixed(2),
             textAlign: TextAlign.right,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),

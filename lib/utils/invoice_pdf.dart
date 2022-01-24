@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:makemywindoor/model/project.dart';
-import 'package:makemywindoor/model/project_dimens.dart';
+import 'package:makemywindoor/models/project.dart';
+import 'package:makemywindoor/models/project_dimens.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -143,7 +143,7 @@ class InvoicePDF {
                             text: " cms = ",
                           ),
                           pw.TextSpan(
-                            text: e.esft.toString(),
+                            text: e.esft.toStringAsFixed(4),
                             style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                           ),
                           const pw.TextSpan(
@@ -162,7 +162,7 @@ class InvoicePDF {
                     pw.Spacer(),
                     pw.Text(" = "),
                     pw.Text(
-                      (e.height * e.width * e.rate).toString(),
+                      (e.esft * e.rate).toStringAsFixed(4),
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                     ),
                   ],
@@ -181,7 +181,8 @@ class InvoicePDF {
                 children: [
                   const pw.TextSpan(text: "+ 18% GST "),
                   pw.TextSpan(
-                    text: " = " + (project.totalCost * 18 / 100).toString(),
+                    text: " = " +
+                        (project.totalCost * 18 / 100).toStringAsFixed(4),
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ],
@@ -190,9 +191,12 @@ class InvoicePDF {
             ),
           ),
           pw.SizedBox(
+            height: 8,
+          ),
+          pw.SizedBox(
             width: double.infinity,
             child: pw.Text(
-              "Total : " + project.totalCharge.toString(),
+              "Total : " + project.totalCharge.toStringAsFixed(2),
               textAlign: pw.TextAlign.right,
               style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
             ),

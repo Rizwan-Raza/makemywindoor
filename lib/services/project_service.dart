@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:makemywindoor/model/project.dart';
+import 'package:makemywindoor/models/project.dart';
 
 class ProjectServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

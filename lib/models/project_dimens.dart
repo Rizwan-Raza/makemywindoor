@@ -2,7 +2,7 @@ class ProjectDimensions {
   String dimensionID;
   int height;
   int width;
-  int esft;
+  num esft;
   int rate;
   String? remarks;
   String type;
@@ -11,7 +11,7 @@ class ProjectDimensions {
         dimensionID: '',
         height: 0,
         width: 0,
-        esft: 0,
+        esft: 0.0,
         rate: 0,
         remarks: '',
         type: '',

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makemywindoor/firebase_options.dart';
-import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/models/user.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/services/project_service.dart';

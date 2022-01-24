@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/helperwidgets/my_textfield.dart';
-import 'package:makemywindoor/model/project_dimens.dart';
+import 'package:makemywindoor/models/project_dimens.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
 
 // stores ExpansionPanel state information
 class Item {
@@ -325,7 +325,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                                 widget.projectDimensions[items.indexOf(item)]
                                     .height *
                                 (0.033 * 0.033))
-                            .toString()
+                            .toStringAsFixed(4)
                         : "";
                   },
                 ),
@@ -352,7 +352,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                     },
                     onSaved: (value) {
                       widget.projectDimensions[items.indexOf(item)].esft =
-                          value!.isNotEmpty ? int.parse(value) : 0;
+                          value!.isNotEmpty ? double.parse(value) : 0;
                     },
                     keyboardType: TextInputType.number,
                     // initialValue: (widget
@@ -361,7 +361,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                     //     .toString(),
                     onChanged: (value) {
                       widget.projectDimensions[items.indexOf(item)].esft =
-                          value.isNotEmpty ? int.parse(value) : 0;
+                          value.isNotEmpty ? double.parse(value) : 0;
                     }),
                 const SizedBox(
                   height: 16,

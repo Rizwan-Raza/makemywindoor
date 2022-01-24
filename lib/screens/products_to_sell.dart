@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperwidgets/my_appbar.dart';
-import 'package:makemywindoor/helperwidgets/product_card.dart';
-import 'package:makemywindoor/model/product.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/product_card.dart';
+import 'package:makemywindoor/models/product.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';

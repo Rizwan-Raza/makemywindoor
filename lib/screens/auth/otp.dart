@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:makemywindoor/helperwidgets/my_button.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/services/otp_service.dart';
 import 'package:makemywindoor/services/timer.dart';

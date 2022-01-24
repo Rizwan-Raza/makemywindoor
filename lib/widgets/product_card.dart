@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/model/product.dart';
+import 'package:makemywindoor/models/product.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
 class ProductCard extends StatelessWidget {

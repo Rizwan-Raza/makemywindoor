@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:makemywindoor/model/user.dart';
+import 'package:makemywindoor/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices {

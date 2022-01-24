@@ -96,6 +96,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Home',
                       style: TextStyle(
+                        fontWeight: _selectedIndex == 0
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color:
                             _selectedIndex == 0 ? Colors.black : Colors.black54,
                       ),
@@ -120,6 +123,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'My Projects',
                       style: TextStyle(
+                        fontWeight: _selectedIndex == 1
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color:
                             _selectedIndex == 1 ? Colors.black : Colors.black54,
                       ),
@@ -154,6 +160,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Products',
                       style: TextStyle(
+                        fontWeight: _selectedIndex == 3
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color:
                             _selectedIndex == 3 ? Colors.black : Colors.black54,
                       ),
@@ -178,6 +187,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       'Account',
                       style: TextStyle(
+                        fontWeight: _selectedIndex == 4
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color:
                             _selectedIndex == 4 ? Colors.black : Colors.black54,
                       ),

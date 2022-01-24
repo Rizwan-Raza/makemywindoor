@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/helperwidgets/my_appbar.dart';
-import 'package:makemywindoor/model/project.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/models/project.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/project_details.dart';
 import 'package:makemywindoor/services/project_service.dart';
@@ -147,7 +147,8 @@ class MyProjects extends StatelessWidget {
                         subtitle: Text(list[index].projectDetails.customerName +
                             '\n' +
                             list[index].projectDetails.customerNumber),
-                        trailing: Text(list[index].totalCharge.toString()),
+                        trailing:
+                            Text(list[index].totalCharge.toStringAsFixed(2)),
                       ),
                     );
                   });

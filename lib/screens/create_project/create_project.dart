@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:makemywindoor/helperwidgets/my_appbar.dart';
-import 'package:makemywindoor/helperwidgets/my_button.dart';
-import 'package:makemywindoor/model/project.dart';
-import 'package:makemywindoor/model/project_dimens.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
+import 'package:makemywindoor/models/project.dart';
+import 'package:makemywindoor/models/project_dimens.dart';
 import 'package:makemywindoor/screens/create_project/customer_details.dart';
 import 'package:makemywindoor/screens/create_project/dimensions.dart';
 import 'package:makemywindoor/screens/create_project/invoice.dart';
