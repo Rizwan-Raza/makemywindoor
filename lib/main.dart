@@ -77,8 +77,8 @@ class _AppState extends State<App> {
                   toolbarTextStyle: TextStyle(
                     color: Colors.black,
                   ),
-                  systemOverlayStyle: SystemUiOverlayStyle.light),
-              iconTheme: const IconThemeData(color: Colors.white),
+                  systemOverlayStyle: SystemUiOverlayStyle.dark),
+              iconTheme: const IconThemeData(color: Colors.black),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             home: FutureBuilder(
