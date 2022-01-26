@@ -76,7 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(LineIcons.folderOpen),
-            label: "My Projects",
+            label: "Projects",
           ),
           BottomNavigationBarItem(
             icon: Icon(LineIcons.dotCircle),
@@ -88,7 +88,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(LineIcons.user),
-            label: "My Account",
+            label: "Account",
           ),
         ],
         currentIndex: _selectedIndex,

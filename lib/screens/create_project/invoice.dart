@@ -52,41 +52,45 @@ class InvoiceScreen extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text.rich(
-                    TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: e.height.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const TextSpan(
-                          text: " cms x ",
-                        ),
-                        TextSpan(
-                          text: e.width.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const TextSpan(
-                          text: " cms = ",
-                        ),
-                        TextSpan(
-                          text: e.esft.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const TextSpan(
-                          text: " sq.ft x ",
-                        ),
-                        TextSpan(
-                          text: e.rate.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const TextSpan(
-                          text: " rate",
-                        ),
-                      ],
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: e.height.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const TextSpan(
+                            text: " cms x ",
+                          ),
+                          TextSpan(
+                            text: e.width.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const TextSpan(
+                            text: " cms = ",
+                          ),
+                          TextSpan(
+                            text: e.esft.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const TextSpan(
+                            text: " sq.ft x ",
+                          ),
+                          TextSpan(
+                            text: e.rate.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const TextSpan(
+                            text: " rate",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(
+                    width: 12,
+                  ),
                   const Text(" = "),
                   Text(
                     (e.esft * e.rate).toString(),
@@ -123,7 +127,7 @@ class InvoiceScreen extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: Text(
-            "Total : " + project.totalCharge.toStringAsFixed(2),
+            "Total : " + project.totalCharge.round().toString(),
             textAlign: TextAlign.right,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),

@@ -26,37 +26,39 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            InvoiceScreen(project: widget.project),
-            ElevatedButton.icon(
-                icon: const Icon(LineIcons.share),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                            title: const Text('Loading'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Text('Creating PDF, please wait'),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Center(child: CircularProgressIndicator()),
-                              ],
-                            ));
-                      });
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              InvoiceScreen(project: widget.project),
+              ElevatedButton.icon(
+                  icon: const Icon(LineIcons.share),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                              title: const Text('Loading'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text('Creating PDF, please wait'),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Center(child: CircularProgressIndicator()),
+                                ],
+                              ));
+                        });
 
-                  InvoicePDF.createPDF(context, widget.project, true)
-                      .then((value) => Navigator.pop(context));
-                },
-                label: const Text("Share"))
-          ],
+                    InvoicePDF.createPDF(context, widget.project, true)
+                        .then((value) => Navigator.pop(context));
+                  },
+                  label: const Text("Share"))
+            ],
+          ),
         ),
       ),
     );

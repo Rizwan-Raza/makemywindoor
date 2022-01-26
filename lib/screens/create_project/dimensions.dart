@@ -148,7 +148,8 @@ class _DimensionScreenState extends State<DimensionScreen> {
                           ),
                           SizedBox(
                             // color: Colors.red,
-                            width: SizeConfig.blockSizeHorizontal * 69,
+                            width:
+                                SizeConfig.screenWidth - 48 - 16 - 16 - 24 - 16,
                             child: DropdownButtonFormField<String>(
                               value: item.type,
                               icon: Expanded(
@@ -430,6 +431,8 @@ class _DimensionScreenState extends State<DimensionScreen> {
                     alignment: Alignment.centerRight,
                     child: TextButton.icon(
                         onPressed: () {
+                          widget.projectDimensions
+                              .removeAt(items.indexOf(item));
                           for (var element in items) {
                             // decrement all
                             if (element.type == item.type &&

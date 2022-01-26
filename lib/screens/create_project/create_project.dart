@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makemywindoor/widgets/my_appbar.dart';
-import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:makemywindoor/models/project.dart';
 import 'package:makemywindoor/models/project_dimens.dart';
 import 'package:makemywindoor/screens/create_project/customer_details.dart';
@@ -10,6 +8,8 @@ import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/invoice_pdf.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 
 class CreateProjectScreen extends StatefulWidget {
@@ -79,6 +79,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         type: StepperType.horizontal,
 
         currentStep: _activeStepIndex,
+        // margin: EdgeInsets.all(500),
         steps: stepList(),
         onStepContinue: () {
           if (_activeStepIndex < 2) {
