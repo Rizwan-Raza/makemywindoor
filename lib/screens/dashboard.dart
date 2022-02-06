@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
-import 'package:makemywindoor/screens/home.dart';
+import 'package:makemywindoor/screens/home/home.dart';
 import 'package:makemywindoor/screens/my_projects.dart';
 import 'package:makemywindoor/screens/products_to_sell.dart';
 import 'package:makemywindoor/utils/size_config.dart';
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: _selectedIndex != 2,
+      // extendBody: _selectedIndex != 2,
       resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: _selectedIndex,

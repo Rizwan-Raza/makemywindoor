@@ -37,6 +37,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                   icon: const Icon(LineIcons.share),
                   onPressed: () {
                     showDialog(
+                        barrierDismissible: false,
                         context: context,
                         builder: (context) {
                           return AlertDialog(

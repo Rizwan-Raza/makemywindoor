@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
-import 'package:makemywindoor/screens/doorScreen.dart';
-import 'package:makemywindoor/screens/windowScreen.dart';
+import 'package:makemywindoor/screens/home/doorScreen.dart';
+import 'package:makemywindoor/screens/home/windowScreen.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/size_config.dart';
 
@@ -67,15 +67,13 @@ class _HomeState extends State<Home> {
           case 1:
             Navigator.push(
               context,
-              // ignore: prefer_const_constructors
-              MaterialPageRoute(builder: (context) => WindowScreen()),
+              MaterialPageRoute(builder: (context) => const WindowScreen()),
             );
             break;
           case 2:
             Navigator.push(
               context,
-              // ignore: prefer_const_constructors
-              MaterialPageRoute(builder: (context) => DoorScreen()),
+              MaterialPageRoute(builder: (context) => const DoorScreen()),
             );
             break;
           default:

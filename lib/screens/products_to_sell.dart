@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/widgets/my_appbar.dart';
-import 'package:makemywindoor/widgets/product_card.dart';
 import 'package:makemywindoor/models/product.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/product_card.dart';
 import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: MyAppBar(
         appbarTitle: MyConstants.appbarTitle[2],
       ),
@@ -56,40 +58,53 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     .toList()),
           ),
           Expanded(
-            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: Provider.of<ProjectServices>(context).getProductsOf(
-                    selected > 0 && selected < 4 ? chips[selected] : ""),
-                // stream: Provider.of<ProjectServices>(context).getAllProducts(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.docs.isEmpty) {
-                      return Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: SizeConfig.screenWidth * 0.5,
-                              height: SizeConfig.screenHeight * 0.5,
-                              child: Lottie.asset(
-                                  "assets/imgs/lotties/empty.json",
-                                  repeat: false),
-                            ),
-                            const Text("No Products Available"),
-                          ],
+            child: SingleChildScrollView(
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream: Provider.of<ProjectServices>(context).getProductsOf(
+                      selected > 0 && selected < 4 ? chips[selected] : ""),
+                  // stream: Provider.of<ProjectServices>(context).getAllProducts(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: SizeConfig.screenWidth * 0.5,
+                                height: SizeConfig.screenHeight * 0.5,
+                                child: Lottie.asset(
+                                    "assets/imgs/lotties/empty.json",
+                                    repeat: false),
+                              ),
+                              const Text("No Products Available"),
+                            ],
+                          ),
+                        );
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          // gridDelegate:
+
+                          //     const SliverGridDelegateWithFixedCrossAxisCount(
+                          //         crossAxisCount: 2,
+                          //         childAspectRatio: 2 / 3,
+                          //         crossAxisSpacing: 8,
+                          //         mainAxisSpacing: 8),
+                          // shrinkWrap: true,
+                          children: snapshot.data!.docs
+                              .map((doc) => ProductCard(
+                                    product: Product.fromMap(doc.data()),
+                                  ))
+                              .toList(),
                         ),
                       );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
                     }
-                    return ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs
-                          .map((doc) => ProductCard(
-                                product: Product.fromMap(doc.data()),
-                              ))
-                          .toList(),
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                }),
+                  }),
+            ),
           ),
         ],
       ),

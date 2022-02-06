@@ -90,6 +90,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             }
           } else {
             showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (context) {
                   return AlertDialog(

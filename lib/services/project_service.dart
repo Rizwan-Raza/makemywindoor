@@ -16,14 +16,18 @@ class ProjectServices {
   }
 
   getAllProducts() {
-    return _firestore.collection('products').snapshots();
+    return _firestore
+        .collection('products')
+        .orderBy("productId", descending: true)
+        .snapshots();
   }
 
   getProductsOf(String type) {
     if (type.isNotEmpty) {
       return _firestore
           .collection('products')
-          .where('pType', isEqualTo: type)
+          .orderBy('productId', descending: true)
+          .where('type', isEqualTo: type)
           .snapshots();
     } else {
       return getAllProducts();
