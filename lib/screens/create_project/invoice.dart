@@ -61,14 +61,14 @@ class InvoiceScreen extends StatelessWidget {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const TextSpan(
-                            text: " cms x ",
+                            text: " mm x ",
                           ),
                           TextSpan(
                             text: e.width.toString(),
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const TextSpan(
-                            text: " cms = ",
+                            text: " mm = ",
                           ),
                           TextSpan(
                             text: e.esft.toString(),

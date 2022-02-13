@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
-import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:makemywindoor/models/user.dart';
 import 'package:makemywindoor/screens/auth/otp.dart';
 import 'package:makemywindoor/screens/auth/signup.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String number = "";
   bool numberError = false;
   bool numberOk = false;
-  bool validNumber = false;
+  int validNumber = -1;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -159,13 +160,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                         .login(number),
                                     builder: (context,
                                         AsyncSnapshot<User?> snapshot) {
+                                      loading = true;
                                       if (snapshot.hasData) {
+                                        loading = false;
                                         if (snapshot.data?.phone == number) {
-                                          validNumber = true;
-                                          return const Icon(
-                                            LineIcons.checkCircle,
-                                            color: Colors.green,
-                                          );
+                                          if (!(snapshot.data?.disabled ??
+                                              false)) {
+                                            validNumber = 1;
+                                            return const Icon(
+                                              LineIcons.checkCircle,
+                                              color: Colors.green,
+                                            );
+                                          } else {
+                                            validNumber = 0;
+                                            return const Icon(
+                                              LineIcons.times,
+                                              color: Colors.red,
+                                            );
+                                          }
                                         } else {
                                           return const Icon(
                                             LineIcons.exclamationCircle,
@@ -173,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           );
                                         }
                                       } else {
-                                        validNumber = false;
+                                        validNumber = -1;
                                         return const Padding(
                                           padding: EdgeInsets.all(16),
                                           child: SizedBox(
@@ -216,25 +228,35 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: MyButton(
               title: "VERIFY",
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  if (validNumber) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OTPScreen(
-                                  number: number,
-                                )));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignupScreen(
-                                  number: number,
-                                )));
-                  }
-                }
-              },
+              onPressed: numberOk && !loading
+                  ? () {
+                      if (_formKey.currentState!.validate()) {
+                        if (validNumber == 1) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OTPScreen(
+                                        number: number,
+                                      )));
+                        } else if (validNumber == -1) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignupScreen(
+                                        number: number,
+                                      )));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "You have been blocked by the admin. Please contact the admin"),
+                              duration: Duration(seconds: 5),
+                            ),
+                          );
+                        }
+                      }
+                    }
+                  : null,
             ),
           ),
           // const SizedBox(

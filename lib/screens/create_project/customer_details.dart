@@ -54,6 +54,7 @@ class CustomerDetails extends StatelessWidget {
               label: "Customer Phone",
               icon: LineIcons.phone,
               initialValue: isEdit ? projectDetails.customerNumber : null,
+              keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter customer phone';

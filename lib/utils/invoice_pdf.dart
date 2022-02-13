@@ -134,7 +134,7 @@ class InvoicePDF {
                                       fontWeight: pw.FontWeight.bold),
                                 ),
                                 const pw.TextSpan(
-                                  text: " cms x ",
+                                  text: " mm x ",
                                 ),
                                 pw.TextSpan(
                                   text: e.width.toString(),
@@ -142,7 +142,7 @@ class InvoicePDF {
                                       fontWeight: pw.FontWeight.bold),
                                 ),
                                 const pw.TextSpan(
-                                  text: " cms = ",
+                                  text: " mm = ",
                                 ),
                                 pw.TextSpan(
                                   text: e.esft.toStringAsFixed(2),

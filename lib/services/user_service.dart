@@ -21,7 +21,11 @@ class UserServices {
     prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       currentUser = User.fromMap(json.decode(prefs.getString('user')!));
-      return currentUser;
+      if (!await checkDisabled(currentUser!.phone)) {
+        return currentUser;
+      }
+      logout();
+      return null;
     }
     return null;
   }
@@ -60,5 +64,14 @@ class UserServices {
 
   Future<QuerySnapshot> getUsersByUid(int uid) {
     return _firestore.collection('users').where('uid', isEqualTo: uid).get();
+  }
+
+  checkDisabled(String phone) async {
+    DocumentSnapshot<Map<String, dynamic>> d = await getUser(phone);
+    if (d.exists) {
+      currentUser = User.fromMap(d.data()!);
+      return (currentUser!.disabled ?? false);
+    }
+    return false;
   }
 }

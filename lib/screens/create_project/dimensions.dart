@@ -238,7 +238,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   height: 16,
                 ),
                 MyTextFormField(
-                  label: "Height (in cms)",
+                  label: "Height (in mm)",
                   icon: LineIcons.rulerVertical,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -267,31 +267,21 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   onChanged: (value) {
                     widget.projectDimensions[items.indexOf(item)].height =
                         value.isNotEmpty ? int.parse(value) : 0;
-                    item.esqt.text = (widget
-                                        .projectDimensions[items.indexOf(item)]
-                                        .width /
-                                    30.48 *
-                                    widget
-                                        .projectDimensions[items.indexOf(item)]
-                                        .height /
-                                    30.48)
-                                .round() !=
-                            0
-                        ? (widget.projectDimensions[items.indexOf(item)].width /
-                                30.48 *
+                    int esqt =
+                        (widget.projectDimensions[items.indexOf(item)].width *
+                                0.0034 *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height /
-                                30.48)
-                            .round()
-                            .toString()
-                        : "";
+                                    .height *
+                                0.0034)
+                            .round();
+                    item.esqt.text = esqt != 0 ? esqt.toString() : "";
                   },
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 MyTextFormField(
-                  label: "Width (in cms)",
+                  label: "Width (in mm)",
                   icon: LineIcons.rulerHorizontal,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -320,24 +310,14 @@ class _DimensionScreenState extends State<DimensionScreen> {
                   onChanged: (value) {
                     widget.projectDimensions[items.indexOf(item)].width =
                         value.isNotEmpty ? int.parse(value) : 0;
-                    item.esqt.text = (widget
-                                        .projectDimensions[items.indexOf(item)]
-                                        .width /
-                                    30.48 *
-                                    widget
-                                        .projectDimensions[items.indexOf(item)]
-                                        .height /
-                                    30.48)
-                                .round() !=
-                            0
-                        ? (widget.projectDimensions[items.indexOf(item)].width /
-                                30.48 *
+                    int esqt =
+                        (widget.projectDimensions[items.indexOf(item)].width *
+                                0.0034 *
                                 widget.projectDimensions[items.indexOf(item)]
-                                    .height /
-                                30.48)
-                            .round()
-                            .toString()
-                        : "";
+                                    .height *
+                                0.0034)
+                            .round();
+                    item.esqt.text = esqt != 0 ? esqt.toString() : "";
                   },
                 ),
                 const SizedBox(
