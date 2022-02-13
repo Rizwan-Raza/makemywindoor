@@ -7,8 +7,6 @@ import 'package:makemywindoor/screens/create_project/invoice.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/invoice_pdf.dart';
-import 'package:makemywindoor/utils/my_constants.dart';
-import 'package:makemywindoor/widgets/my_appbar.dart';
 import 'package:makemywindoor/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 
@@ -69,119 +67,113 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        appbarTitle:
-            widget.isEdit ? "Edit Project" : MyConstants.appbarTitle[1],
-      ),
-      body: Stepper(
-        // margin: EdgeInsets.zero,
-        type: StepperType.horizontal,
+    return Stepper(
+      // margin: EdgeInsets.zero,
+      type: StepperType.horizontal,
 
-        currentStep: _activeStepIndex,
-        // margin: EdgeInsets.all(500),
-        steps: stepList(),
-        onStepContinue: () {
-          if (_activeStepIndex < 2) {
-            if (validate()) {
-              setState(() {
-                _activeStepIndex = _activeStepIndex + 1;
-              });
-            }
-          } else {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                      title: Text(widget.isEdit ? 'Editing' : 'Creating'),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text((widget.isEdit ? 'Editing' : 'Creating') +
-                              ' Project, please wait'),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Center(child: CircularProgressIndicator()),
-                        ],
-                      ));
-                });
-
-            Provider.of<ProjectServices>(context, listen: false)
-                .createProject(
-              project,
-            )
-                .then((value) {
-              _detailForm.currentState!.reset();
-              _dimensForm.currentState!.reset();
-              // lessgo!
-              InvoicePDF.createPDF(context, project, true).then((value) {
-                setState(() {
-                  _activeStepIndex = 0;
-                });
-                widget.isEdit ? Navigator.pop(context) : null;
-              });
+      currentStep: _activeStepIndex,
+      // margin: EdgeInsets.all(500),
+      steps: stepList(),
+      onStepContinue: () {
+        if (_activeStepIndex < 2) {
+          if (validate()) {
+            setState(() {
+              _activeStepIndex = _activeStepIndex + 1;
             });
           }
-        },
-        onStepCancel: () {
-          if (_activeStepIndex == 0) {
-            return;
-          }
-          // if (_activeStepIndex < (stepList().length - 1)) {
-          // validate();
+        } else {
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                    title: Text(widget.isEdit ? 'Editing' : 'Creating'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text((widget.isEdit ? 'Editing' : 'Creating') +
+                            ' Project, please wait'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Center(child: CircularProgressIndicator()),
+                      ],
+                    ));
+              });
+
+          Provider.of<ProjectServices>(context, listen: false)
+              .createProject(
+            project,
+          )
+              .then((value) {
+            _detailForm.currentState!.reset();
+            _dimensForm.currentState!.reset();
+            // lessgo!
+            InvoicePDF.createPDF(context, project, true).then((value) {
+              setState(() {
+                _activeStepIndex = 0;
+              });
+              widget.isEdit ? Navigator.pop(context) : null;
+            });
+          });
+        }
+      },
+      onStepCancel: () {
+        if (_activeStepIndex == 0) {
+          return;
+        }
+        // if (_activeStepIndex < (stepList().length - 1)) {
+        // validate();
+        setState(() {
+          _activeStepIndex -= 1;
+        });
+        // }
+      },
+      onStepTapped: (int index) {
+        if (index < _activeStepIndex) {
           setState(() {
             _activeStepIndex -= 1;
           });
-          // }
-        },
-        onStepTapped: (int index) {
-          if (index < _activeStepIndex) {
-            setState(() {
-              _activeStepIndex -= 1;
-            });
-          }
-          if (validate()) {
-            setState(() {
-              _activeStepIndex = index;
-            });
-          }
-        },
-        controlsBuilder: (context, details) {
-          final isLastStep = _activeStepIndex == stepList().length - 1;
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (_activeStepIndex > 0)
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: details.onStepCancel,
-                    child: const Text(
-                      'Back',
-                      style: TextStyle(fontSize: 14),
+        }
+        if (validate()) {
+          setState(() {
+            _activeStepIndex = index;
+          });
+        }
+      },
+      controlsBuilder: (context, details) {
+        final isLastStep = _activeStepIndex == stepList().length - 1;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (_activeStepIndex > 0)
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: MyButton(
-                    title: isLastStep ? 'Share' : 'Next',
-                    onPressed: details.onStepContinue!,
-                    min: true,
+                  onPressed: details.onStepCancel,
+                  child: const Text(
+                    'Back',
+                    style: TextStyle(fontSize: 14),
                   ),
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: MyButton(
+                  title: isLastStep ? 'Share' : 'Next',
+                  onPressed: details.onStepContinue!,
+                  min: true,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

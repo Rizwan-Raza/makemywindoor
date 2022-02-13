@@ -219,7 +219,7 @@ class InvoicePDF {
                   trailing: pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.end,
                       children: [
-                        pw.Text(" - Powered By "),
+                        pw.Text(" - Powered by "),
                         pw.Text(
                           "https://makemywindoor.com",
                           style: pw.TextStyle(

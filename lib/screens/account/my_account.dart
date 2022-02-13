@@ -3,10 +3,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/screens/account/about_us.dart';
+import 'package:makemywindoor/screens/account/contact_us.dart';
+import 'package:makemywindoor/screens/account/user_profile.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
-import 'package:makemywindoor/screens/contact_us.dart';
-import 'package:makemywindoor/screens/myaccount/user_profile.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
@@ -14,8 +14,6 @@ import 'package:makemywindoor/utils/size_config.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../about_us.dart';
 
 class MyAccount extends StatefulWidget {
   const MyAccount({Key? key}) : super(key: key);
@@ -60,79 +58,74 @@ class _MyAccountState extends State<MyAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle[3],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            userProfileBox(),
-            // SizedBox(
-            //   height: SizeConfig.blockSizeVertical * 1,
-            // ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: myDivider(),
-            ),
-            // context.watch<MyUser>().email == null
-            //       ? SizedBox(
-            //           height: 0,
-            //         )
-            //       :  Material(
-            //   child: InkWell(
-            //     onTap: () {
-            //       onClickMethod(i);
-            //     },
-            //     child: Padding(
-            //       padding: EdgeInsets.all(15.0),
-            //       child: helperWidget.myAccountRow(
-            //           moduleName.myAccountIconLeft[i],
-            //           moduleName.myAccountIcontitle[i]),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              height: SizeConfig.blockSizeVertical * 0,
-            ),
-            for (int i = 0; i < MyConstants.myAccountIconLeft.length; i++)
-              i == 0
-                  ? context.watch<UserServices>().currentUser != null
-                      ? Material(
-                          child: InkWell(
-                            onTap: () {
-                              onClickMethod(i);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: myAccountRow(
-                                  MyConstants.myAccountIconLeft[i],
-                                  MyConstants.myAccountIcontitle[i]),
-                            ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          userProfileBox(),
+          // SizedBox(
+          //   height: SizeConfig.blockSizeVertical * 1,
+          // ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: myDivider(),
+          ),
+          // context.watch<MyUser>().email == null
+          //       ? SizedBox(
+          //           height: 0,
+          //         )
+          //       :  Material(
+          //   child: InkWell(
+          //     onTap: () {
+          //       onClickMethod(i);
+          //     },
+          //     child: Padding(
+          //       padding: EdgeInsets.all(15.0),
+          //       child: helperWidget.myAccountRow(
+          //           moduleName.myAccountIconLeft[i],
+          //           moduleName.myAccountIcontitle[i]),
+          //     ),
+          //   ),
+          // ),
+          SizedBox(
+            height: SizeConfig.blockSizeVertical * 0,
+          ),
+          for (int i = 0; i < MyConstants.myAccountIconLeft.length; i++)
+            i == 0
+                ? context.watch<UserServices>().currentUser != null
+                    ? Material(
+                        child: InkWell(
+                          onTap: () {
+                            onClickMethod(i);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: myAccountRow(
+                                MyConstants.myAccountIconLeft[i],
+                                MyConstants.myAccountIcontitle[i]),
                           ),
-                        )
-                      : const SizedBox(
-                          height: 0,
-                        )
-                  : Material(
-                      child: InkWell(
-                        onTap: () {
-                          onClickMethod(i);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: myAccountRow(MyConstants.myAccountIconLeft[i],
-                              MyConstants.myAccountIcontitle[i]),
                         ),
+                      )
+                    : const SizedBox(
+                        height: 0,
+                      )
+                : Material(
+                    child: InkWell(
+                      onTap: () {
+                        onClickMethod(i);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: myAccountRow(MyConstants.myAccountIconLeft[i],
+                            MyConstants.myAccountIcontitle[i]),
                       ),
                     ),
-            SizedBox(
-              height: SizeConfig.blockSizeVertical * 1,
-            ),
-          ],
-        ),
+                  ),
+          SizedBox(
+            height: SizeConfig.blockSizeVertical * 1,
+          ),
+        ],
       ),
     );
   }
@@ -218,14 +211,7 @@ class _MyAccountState extends State<MyAccount> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hi,',
-                  style: MyConstants.nameLoginRegStyle.copyWith(
-                      fontSize: 18,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  context.read<UserServices>().currentUser!.name,
+                  'Hi, ' + context.read<UserServices>().currentUser!.name,
                   overflow: TextOverflow.visible,
                   style: MyConstants.nameLoginRegStyle.copyWith(
                       fontSize: 18,
@@ -234,6 +220,14 @@ class _MyAccountState extends State<MyAccount> {
                 ),
                 Text(
                   context.read<UserServices>().currentUser!.email,
+                  overflow: TextOverflow.visible,
+                  style: MyConstants.nameLoginRegStyle.copyWith(
+                      fontSize: 14,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.normal),
+                ),
+                Text(
+                  context.read<UserServices>().currentUser!.phone,
                   overflow: TextOverflow.visible,
                   style: MyConstants.nameLoginRegStyle.copyWith(
                       fontSize: 14,

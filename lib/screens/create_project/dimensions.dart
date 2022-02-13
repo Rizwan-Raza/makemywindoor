@@ -383,6 +383,7 @@ class _DimensionScreenState extends State<DimensionScreen> {
                             ? widget.projectDimensions[items.indexOf(item)].rate
                                 .toString()
                             : null,
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       widget.projectDimensions[items.indexOf(item)].rate =
                           value.isNotEmpty ? int.parse(value) : 0;

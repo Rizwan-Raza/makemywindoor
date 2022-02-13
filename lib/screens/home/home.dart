@@ -23,33 +23,12 @@ class _HomeState extends State<Home> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Center(
-            child: SizedBox(
-                height: 40,
-                child: Image.asset(
-                  "assets/imgs/logo.png",
-                  gaplessPlayback: true,
-                ))),
-      ),
-      body: GridView.count(
-        crossAxisCount: 1,
-        mainAxisSpacing: 5,
-        children: [
-          for (int i = 0; i < title.length; i++) windoorType(i),
-        ],
-      ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.max,
-      //     children: [
-      //       for (int i = 0; i < title.length; i++)
-      //         windoorType(titleimgURL[i]),
-      //     ],
-      //   ),
-      // )
+    return GridView.count(
+      crossAxisCount: 1,
+      mainAxisSpacing: 5,
+      children: [
+        for (int i = 0; i < title.length; i++) windoorType(i),
+      ],
     );
   }
 

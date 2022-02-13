@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:makemywindoor/screens/account/my_account.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/home/home.dart';
-import 'package:makemywindoor/screens/my_projects.dart';
-import 'package:makemywindoor/screens/products_to_sell.dart';
+import 'package:makemywindoor/screens/products.dart';
+import 'package:makemywindoor/screens/projects/my_projects.dart';
+import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
-
-import 'myaccount/my_account.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -41,6 +42,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       // extendBody: _selectedIndex != 2,
       resizeToAvoidBottomInset: false,
+      appBar: _selectedIndex == 0
+          ? AppBar(
+              elevation: 0,
+              title: Center(
+                  child: SizedBox(
+                      height: 40,
+                      child: Image.asset(
+                        "assets/imgs/logo.png",
+                        gaplessPlayback: true,
+                      ))),
+            )
+          : MyAppBar(appbarTitle: MyConstants.appbarTitle[_selectedIndex - 1]),
       body: IndexedStack(
         index: _selectedIndex,
         children: pages.map((Widget p) {

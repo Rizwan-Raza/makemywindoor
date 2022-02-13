@@ -169,10 +169,10 @@ class _ContactUsState extends State<ContactUs> {
         "Hello Make My Windoor,\n\nName: ${helpsupport.name}\nNumber: ${helpsupport.phone}\nEmail: ${helpsupport.email}\n\nMessage: ${helpsupport.query}.\n\nI would Like to talk to you regarding order.";
     String uri =
         'https://wa.me/+918041246348?text=${Uri.encodeComponent(whatsappText)}';
-    if (await canLaunch(uri)) {
-      await launch(uri);
-    } else {
-      throw 'Could not launch';
-    }
+    // if (await canLaunch(uri)) {
+    await launch(uri);
+    // } else {
+    //   throw 'Could not launch';
+    // }
   }
 }
