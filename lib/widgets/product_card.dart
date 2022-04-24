@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:makemywindoor/models/product.dart';
@@ -77,7 +79,8 @@ class ProductCard extends StatelessWidget {
     if (await canLaunch(uri)) {
       await launch(uri);
     } else {
-      throw 'Could not launch';
+      await launch(uri);
+      log('Could not launch');
     }
   }
 }
