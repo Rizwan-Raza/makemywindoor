@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/widgets/my_button.dart';
-import 'package:makemywindoor/widgets/my_textfield.dart';
 import 'package:makemywindoor/models/user.dart';
 import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/auth/otp.dart';
 import 'package:makemywindoor/services/user_service.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/my_button.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -24,6 +24,14 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.amber,
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text(
+          "Create an Account",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w700, fontSize: 20),
+        ),
+      ),
       body: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -31,22 +39,8 @@ class _SignupScreenState extends State<SignupScreen> {
             children: <Widget>[
               getClipPath(WaveClipper2(), Colors.amber[50], Column()),
               getClipPath(WaveClipper3(), Colors.amber[100], Column()),
-              getClipPath(
-                  WaveClipper1(),
-                  Theme.of(context).colorScheme.primary,
-                  const SafeArea(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 24.0),
-                      child: Text(
-                        "Create an Account",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20),
-                      ),
-                    ),
-                  )),
+              getClipPath(WaveClipper1(), Theme.of(context).colorScheme.primary,
+                  Column()),
             ],
           ),
           const SizedBox(
@@ -189,10 +183,12 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                      (Route<dynamic> route) => false);
+                  Navigator.canPop(context)
+                      ? Navigator.pop(context)
+                      : Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()));
                 },
                 child: const Text(
                   "Login",
@@ -229,7 +225,7 @@ class _SignupScreenState extends State<SignupScreen> {
       child: Container(
         child: child,
         width: double.infinity,
-        height: SizeConfig.blockSizeVertical * 27,
+        height: SizeConfig.blockSizeVertical * 15,
         color: color,
         // decoration: const BoxDecoration(
         //     gradient: LinearGradient(

@@ -21,13 +21,20 @@ class _LoginScreenState extends State<LoginScreen> {
   String number = "";
   bool numberError = false;
   bool numberOk = false;
-  int validNumber = -1;
-  bool loading = false;
+  bool validNumber = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.amber,
+      appBar: Navigator.canPop(context)
+          ? AppBar(
+              elevation: 0,
+            )
+          : AppBar(
+              toolbarHeight: 0,
+              elevation: 0,
+            ),
       body: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -143,6 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // ));
                         return "Please enter valid mobile number";
                       }
+                      return null;
                     },
                     cursorColor: Colors.amber[700],
                     decoration: InputDecoration(
@@ -160,24 +168,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         .login(number),
                                     builder: (context,
                                         AsyncSnapshot<User?> snapshot) {
-                                      loading = true;
                                       if (snapshot.hasData) {
-                                        loading = false;
                                         if (snapshot.data?.phone == number) {
-                                          if (!(snapshot.data?.disabled ??
-                                              false)) {
-                                            validNumber = 1;
-                                            return const Icon(
-                                              LineIcons.checkCircle,
-                                              color: Colors.green,
-                                            );
-                                          } else {
-                                            validNumber = 0;
-                                            return const Icon(
-                                              LineIcons.times,
-                                              color: Colors.red,
-                                            );
-                                          }
+                                          validNumber = true;
+                                          return const Icon(
+                                            LineIcons.checkCircle,
+                                            color: Colors.green,
+                                          );
                                         } else {
                                           return const Icon(
                                             LineIcons.exclamationCircle,
@@ -185,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           );
                                         }
                                       } else {
-                                        validNumber = -1;
+                                        validNumber = false;
                                         return const Padding(
                                           padding: EdgeInsets.all(16),
                                           child: SizedBox(
@@ -228,35 +225,25 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: MyButton(
               title: "VERIFY",
-              onPressed: numberOk && !loading
-                  ? () {
-                      if (_formKey.currentState!.validate()) {
-                        if (validNumber == 1) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OTPScreen(
-                                        number: number,
-                                      )));
-                        } else if (validNumber == -1) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignupScreen(
-                                        number: number,
-                                      )));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "You have been blocked by the admin. Please contact the admin"),
-                              duration: Duration(seconds: 5),
-                            ),
-                          );
-                        }
-                      }
-                    }
-                  : null,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if (validNumber) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OTPScreen(
+                                  number: number,
+                                )));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignupScreen(
+                                  number: number,
+                                )));
+                  }
+                }
+              },
             ),
           ),
           // const SizedBox(
@@ -285,10 +272,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const SignupScreen()),
-                      (Route<dynamic> route) => false);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SignupScreen()));
                 },
                 child: const Text(
                   "Sign Up ",
@@ -314,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Container(
         child: child,
         width: double.infinity,
-        height: SizeConfig.blockSizeVertical * 55,
+        height: SizeConfig.blockSizeVertical * 35,
         color: color,
         // decoration: const BoxDecoration(
         //     gradient: LinearGradient(

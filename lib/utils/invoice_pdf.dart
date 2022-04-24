@@ -134,7 +134,7 @@ class InvoicePDF {
                                       fontWeight: pw.FontWeight.bold),
                                 ),
                                 const pw.TextSpan(
-                                  text: " mm x ",
+                                  text: " cms x ",
                                 ),
                                 pw.TextSpan(
                                   text: e.width.toString(),
@@ -142,7 +142,7 @@ class InvoicePDF {
                                       fontWeight: pw.FontWeight.bold),
                                 ),
                                 const pw.TextSpan(
-                                  text: " mm = ",
+                                  text: " cms = ",
                                 ),
                                 pw.TextSpan(
                                   text: e.esft.toStringAsFixed(2),
@@ -219,7 +219,7 @@ class InvoicePDF {
                   trailing: pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.end,
                       children: [
-                        pw.Text(" - Powered by "),
+                        pw.Text(" - Powered By "),
                         pw.Text(
                           "https://makemywindoor.com",
                           style: pw.TextStyle(

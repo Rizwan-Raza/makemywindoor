@@ -6,6 +6,7 @@ import 'package:makemywindoor/screens/home/doorScreen.dart';
 import 'package:makemywindoor/screens/home/windowScreen.dart';
 import 'package:makemywindoor/utils/color_generator.dart';
 import 'package:makemywindoor/utils/size_config.dart';
+import 'package:makemywindoor/widgets/require_login.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -40,7 +41,8 @@ class _HomeState extends State<Home> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const CreateProjectScreen()),
+                  builder: (context) =>
+                      const RequireLogin(child: CreateProjectScreen())),
             );
             break;
           case 1:

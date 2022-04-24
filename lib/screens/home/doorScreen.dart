@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
 import 'package:makemywindoor/utils/size_config.dart';
-import 'package:makemywindoor/widgets/my_appBar.dart';
+import 'package:makemywindoor/widgets/my_appbar.dart';
 
 class DoorScreen extends StatefulWidget {
   const DoorScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _DoorScreenState extends State<DoorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        appbarTitle: MyConstants.appbarTitle1[1],
+        title: MyConstants.appbarTitle1[1],
       ),
       body: Column(
         // mainAxisSize: MainAxisSize.min,

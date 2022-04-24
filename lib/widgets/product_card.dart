@@ -74,10 +74,10 @@ class ProductCard extends StatelessWidget {
         "Name: ${product.name}\nType: ${product.type}\nDescription: ${product.description}\nPrice: ${product.price}.\n\nI would Like to talk to you regarding this product.";
     String uri =
         'https://wa.me/+918041246348?text=${Uri.encodeComponent(whatsappText)}';
-    //if (await canLaunch(uri)) {
-    await launch(uri);
-    // } else {
-    //   throw 'Could not launch \n' + uri;
-    // }
+    if (await canLaunch(uri)) {
+      await launch(uri);
+    } else {
+      throw 'Could not launch';
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/widgets/my_textfield.dart';
 import 'package:makemywindoor/models/project_details.dart';
+import 'package:makemywindoor/widgets/my_textfield.dart';
 
 class CustomerDetails extends StatelessWidget {
   final GlobalKey<FormState> detailForm;
@@ -28,6 +28,7 @@ class CustomerDetails extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'Please enter project name';
                 }
+                return null;
               },
               onSaved: (value) {
                 projectDetails.projectName = value!;
@@ -43,6 +44,7 @@ class CustomerDetails extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'Please enter customer name';
                 }
+                return null;
               },
               onSaved: (value) {
                 projectDetails.customerName = value!;
@@ -54,11 +56,11 @@ class CustomerDetails extends StatelessWidget {
               label: "Customer Phone",
               icon: LineIcons.phone,
               initialValue: isEdit ? projectDetails.customerNumber : null,
-              keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter customer phone';
                 }
+                return null;
               },
               onSaved: (value) {
                 projectDetails.customerNumber = value!;

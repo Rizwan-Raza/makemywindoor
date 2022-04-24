@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(60);
-  final String appbarTitle;
-  const MyAppBar({Key? key, required this.appbarTitle}) : super(key: key);
+  final String title;
+  const MyAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,23 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       elevation: 0,
       // automaticallyImplyLeading: false,
-      title: Text(
-        appbarTitle,
-        style: GoogleFonts.inter(
-          textStyle: const TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
-        ),
-      ),
+      title: title.isNotEmpty
+          ? Text(
+              title,
+              style: GoogleFonts.inter(
+                textStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 20),
+              ),
+            )
+          : Center(
+              child: SizedBox(
+                  height: 40,
+                  child: Image.asset(
+                    "assets/imgs/logo.png",
+                    gaplessPlayback: true,
+                  ))),
       centerTitle: true,
     );
   }

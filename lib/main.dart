@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:makemywindoor/firebase_options.dart';
-import 'package:makemywindoor/models/user.dart';
-import 'package:makemywindoor/screens/auth/login.dart';
 import 'package:makemywindoor/screens/dashboard.dart';
 import 'package:makemywindoor/services/project_service.dart';
 import 'package:makemywindoor/services/timer.dart';
@@ -81,25 +79,7 @@ class _AppState extends State<App> {
               iconTheme: const IconThemeData(color: Colors.black),
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home: FutureBuilder(
-              future: Provider.of<UserServices>(context).getState(),
-              builder: (context, AsyncSnapshot<User> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Scaffold(
-                    backgroundColor: Colors.amber,
-                    body: Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.black,
-                      ),
-                    ),
-                  );
-                } else if (snapshot.hasData && snapshot.data.phone != null) {
-                  return const DashboardScreen();
-                } else {
-                  return const LoginScreen();
-                }
-              },
-            ),
+            home: const DashboardScreen(),
           );
         });
       },

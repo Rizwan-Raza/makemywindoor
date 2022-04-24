@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:makemywindoor/screens/account/my_account.dart';
 import 'package:makemywindoor/screens/create_project/create_project.dart';
 import 'package:makemywindoor/screens/home/home.dart';
-import 'package:makemywindoor/screens/products.dart';
-import 'package:makemywindoor/screens/projects/my_projects.dart';
+import 'package:makemywindoor/screens/my_projects.dart';
+import 'package:makemywindoor/screens/products_to_sell.dart';
 import 'package:makemywindoor/utils/my_constants.dart';
-import 'package:makemywindoor/utils/size_config.dart';
 import 'package:makemywindoor/widgets/my_appbar.dart';
+import 'package:makemywindoor/widgets/require_login.dart';
+
+import 'myaccount/my_account.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -29,10 +30,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Bottom Pages
   List<Widget> pages = [
     const Home(key: PageStorageKey("Page1")),
-    const MyProjects(key: PageStorageKey("Page2")),
-    const CreateProjectScreen(key: PageStorageKey("Page3")),
+    const RequireLogin(child: MyProjects(), key: PageStorageKey("Page2")),
+    const RequireLogin(
+        child: CreateProjectScreen(), key: PageStorageKey("Page3")),
     const ProductsScreen(key: PageStorageKey("Page4")),
-    const MyAccount(key: PageStorageKey("Page5")),
+    const RequireLogin(child: MyAccount(), key: PageStorageKey("Page5")),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -42,18 +44,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       // extendBody: _selectedIndex != 2,
       resizeToAvoidBottomInset: false,
-      appBar: _selectedIndex == 0
-          ? AppBar(
-              elevation: 0,
-              title: Center(
-                  child: SizedBox(
-                      height: 40,
-                      child: Image.asset(
-                        "assets/imgs/logo.png",
-                        gaplessPlayback: true,
-                      ))),
-            )
-          : MyAppBar(appbarTitle: MyConstants.appbarTitle[_selectedIndex - 1]),
+      appBar: MyAppBar(
+          title: _selectedIndex == 0
+              ? ""
+              : MyConstants.appbarTitle[_selectedIndex - 1]),
       body: IndexedStack(
         index: _selectedIndex,
         children: pages.map((Widget p) {
@@ -111,141 +105,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _selectedIndex = index;
           });
         },
-      ),
-    );
-  }
-
-  Widget _getBottomBar() {
-    return Container(
-      color: Colors.transparent,
-      child: BottomAppBar(
-        //bottom navigation bar on scaffold
-        color: Theme.of(context).colorScheme.primary,
-        //shape of notch
-        shape: const CircularNotchedRectangle(),
-        //notche margin between floating button and bottom appbar
-        // notchMargin: 5,
-        child: Row(
-          //children inside bottom appbar
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 0;
-                });
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    LineIcons.home,
-                    color: _selectedIndex == 0 ? Colors.black : Colors.black54,
-                  ),
-                  Text(
-                    'Home',
-                    style: TextStyle(
-                      fontWeight: _selectedIndex == 0
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color:
-                          _selectedIndex == 0 ? Colors.black : Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 1;
-                });
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    LineIcons.briefcase,
-                    color: _selectedIndex == 1 ? Colors.black : Colors.black54,
-                  ),
-                  Text(
-                    'My Projects',
-                    style: TextStyle(
-                      fontWeight: _selectedIndex == 1
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color:
-                          _selectedIndex == 1 ? Colors.black : Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: SizeConfig.blockSizeHorizontal * 16,
-            ),
-            // IconButton(
-            //   icon: Icon(
-            //     LineIcons.dotCircle,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {},
-            // ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 3;
-                });
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    LineIcons.shoppingCart,
-                    color: _selectedIndex == 3 ? Colors.black : Colors.black54,
-                  ),
-                  Text(
-                    'Products',
-                    style: TextStyle(
-                      fontWeight: _selectedIndex == 3
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color:
-                          _selectedIndex == 3 ? Colors.black : Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 4;
-                });
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    LineIcons.user,
-                    color: _selectedIndex == 4 ? Colors.black : Colors.black54,
-                  ),
-                  Text(
-                    'Account',
-                    style: TextStyle(
-                      fontWeight: _selectedIndex == 4
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color:
-                          _selectedIndex == 4 ? Colors.black : Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
